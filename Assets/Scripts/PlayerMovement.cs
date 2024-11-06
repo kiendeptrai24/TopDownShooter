@@ -11,22 +11,17 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls controls;
     private CharacterController characterController;
     private Animator anim;
+
     [Header("Movement info")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    [SerializeField] private float turnSpeed;
     private float speed;
     public Vector3 movementDir;
     private float verticalVeloccity;
-    private bool isRunning;
-    [Header("Aim info")]
-    [SerializeField] private Transform aim;
-    [SerializeField] private LayerMask aimPlayerMask;
-    private Vector3 lookingDir;
     private Vector2 moveInput;
-    private Vector2 aimInput;
 
-
-
+    private bool isRunning;
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
@@ -39,11 +34,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         ApplyMovement();
-
-        AimTowardMouse();
+        ApplyRotation();
         AnimationControllers();
-
-
     }
     private void AnimationControllers()
     {
@@ -57,23 +49,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void AimTowardMouse()
+    private void ApplyRotation()
     {
-        Ray ray = Camera.main.ScreenPointToRay(aimInput);
 
-        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, aimPlayerMask))
-        {
-            lookingDir = hitInfo.point - transform.position;
-            lookingDir.y = 0;
-            // lookingDir.Normalize();
-            // transform.forward = lookingDir;
-            
-            // release
-            Quaternion quaternion = Quaternion.LookRotation(lookingDir);
-            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion,.2f);
+        Vector3 lookingDir = player.aim.GetMousePosition() - transform.position;
+        lookingDir.y = 0;
+        //lookingDir.Normalize();
 
-            aim.position = new Vector3(hitInfo.point.x, transform.position.y + 1, hitInfo.point.z);
-        }
+        Quaternion DesiredRotation = Quaternion.LookRotation(lookingDir);
+        Debug.Log(DesiredRotation);
+        transform.rotation = Quaternion.Slerp(transform.rotation, DesiredRotation,turnSpeed * Time.deltaTime);
+
+        
     }
 
     private void ApplyMovement()
@@ -90,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(characterController.isGrounded == false)
         {
-            verticalVeloccity = verticalVeloccity -9.81f * Time.deltaTime;
+            verticalVeloccity = verticalVeloccity - 9.81f * Time.deltaTime;
             movementDir.y = verticalVeloccity;
         }
         else
@@ -103,8 +90,7 @@ public class PlayerMovement : MonoBehaviour
         controls = player.controls;
         controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
         controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
-        controls.Character.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
-        controls.Character.Aim.canceled += context => moveInput = Vector2.zero;
+
         controls.Character.Run.performed += context =>
         {
             speed = runSpeed;
