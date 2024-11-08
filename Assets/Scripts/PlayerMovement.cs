@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float speed;
     public Vector3 movementDir;
     private float verticalVeloccity;
-    private Vector2 moveInput;
+    public Vector2 moveInput { get; private set; }
 
     private bool isRunning;
 
@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void AnimationControllers()
     {
+        
         float xVelocity = Vector3.Dot(movementDir.normalized, transform.right);
         float zVelocity = Vector3.Dot(movementDir.normalized, transform.forward);
 
@@ -51,13 +52,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyRotation()
     {
-
-        Vector3 lookingDir = player.aim.GetMousePosition() - transform.position;
+        //getting mouse's direction
+        Vector3 lookingDir = player.aim.GetMouseHitInfo().point - transform.position;
         lookingDir.y = 0;
-        //lookingDir.Normalize();
 
+        //Quaternion direction and Slerp direction between player ad aim 
         Quaternion DesiredRotation = Quaternion.LookRotation(lookingDir);
-        Debug.Log(DesiredRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, DesiredRotation,turnSpeed * Time.deltaTime);
 
         
@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyGavility()
     {
+        // if Player is ground Player will reduce position y
         if(characterController.isGrounded == false)
         {
             verticalVeloccity = verticalVeloccity - 9.81f * Time.deltaTime;

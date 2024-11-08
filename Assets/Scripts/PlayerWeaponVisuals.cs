@@ -56,6 +56,7 @@ public class WeaponVisualCcontroller : MonoBehaviour
 
     private void UpdateLeftHandIKWeigth()
     {
+        //move left hand to original
         if (shouldIncreaseLeftHandIKWeigth)
         {
             leftHandIK.weight += leftHandIKIncreaseStep * Time.deltaTime;
@@ -68,6 +69,7 @@ public class WeaponVisualCcontroller : MonoBehaviour
 
     private void UpdateRigWigth()
     {
+        //move right hand to original
         if (shouldIncreaseRigWiegth)
         {
             rig.weight += rigWeigthIncreaseRate * Time.deltaTime;
@@ -85,6 +87,7 @@ public class WeaponVisualCcontroller : MonoBehaviour
 
     private void PlayerWeaponGrabAnimation(GrabType _grabType)
     {
+        // Grab Weapon when player is grabbing it will not do everything else
         leftHandIK.weight = 0;
         ReduceRightWeight();
         anim.SetFloat("WeaponGrabType", (float)_grabType);
@@ -93,12 +96,14 @@ public class WeaponVisualCcontroller : MonoBehaviour
     }
     public void SetBusyGrabbingWeaponTo(bool _busy)
     {
+        // if player is busy player will not do any other Animation
         isGrabbingWeapon= _busy;
         anim.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
     }
 
     private void SwitchOn(Transform gunTranform)
     {
+        //chancing Weapon
         SwitchOfFun();
         gunTranform.gameObject.SetActive(true);
         currentGun = gunTranform;
@@ -114,12 +119,14 @@ public class WeaponVisualCcontroller : MonoBehaviour
     }
     private void AttackLeftHand()
     {
+        //chancing leftHand through each Weapon
         Transform targetTransform = currentGun.GetComponentInChildren<LeftHandTargetTransform>().transform;
         leftHandIKIncreaseWeigthRate.localPosition = targetTransform.localPosition;
         leftHandIKIncreaseWeigthRate.localRotation = targetTransform.localRotation;
     }
     private void SwitchAnimationLayer(int _layerIndex)
     {
+        // turn off all weapon ad then turn on one specific
         for (int i = 1; i < anim.layerCount; i++)
         {
             anim.SetLayerWeight(i,0);
