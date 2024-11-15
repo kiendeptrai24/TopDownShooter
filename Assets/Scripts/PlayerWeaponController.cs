@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
 
 public class PlayerWeaponController : MonoBehaviour
 {
+    private const float REFERENCE_BULLET_SPEED = 20;
+
     private Player player;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform gunPoint;
+
 
     [SerializeField] private Transform weaponHolder;
     private void Start() {
@@ -19,7 +23,10 @@ public class PlayerWeaponController : MonoBehaviour
     {
 
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position,Quaternion.LookRotation(gunPoint.forward));
-        newBullet.GetComponent<Rigidbody>().velocity = BulletDirection() * bulletSpeed;
+
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();  
+        rbNewBullet.mass = REFERENCE_BULLET_SPEED/bulletSpeed;
+        rbNewBullet.velocity = BulletDirection() * bulletSpeed;
         Destroy(newBullet,3);
         GetComponentInChildren<Animator>().SetTrigger("Fire");
     }
