@@ -40,6 +40,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Equip Slot -1",
+                    "type": "Button",
+                    "id": "b143f8fb-cceb-4ee4-af97-52da764a3eee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Equip Slot -2",
+                    "type": "Button",
+                    "id": "b560860c-d2c7-478d-b0ab-5dd0f718bea7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Drop Current Weapon",
+                    "type": "Button",
+                    "id": "a7cc0fd8-70ef-4b0d-a4b1-c6d0b6483fb1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "a84ada68-c4c7-4e98-a53d-4a5d35bc5b1a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -128,6 +164,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f803c55d-72fc-4f94-a93e-d872c1bd43cf",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equip Slot -1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e5bde30-492a-4130-9c8d-bc0a51498e57",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equip Slot -2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10a66c11-9dd1-4f26-b063-4a062dde4f65",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop Current Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "113b5c94-979b-45cc-b7d7-4e54a4df74f9",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

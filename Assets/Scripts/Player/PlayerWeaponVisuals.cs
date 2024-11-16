@@ -6,7 +6,7 @@ using UnityEngine.Animations.Rigging;
 
 public enum GrabType{SideGrab, BackGrab};
 
-public class WeaponVisualCcontroller : MonoBehaviour
+public class PlayerWeaponVisuals : MonoBehaviour
 {
     private Animator anim;
     private bool isGrabbingWeapon;
@@ -45,13 +45,16 @@ public class WeaponVisualCcontroller : MonoBehaviour
     private void Update()
     {
         CheckWeaponSwitch();
-        if (Input.GetKeyDown(KeyCode.R) && isGrabbingWeapon == false)
-        {
-            anim.SetTrigger("Reload");
-            ReduceRightWeight();
-        }
         UpdateRigWigth();
         UpdateLeftHandIKWeigth();
+    }
+
+    public void PlayReloadAnimation()
+    {
+        if(isGrabbingWeapon)
+            return;
+        anim.SetTrigger("Reload");
+        ReduceRightWeight();
     }
 
     private void UpdateLeftHandIKWeigth()
