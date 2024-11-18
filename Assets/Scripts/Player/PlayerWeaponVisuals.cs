@@ -10,7 +10,6 @@ public class PlayerWeaponVisuals : MonoBehaviour
 {
     private Player player;
     private Animator anim;
-    private bool isEquipingWeapon;
 
     
  
@@ -40,6 +39,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         UpdateRigWigth();
         UpdateLeftHandIKWeigth();
     }
+    public void PlayFireAnimation() => anim.SetTrigger("Fire");
     public WeaponModel CurrentWeaponModel()
     {
         WeaponModel weaponModel = null;
@@ -56,8 +56,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
     public void PlayReloadAnimation()
     {
-        if(isEquipingWeapon)
-            return;
+
         float reloadSpeed = player.weapon.CurrentWeapon().reloadSpeed;
         anim.SetFloat("ReloadSpeed", reloadSpeed);
         anim.SetTrigger("Reload");
@@ -76,14 +75,8 @@ public class PlayerWeaponVisuals : MonoBehaviour
         anim.SetFloat("EquipType", (float)equipType);
         anim.SetFloat("EquipSpeed", equipmentSpeed);
         anim.SetTrigger("EquipWeapon");
-        SetBusyGrabbingWeaponTo(true);
     }
-    public void SetBusyGrabbingWeaponTo(bool _busy)
-    {
-        // if player is busy player will not do any other Animation
-        isEquipingWeapon= _busy;
-        anim.SetBool("BusyEquipingWeapon", isEquipingWeapon);
-    }
+
 
     public void SwitchOnCurrentWeaponModel()
     {
@@ -182,17 +175,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
     public void MaximizeLeftHadWeigth() => shouldIncreaseLeftHandIKWeigth = true;
 
     #endregion
-    public Transform GetWeaponModelCurrent()
-    {
-        foreach (WeaponModel item in weaponModels)
-        {
-            if(player.weapon.CurrentWeapon().weaponType ==  item.weaponType)
-            {
-                return item.gunPoint.transform;
-            }
-        }
-        return null;
-    }
+
     
 }
 

@@ -35,7 +35,7 @@ public class PlayerAim : MonoBehaviour
 
 
     private Vector2 mouseInput;
-    private RaycastHit lastKnowMouseHit;
+    private RaycastHit lastKnowMouseHit = new RaycastHit();
 
     private void Start()
     {
@@ -56,7 +56,18 @@ public class PlayerAim : MonoBehaviour
 
     private void UpdateAimVisuals()
     {
-        Transform gunPoint = player.weaponVisuals.GetWeaponModelCurrent();
+        aimLaser.enabled = player.weapon.WeaponReady();
+
+        if(aimLaser.enabled == false)
+            return;
+
+
+        WeaponModel weaponModel= player.weaponVisuals.CurrentWeaponModel();
+
+        weaponModel.transform.LookAt(aim);
+        weaponModel.gunPoint.LookAt(aim);
+
+        Transform gunPoint = player.weapon.GunPoint();
         Vector3 laserDirection = player.weapon.BulletDirection();
 
         float laserTipLenght =x;//.5f;
@@ -106,6 +117,7 @@ public class PlayerAim : MonoBehaviour
     {
         //getting position of the mouse 
         Ray ray = Camera.main.ScreenPointToRay(mouseInput);
+
         if(Physics.Raycast(ray, out RaycastHit hitInfo,Mathf.Infinity,aimPlayerMask))
         {
             lastKnowMouseHit = hitInfo;
