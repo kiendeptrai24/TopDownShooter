@@ -2,6 +2,8 @@
 
 
 using System;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum WeaponType
 {
@@ -18,6 +20,11 @@ public class Weapon
     public int bullletInMagazine;
     public int magazineCapacity;
     public int totalReserveAmmo;
+    [Range(1,3)]
+    public float reloadSpeed = 1;
+    [Range(1,3)]
+    public float equipmentSpeed = 1;
+    
     public bool CanShoot()
     {
         return HaveEnoughBullets();

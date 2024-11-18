@@ -17,17 +17,17 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private Transform gunPoint;
 
 
-    [SerializeField] private Transform weaponHolder;
 
     [Header("Inventory")]
     [SerializeField] int maxSlots =2;
-    [SerializeField] private List<Weapon> weaponSlots;
+    [SerializeField] private List<Weapon> weaponSlots ;
 
     private void Start()
     {
         player = GetComponent<Player>();
         AssignInputEvents();
         currentWeapon.bullletInMagazine = currentWeapon.totalReserveAmmo;
+        Invoke(nameof(WeaponStartingWeapon),.3f);
     }
 
     #region Slot Mangement Pickup\Equip\Drop Weapon
@@ -39,31 +39,51 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
         weaponSlots.Add(newWeapon);
+        player.weaponVisuals.SwitchOnBackupWeaponModels();
     }
+    public void WeaponStartingWeapon() => EquipWeapon(0);
+
+    
     private void EquipWeapon(int index)
     {
         currentWeapon = weaponSlots[index];
+        
+        player.weaponVisuals.PlayWeaponEquipAnimation();
+        //change gunpoint
+        gunPoint = player.weaponVisuals.GetWeaponModelCurrent(); 
     }
     private void DropWeapon()
     {
-        if(weaponSlots.Count <= 1)
+        if(HasOnlyOneWeapon())
             return;
         weaponSlots.Remove(currentWeapon);
-        currentWeapon = weaponSlots[0];
+        EquipWeapon(0);
     }
-    
+    public Weapon BackupWeapon()
+    {
+        foreach (Weapon weapon in weaponSlots)
+        {
+            if(weapon != currentWeapon)
+            {
+                return weapon;
+            }
+        }
+        return null;
+    }
         
     #endregion
     private void Shoot()
     {
         if(currentWeapon.CanShoot() == false)
             return;
-        GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position,Quaternion.LookRotation(gunPoint.forward));
+        GameObject newBullet = ObjectPool.Instance.GetBullet();
+
+        newBullet.transform.position = gunPoint.position;
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();  
         rbNewBullet.mass = REFERENCE_BULLET_SPEED/bulletSpeed;
         rbNewBullet.velocity = BulletDirection() * bulletSpeed;
-        Destroy(newBullet,3);
         GetComponentInChildren<Animator>().SetTrigger("Fire");
     }
     public Vector3 BulletDirection()
@@ -80,6 +100,9 @@ public class PlayerWeaponController : MonoBehaviour
 
         return direction;
     }
+    
+
+    public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
     public Weapon CurrentWeapon() => currentWeapon;
     public Transform GunPoint() => gunPoint;
 

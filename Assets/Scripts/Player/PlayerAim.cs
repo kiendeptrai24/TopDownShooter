@@ -56,7 +56,7 @@ public class PlayerAim : MonoBehaviour
 
     private void UpdateAimVisuals()
     {
-        Transform gunPoint = player.weapon.GunPoint();
+        Transform gunPoint = player.weaponVisuals.GetWeaponModelCurrent();
         Vector3 laserDirection = player.weapon.BulletDirection();
 
         float laserTipLenght =x;//.5f;
@@ -146,4 +146,5 @@ public class PlayerAim : MonoBehaviour
         controls.Character.Aim.performed += context => mouseInput = context.ReadValue<Vector2>();
         controls.Character.Aim.canceled += context => mouseInput = Vector2.zero;
     }
+
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -25,4 +26,5 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         visualController.SetBusyGrabbingWeaponTo(false);
     }
+    public void SwitchOnWeaponModel() => visualController.SwitchOnCurrentWeaponModel();
 }
