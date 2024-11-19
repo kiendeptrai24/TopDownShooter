@@ -11,6 +11,9 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
+    private bool isShooting;
+
+
 
     [Header("Bullet details")]
     [SerializeField] private GameObject bulletPrefab;
@@ -19,7 +22,7 @@ public class PlayerWeaponController : MonoBehaviour
 
 
     [Header("Inventory")]
-    [SerializeField] int maxSlots =2;
+    [SerializeField] int maxSlots = 2;
     [SerializeField] private List<Weapon> weaponSlots ;
 
     private void Start()
@@ -28,6 +31,10 @@ public class PlayerWeaponController : MonoBehaviour
         AssignInputEvents();
         currentWeapon.bullletInMagazine = currentWeapon.totalReserveAmmo;
         Invoke(nameof(WeaponStartingWeapon),.3f);
+    }
+    private void Update() {
+        if(isShooting)
+            Shoot();
     }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
@@ -80,6 +87,8 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         if(currentWeapon.CanShoot() == false)
             return;
+        if(CurrentWeapon().shootType == ShootType.Single)
+            isShooting = false;
         GameObject newBullet = ObjectPool.Instance.GetBullet();
 
         newBullet.transform.position = GunPoint().position;
@@ -120,7 +129,9 @@ public class PlayerWeaponController : MonoBehaviour
     private void AssignInputEvents()
     {
         PlayerControls controls = player.controls;
-        controls.Character.Fire.performed += context => Shoot();
+        controls.Character.Fire.performed += context => isShooting = true;
+        controls.Character.Fire.canceled += context => isShooting = false;
+
         controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
         controls.Character.DropCurrentWeapon.performed += context => DropWeapon();

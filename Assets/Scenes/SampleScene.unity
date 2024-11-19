@@ -592,6 +592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon:
     weaponType: 2
+    shootType: 0
+    fireRate: 1
     bullletInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
@@ -1362,7 +1364,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564719275}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -23368,6 +23370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon:
     weaponType: 0
+    shootType: 0
+    fireRate: 1
     bullletInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
@@ -23375,19 +23379,22 @@ MonoBehaviour:
     equipmentSpeed: 1
   bulletPrefab: {fileID: 2340667659299445146, guid: bcaed91ca0690a044a67b703177f3a7c, type: 3}
   bulletSpeed: 20
-  gunPoint: {fileID: 2088494267}
   maxSlots: 2
   weaponSlots:
   - weaponType: 0
+    shootType: 0
+    fireRate: 5
     bullletInMagazine: 0
     magazineCapacity: 15
     totalReserveAmmo: 120
     reloadSpeed: 1
     equipmentSpeed: 2
   - weaponType: 4
+    shootType: 1
+    fireRate: 10
     bullletInMagazine: 0
-    magazineCapacity: 10
-    totalReserveAmmo: 200
+    magazineCapacity: 99
+    totalReserveAmmo: 1000
     reloadSpeed: 1
     equipmentSpeed: 1
 --- !u!33 &7917256090570849457
@@ -29398,8 +29405,8 @@ SceneRoots:
   - {fileID: 1355221330}
   - {fileID: 2221036711237880918}
   - {fileID: 1007504120}
+  - {fileID: 1988115417}
   - {fileID: 772235701}
   - {fileID: 1809284600}
   - {fileID: 6060378880520803421}
   - {fileID: 698624206}
-  - {fileID: 1988115417}

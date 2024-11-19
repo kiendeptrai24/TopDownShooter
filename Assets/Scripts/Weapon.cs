@@ -13,10 +13,21 @@ public enum WeaponType
     Shotgun,
     Rifle,
 }
+public enum ShootType
+{
+    Single,
+    Auto
+}
 [System.Serializable]
 public class Weapon
 {
     public WeaponType weaponType;
+    [Header("Shooting spesifics")]
+    public ShootType shootType;
+    public float fireRate = 1;
+    private float LastShootTime;
+
+    [Header("Magazine details")]
     public int bullletInMagazine;
     public int magazineCapacity;
     public int totalReserveAmmo;
@@ -26,9 +37,6 @@ public class Weapon
     [Range(1,3)]
     public float equipmentSpeed = 1;
 
-    [Space]
-    public float fireRate = 1;
-    private float LastShootTime;
 
     public bool CanShoot()
     {
