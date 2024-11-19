@@ -3,7 +3,8 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
+
 
 public enum WeaponType
 {
@@ -36,6 +37,40 @@ public class Weapon
     public float reloadSpeed = 1;
     [Range(1,3)]
     public float equipmentSpeed = 1;
+
+    [Header("Spread")]
+    public float baseSpread;
+    public float currentSpread;
+    public float maximumSpread;
+
+    public float spreadIncreaseRate = .15f;
+    private float lastSpreadUpdateTime;
+    public float spreadCooldown =1;
+    
+    #region Spread methods
+    public Vector3 ApplySpread(Vector3 originalDirection)
+    {
+        SpreadUpdate();
+        float randomizeedValue = Random.Range(-currentSpread, currentSpread);
+        Quaternion spreadRotation = Quaternion.Euler(randomizeedValue, randomizeedValue,randomizeedValue);
+
+        return spreadRotation * originalDirection;
+    }
+    private void SpreadUpdate()
+    {
+        if(Time.time > lastSpreadUpdateTime + spreadCooldown)
+            currentSpread = baseSpread;
+        else
+            IncreaseSpread();
+            
+        lastSpreadUpdateTime = Time.time;
+    }
+    private void IncreaseSpread()
+    {
+        currentSpread = Mathf.Clamp(currentSpread + spreadIncreaseRate, baseSpread,maximumSpread);
+    }
+        
+    #endregion
 
 
     public bool CanShoot()

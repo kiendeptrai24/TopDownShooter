@@ -95,8 +95,12 @@ public class PlayerWeaponController : MonoBehaviour
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();  
+        //bullet spread
+        Vector3 bulletsDirrection = currentWeapon.ApplySpread(BulletDirection());
+
+
         rbNewBullet.mass = REFERENCE_BULLET_SPEED/bulletSpeed;
-        rbNewBullet.velocity = BulletDirection() * bulletSpeed;
+        rbNewBullet.velocity = bulletsDirrection * bulletSpeed;
         player.weaponVisuals.PlayFireAnimation();
     }
     
@@ -109,13 +113,10 @@ public class PlayerWeaponController : MonoBehaviour
     {
         Transform aim = player.aim.Aim();
         Vector3 direction = (aim.position - GunPoint().position).normalized;
-        //boolean onGizmos error
+        
         if(player.aim.CanAimPrecisly() == false && player.aim.Target() == null)
             direction.y = 0;
 
-        //TODO: find a better place for it
-        // weaponHolder.LookAt(aim);
-        // gunPoint.LookAt(aim);
 
         return direction;
     }
