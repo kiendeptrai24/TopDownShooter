@@ -35,6 +35,8 @@ public class PlayerWeaponController : MonoBehaviour
     private void Update() {
         if(isShooting)
             Shoot();
+        if(Input.GetKeyDown(KeyCode.T))
+            currentWeapon.ToggleBurst();
     }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
@@ -83,27 +85,57 @@ public class PlayerWeaponController : MonoBehaviour
     #endregion
     private void Shoot()
     {
-        if(WeaponReady() == false)
+        if (WeaponReady() == false)
             return;
-        if(currentWeapon.CanShoot() == false)
+
+        if (currentWeapon.CanShoot() == false)
             return;
-        if(CurrentWeapon().shootType == ShootType.Single)
+
+        player.weaponVisuals.PlayFireAnimation();
+
+        if (CurrentWeapon().shootType == ShootType.Single)
             isShooting = false;
+
+
+        if(currentWeapon.BurstActivated() == true)
+        {
+            StartCoroutine(nameof(BurstFire));
+            return;
+        }
+        FireSingleBullet();
+
+    }
+    private IEnumerator BurstFire()
+    {
+        //setWeapon When your gun fires a burst, you get to shoot again.
+        SetWeaponReady(false);
+        for (int i = 1; i <= currentWeapon.bulletsPerShot; i++)
+        {
+            FireSingleBullet();
+            yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+
+            if(i>=currentWeapon.bulletsPerShot)
+                SetWeaponReady(true);
+        }
+    }
+    private void FireSingleBullet()
+    {
+        currentWeapon.bullletInMagazine--;
         GameObject newBullet = ObjectPool.Instance.GetBullet();
 
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
-        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();  
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
         //bullet spread
         Vector3 bulletsDirrection = currentWeapon.ApplySpread(BulletDirection());
 
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED/bulletSpeed;
+        
         rbNewBullet.velocity = bulletsDirrection * bulletSpeed;
-        player.weaponVisuals.PlayFireAnimation();
     }
-    
+
     private void Reload()
     {
         SetWeaponReady(false);

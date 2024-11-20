@@ -593,12 +593,24 @@ MonoBehaviour:
   weapon:
     weaponType: 2
     shootType: 0
+    defaultFireRate: 0
     fireRate: 1
+    bulletsPerShot: 0
+    burstAvalible: 0
+    burstActive: 0
+    burstBulletPerShot: 0
+    burstFireRate: 0
+    burstFireDelay: 0.1
     bullletInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    baseSpread: 0
+    currentSpread: 2
+    maximumSpread: 0
+    spreadIncreaseRate: 0.15
+    spreadCooldown: 1
 --- !u!4 &192326825
 Transform:
   m_ObjectHideFlags: 0
@@ -23371,32 +23383,68 @@ MonoBehaviour:
   currentWeapon:
     weaponType: 0
     shootType: 0
+    defaultFireRate: 0
     fireRate: 1
+    bulletsPerShot: 0
+    burstAvalible: 0
+    burstActive: 0
+    burstBulletPerShot: 0
+    burstFireRate: 0
+    burstFireDelay: 0.1
     bullletInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    baseSpread: 0
+    currentSpread: 2
+    maximumSpread: 0
+    spreadIncreaseRate: 0.15
+    spreadCooldown: 1
   bulletPrefab: {fileID: 2340667659299445146, guid: bcaed91ca0690a044a67b703177f3a7c, type: 3}
   bulletSpeed: 20
   maxSlots: 2
   weaponSlots:
   - weaponType: 0
-    shootType: 0
-    fireRate: 5
+    shootType: 1
+    defaultFireRate: 1
+    fireRate: 1
+    bulletsPerShot: 1
+    burstAvalible: 1
+    burstActive: 0
+    burstBulletPerShot: 3
+    burstFireRate: 1.5
+    burstFireDelay: 0.1
     bullletInMagazine: 0
-    magazineCapacity: 15
-    totalReserveAmmo: 120
+    magazineCapacity: 20
+    totalReserveAmmo: 1000
     reloadSpeed: 1
     equipmentSpeed: 2
-  - weaponType: 4
-    shootType: 1
+    baseSpread: 0.5
+    currentSpread: 0
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
+    spreadCooldown: 1
+  - weaponType: 3
+    shootType: 0
+    defaultFireRate: 0
     fireRate: 10
+    bulletsPerShot: 0
+    burstAvalible: 1
+    burstActive: 0
+    burstBulletPerShot: 5
+    burstFireRate: 1
+    burstFireDelay: 0.2
     bullletInMagazine: 0
     magazineCapacity: 99
     totalReserveAmmo: 1000
     reloadSpeed: 1
     equipmentSpeed: 1
+    baseSpread: 15
+    currentSpread: 2
+    maximumSpread: 15
+    spreadIncreaseRate: 0.15
+    spreadCooldown: 1
 --- !u!33 &7917256090570849457
 MeshFilter:
   m_ObjectHideFlags: 0
