@@ -5,24 +5,67 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    private BoxCollider cd;
+    private Rigidbody rb;
+    private MeshRenderer meshRenderer;
+    private TrailRenderer trailRenderer;
     [SerializeField] private GameObject bulletImpactFX;
-    private Rigidbody rb => GetComponent<Rigidbody>();
 
-    private float timeClose = -5;
-    private float timeToClose=0;
+    private Vector3 startPosition;
+    private float flyDistance;
+    private bool bulletDisabled;
+
+    private void Awake() {
+        cd = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        trailRenderer = GetComponent<TrailRenderer>();
+
+    }
+ 
+    public void Setup(float _flyDistance)
+    {
+        startPosition = transform.position;
+        this.flyDistance = _flyDistance +.5f;
+    }
+    private void Update()
+    {
+        FadeTrailIfNeeded();
+        DisableBulletIfNeeded();
+        ReturnToPoolIfNeeded();
+
+    }
+
+    private void ReturnToPoolIfNeeded()
+    {
+        if (trailRenderer.time < 0)
+            ObjectPool.Instance.ReturnBullet(gameObject);
+    }
+
+    private void DisableBulletIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
+        {
+            cd.enabled = false;
+            meshRenderer.enabled = false;
+            bulletDisabled = true;
+        }
+    }
+
+    private void FadeTrailIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
+            trailRenderer.time -= 2 * Time.deltaTime;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
+        bulletDisabled = false;
+        cd.enabled = true;
+        meshRenderer.enabled = true;
+        trailRenderer.time = .25f;
         CreateImpactFx(other);
         ObjectPool.Instance.ReturnBullet(gameObject);
-    }
-    private void Update() {
-        timeToClose -= Time.deltaTime; 
-        if(timeToClose <= timeClose)
-        {
-            ObjectPool.Instance.ReturnBullet(gameObject);
-            timeToClose = 0;
-        }
-            
     }
     private void CreateImpactFx(Collision other)
     {
@@ -30,7 +73,7 @@ public class Bullet : MonoBehaviour
         {
             ContactPoint contact = other.contacts[0];
             GameObject newImpactFx = Instantiate(bulletImpactFX, contact.point, Quaternion.LookRotation(contact.normal));
-            Destroy(newImpactFx.gameObject,1.5f);
+            Destroy(newImpactFx.gameObject,1f);
         }
     }
 }

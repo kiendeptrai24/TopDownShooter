@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06aa49424476d4947816847241cef5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletImpactFX: {fileID: 4279238309144421546, guid: 5daeaa3110ef79f4bb70768642823e25, type: 3}
+  bulletImpactFX: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
 --- !u!96 &-8356804102653923945
 TrailRenderer:
   serializedVersion: 3
@@ -199,8 +199,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.04070127
+        time: 0.15025745
+        value: 0.04070472
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -208,7 +208,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.8441467
+        time: 0.93222046
         value: 0
         inSlope: 0
         outSlope: 0

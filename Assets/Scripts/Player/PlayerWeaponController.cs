@@ -127,6 +127,11 @@ public class PlayerWeaponController : MonoBehaviour
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
+
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+        bulletScript.Setup(currentWeapon.gundistance);
+
+
         //bullet spread
         Vector3 bulletsDirrection = currentWeapon.ApplySpread(BulletDirection());
 

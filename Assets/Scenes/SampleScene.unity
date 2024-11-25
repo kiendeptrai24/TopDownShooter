@@ -606,6 +606,7 @@ MonoBehaviour:
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    gundistance: 4
     baseSpread: 0
     currentSpread: 2
     maximumSpread: 0
@@ -11726,7 +11727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2097616411078459507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12049,7 +12050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2492050585843965838
 Transform:
   m_ObjectHideFlags: 0
@@ -23385,17 +23386,18 @@ MonoBehaviour:
     shootType: 0
     defaultFireRate: 0
     fireRate: 1
-    bulletsPerShot: 0
+    bulletsPerShot: 1
     burstAvalible: 0
     burstActive: 0
     burstBulletPerShot: 0
     burstFireRate: 0
-    burstFireDelay: 0.1
+    burstFireDelay: 0
     bullletInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    gundistance: 4
     baseSpread: 0
     currentSpread: 2
     maximumSpread: 0
@@ -23407,29 +23409,30 @@ MonoBehaviour:
   weaponSlots:
   - weaponType: 0
     shootType: 1
-    defaultFireRate: 1
-    fireRate: 1
+    defaultFireRate: 5
+    fireRate: 5
     bulletsPerShot: 1
-    burstAvalible: 1
+    burstAvalible: 0
     burstActive: 0
-    burstBulletPerShot: 3
-    burstFireRate: 1.5
-    burstFireDelay: 0.1
+    burstBulletPerShot: 0
+    burstFireRate: 0
+    burstFireDelay: 0
     bullletInMagazine: 0
     magazineCapacity: 20
     totalReserveAmmo: 1000
     reloadSpeed: 1
     equipmentSpeed: 2
+    gundistance: 4
     baseSpread: 0.5
     currentSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
     spreadCooldown: 1
   - weaponType: 3
-    shootType: 0
-    defaultFireRate: 0
-    fireRate: 10
-    bulletsPerShot: 0
+    shootType: 1
+    defaultFireRate: 2
+    fireRate: 2
+    bulletsPerShot: 1
     burstAvalible: 1
     burstActive: 0
     burstBulletPerShot: 5
@@ -23440,8 +23443,9 @@ MonoBehaviour:
     totalReserveAmmo: 1000
     reloadSpeed: 1
     equipmentSpeed: 1
-    baseSpread: 15
-    currentSpread: 2
+    gundistance: 3
+    baseSpread: 5
+    currentSpread: 5
     maximumSpread: 15
     spreadIncreaseRate: 0.15
     spreadCooldown: 1
