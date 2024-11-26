@@ -47,6 +47,8 @@ public class Weapon
     public float equipmentSpeed = 1;
     [Range(2,12)]
     public float gundistance = 4;
+    [Range(3,8)]
+    public float camreaDistance = 6;
 
     [Header("Spread")]
     public float baseSpread;

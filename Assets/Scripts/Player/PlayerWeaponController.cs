@@ -59,7 +59,8 @@ public class PlayerWeaponController : MonoBehaviour
         
         currentWeapon = weaponSlots[index];
         player.weaponVisuals.PlayWeaponEquipAnimation();
-        //change gunpoint
+
+        CameraManager.Instance.ChangeCameraDistance(currentWeapon.camreaDistance);        
     }
     private void DropWeapon()
     {
@@ -122,7 +123,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bullletInMagazine--;
         GameObject newBullet = ObjectPool.Instance.GetBullet();
-
+        
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 

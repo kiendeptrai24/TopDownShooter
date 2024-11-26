@@ -27,6 +27,7 @@ public class Bullet : MonoBehaviour
     {
         startPosition = transform.position;
         this.flyDistance = _flyDistance +.5f;
+        Rebase();
     }
     private void Update()
     {
@@ -39,13 +40,16 @@ public class Bullet : MonoBehaviour
     private void ReturnToPoolIfNeeded()
     {
         if (trailRenderer.time < 0)
+        {
             ObjectPool.Instance.ReturnBullet(gameObject);
+        }
     }
 
     private void DisableBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
+            Debug.Log("dsaada");
             cd.enabled = false;
             meshRenderer.enabled = false;
             bulletDisabled = true;
@@ -55,18 +59,24 @@ public class Bullet : MonoBehaviour
     private void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
-            trailRenderer.time -= 2 * Time.deltaTime;
+            trailRenderer.time -= 5 * Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        bulletDisabled = false;
-        cd.enabled = true;
-        meshRenderer.enabled = true;
-        trailRenderer.time = .25f;
+
         CreateImpactFx(other);
         ObjectPool.Instance.ReturnBullet(gameObject);
     }
+
+    private void Rebase()
+    {
+        bulletDisabled = false;
+        cd.enabled = true;
+        meshRenderer.enabled = true;
+        trailRenderer.time = .5f;
+    }
+
     private void CreateImpactFx(Collision other)
     {
         if (other.contacts.Length > 0)

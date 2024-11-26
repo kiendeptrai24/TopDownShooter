@@ -607,6 +607,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gundistance: 4
+    camreaDistance: 6
     baseSpread: 0
     currentSpread: 2
     maximumSpread: 0
@@ -1444,7 +1445,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2220,7 +2221,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 2221036711237880918}
+  m_Follow: {fileID: 1166688181}
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -2249,7 +2250,7 @@ Transform:
   m_GameObject: {fileID: 824827178}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -3.2199998, y: 1.0931525, z: 6.4799995}
+  m_LocalPosition: {x: -1.3199999, y: 2.0961523, z: 9.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2460,7 +2461,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -3.2199998, y: 1.0931525, z: 6.4799995}
+  m_LocalPosition: {x: -1.3199999, y: 2.0961523, z: 9.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4357,6 +4358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1807518851}
+  - component: {fileID: 1807518852}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4381,6 +4383,18 @@ Transform:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807518852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807518850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9cf665875c759478ffb242b9a01d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1809284599
 GameObject:
   m_ObjectHideFlags: 0
@@ -23398,6 +23412,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gundistance: 4
+    camreaDistance: 6
     baseSpread: 0
     currentSpread: 2
     maximumSpread: 0
@@ -23423,6 +23438,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 2
     gundistance: 4
+    camreaDistance: 7
     baseSpread: 0.5
     currentSpread: 0
     maximumSpread: 3
@@ -23432,7 +23448,7 @@ MonoBehaviour:
     shootType: 1
     defaultFireRate: 2
     fireRate: 2
-    bulletsPerShot: 1
+    bulletsPerShot: 5
     burstAvalible: 1
     burstActive: 0
     burstBulletPerShot: 5
@@ -23444,6 +23460,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gundistance: 3
+    camreaDistance: 5
     baseSpread: 5
     currentSpread: 5
     maximumSpread: 15
