@@ -35,8 +35,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void Update() {
         if(isShooting)
             Shoot();
-        if(Input.GetKeyDown(KeyCode.T))
-            currentWeapon.ToggleBurst();
+
     }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
@@ -55,12 +54,14 @@ public class PlayerWeaponController : MonoBehaviour
     
     private void EquipWeapon(int index)
     {
+        if(index >= weaponSlots.Count)
+            return;
         SetWeaponReady(false);
         
         currentWeapon = weaponSlots[index];
         player.weaponVisuals.PlayWeaponEquipAnimation();
 
-        CameraManager.Instance.ChangeCameraDistance(currentWeapon.camreaDistance);        
+        // CameraManager.Instance.ChangeCameraDistance(currentWeapon.camreaDistance);        
     }
     private void DropWeapon()
     {
@@ -161,6 +162,15 @@ public class PlayerWeaponController : MonoBehaviour
     
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
+    public Weapon WeaponIsSlots(WeaponType weaponType)
+    {
+        foreach (Weapon weapon in weaponSlots)
+        {
+            if(weapon.weaponType == weaponType)
+                return weapon;
+        }
+        return null;
+    }
     public Weapon CurrentWeapon() => currentWeapon;
     public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModel().gunPoint;
 
@@ -173,7 +183,13 @@ public class PlayerWeaponController : MonoBehaviour
 
         controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
+        controls.Character.EquipSlot3.performed += context => EquipWeapon(2);
+        controls.Character.EquipSlot4.performed += context => EquipWeapon(3);
+        controls.Character.EquipSlot5.performed += context => EquipWeapon(4);
+
         controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
+        controls.Character.ToogleWeaponMode.performed += context => currentWeapon.ToggleBurst();
+
         controls.Character.Reload.performed += context =>
         {
             if(currentWeapon.CanReload() && WeaponReady())
