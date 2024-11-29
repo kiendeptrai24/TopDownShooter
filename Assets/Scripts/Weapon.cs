@@ -23,42 +23,83 @@ public enum ShootType
 public class Weapon
 {
     public WeaponType weaponType;
+
+    #region Regular mode vaiable
+        
     [Header("Shooting spesifics")]
     public ShootType shootType;
-    public float defaultFireRate;
-    public float fireRate = 1;
-    public int bulletsPerShot;
+    public float defaultFireRate { get; private set; }
+    public float fireRate;
+    public int bulletsPerShot{ get; private set; }
     private float LastShootTime;
+    #endregion
+
+
+    #region Burst mode variable
+        
     [Header("Burst fire")]
     public bool burstAvalible;
-    public bool burstActive;
-    public int burstBulletPerShot;
-    public float burstFireRate;
-    public float burstFireDelay =.1f;
+    public bool burstActive{ get; private set; }
+    public int burstBulletPerShot{ get; private set; }
+    public float burstFireRate{ get; private set; }
+    public float burstFireDelay { get; private set; }
+    #endregion
+
 
     [Header("Magazine details")]
     public int bullletInMagazine;
     public int magazineCapacity;
     public int totalReserveAmmo;
 
-    [Range(1,3)]
-    public float reloadSpeed = 1;
-    [Range(1,3)]
-    public float equipmentSpeed = 1;
-    [Range(2,12)]
-    public float gundistance = 4;
-    [Range(3,8)]
-    public float camreaDistance = 6;
+    #region Weapon generics info variable
+    public float reloadSpeed { get; private set; }
+    public float equipmentSpeed { get; private set; }
+    public float gundistance { get; private set; }
+    public float camreaDistance { get; private set; }
+    #endregion
 
+
+    #region Weapon spread variable
+        
     [Header("Spread")]
     public float baseSpread;
-    public float currentSpread;
-    public float maximumSpread;
-
-    public float spreadIncreaseRate = .15f;
+    public float currentSpread{ get; private set; }
+    public float maximumSpread{ get; private set; }
+    public float spreadIncreaseRate { get; private set; }
     private float lastSpreadUpdateTime;
-    public float spreadCooldown =1;
+    public float spreadCooldown { get; private set; }
+    #endregion
+
     
+    public Weapon(Weapon_Data weaponData)
+    {
+        bullletInMagazine = weaponData.bullletInMagazine;
+        magazineCapacity = weaponData.magazineCapacity;
+        totalReserveAmmo = weaponData.totalReserveAmmo;
+
+        fireRate = weaponData.fireRate;
+        weaponType = weaponData.weaponType;
+        shootType = weaponData.shootType;
+        bulletsPerShot = weaponData.bulletsPerShot;
+        defaultFireRate = fireRate;
+
+        baseSpread = weaponData.baseSpread;
+        maximumSpread = weaponData.maximumSpread;
+        spreadIncreaseRate = weaponData.spreadIncreaseRate;
+
+        reloadSpeed = weaponData.reloadSpeed;
+        equipmentSpeed = weaponData.equipmentSpeed;
+        gundistance = weaponData.gundistance;
+        camreaDistance = weaponData.camreaDistance;
+
+        burstAvalible = weaponData.burstAvalible;
+        burstActive = weaponData.burstActive;
+        burstBulletPerShot = weaponData.burstBulletPerShot;
+        burstFireRate = weaponData.burstFireRate;
+        burstFireDelay = weaponData.burstFireDelay;
+    }
+
+
     #region Spread methods
     public Vector3 ApplySpread(Vector3 originalDirection)
     {

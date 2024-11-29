@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4019a18f55bf0de499bf08d485d51b69, type: 3}
+  m_Name: Weapon_Revolver_D
+  m_EditorClassIdentifier: 
+  weaponName: Bolt R-7
+  bullletInMagazine: 6
+  magazineCapacity: 6
+  totalReserveAmmo: 999999
+  shootType: 0
+  bulletsPerShot: 1
+  fireRate: 2.5
+  burstAvalible: 0
+  burstActive: 0
+  burstBulletPerShot: 0
+  burstFireRate: 0
+  burstFireDelay: 0.1
+  baseSpread: 0.2
+  maximumSpread: 2.5
+  spreadIncreaseRate: 0.3
+  weaponType: 1
+  reloadSpeed: 1
+  equipmentSpeed: 1
+  gundistance: 6
+  camreaDistance: 6

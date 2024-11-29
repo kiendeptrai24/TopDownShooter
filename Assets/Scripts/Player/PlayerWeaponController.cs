@@ -9,6 +9,7 @@ public class PlayerWeaponController : MonoBehaviour
     private const float REFERENCE_BULLET_SPEED = 20;
 
     private Player player;
+    [SerializeField] private Weapon_Data defaultWeaponData;
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -39,17 +40,23 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
-    public void PickupItem(Weapon newWeapon)
+    public void PickupItem(Weapon_Data newWeaponData)
     {
         if(weaponSlots.Count >= maxSlots)
         {
             Debug.Log("No slot available");
             return;
         }
-        weaponSlots.Add(newWeapon);
+        weaponSlots.Add(new Weapon(newWeaponData));
         player.weaponVisuals.SwitchOnBackupWeaponModels();
     }
-    public void WeaponStartingWeapon() => EquipWeapon(0);
+    public void WeaponStartingWeapon()
+    {
+        weaponSlots[0] = new Weapon(defaultWeaponData);
+
+        EquipWeapon(0);
+
+    } 
 
     
     private void EquipWeapon(int index)
@@ -123,7 +130,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void FireSingleBullet()
     {
         currentWeapon.bullletInMagazine--;
-        GameObject newBullet = ObjectPool.Instance.GetBullet();
+        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
         
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
