@@ -27,7 +27,7 @@ MonoBehaviour:
   baseSpread: 0
   maximumSpread: 0
   spreadIncreaseRate: 0.3
-  weaponType: 1
+  weaponType: 4
   reloadSpeed: 1
   equipmentSpeed: 1
   gundistance: 8

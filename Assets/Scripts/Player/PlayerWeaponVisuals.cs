@@ -82,7 +82,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
     {
         //chancing Weapon
 
-        int animationIndex =(int)CurrentWeaponModel().holdType;
+        int animationIndex = (int)CurrentWeaponModel().holdType;
         SwitchOffWeaponModel();
 
 
@@ -114,7 +114,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         {
             if(backupModel.weaponType == player.weapon.CurrentWeapon().weaponType)
                 continue;
-            if(player.weapon.WeaponIsSlots(backupModel.weaponType) !=  null)
+            if(player.weapon.WeaponInSlots(backupModel.weaponType) !=  null)
             {
                 if(backupModel.HangTypeIs(HangType.LowBackHang))
                     lowHangWeapon = backupModel;

@@ -24,7 +24,9 @@ public class PlayerWeaponController : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] int maxSlots = 2;
-    [SerializeField] private List<Weapon> weaponSlots ;
+    [SerializeField] private List<Weapon> weaponSlots;
+
+    [SerializeField] private GameObject weaponPickupPrefab;
 
     private void Start()
     {
@@ -40,14 +42,35 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
-    public void PickupItem(Weapon_Data newWeaponData)
+    public void PickupWeapon(Weapon newWeapon)
     {
-        if(weaponSlots.Count >= maxSlots)
+
+        if(WeaponInSlots(newWeapon.weaponType) != null)
         {
-            Debug.Log("No slot available");
+            WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bullletInMagazine;
+            ///
+            // int weaponIndex = weaponSlots.IndexOf(WeaponInSlots(newWeapon.weaponType));
+            // EquipWeapon(weaponIndex);
+            ////
             return;
         }
-        weaponSlots.Add(new Weapon(newWeaponData));
+
+        if(weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+
+            player.weaponVisuals.SwitchOffWeaponModel();
+            weaponSlots[weaponIndex] = newWeapon;
+            CreateWeaponOnTheGround();
+            EquipWeapon(weaponIndex);
+
+            return;
+        }
+        weaponSlots.Add(newWeapon);
+        ///
+        // int newEeaponIndex = weaponSlots.IndexOf(newWeapon);
+        // EquipWeapon(newEeaponIndex);
+        ///
         player.weaponVisuals.SwitchOnBackupWeaponModels();
     }
     public void WeaponStartingWeapon()
@@ -72,11 +95,21 @@ public class PlayerWeaponController : MonoBehaviour
     }
     private void DropWeapon()
     {
-        if(HasOnlyOneWeapon())
+        if (HasOnlyOneWeapon())
             return;
+
+        CreateWeaponOnTheGround();
+
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
     }
+
+    private void CreateWeaponOnTheGround()
+    {
+        GameObject dropWeapon = ObjectPool.Instance.GetObject(weaponPickupPrefab);
+        dropWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupItem(currentWeapon, transform);
+    }
+
     public Weapon BackupWeapon()
     {
         foreach (Weapon weapon in weaponSlots)
@@ -169,7 +202,7 @@ public class PlayerWeaponController : MonoBehaviour
     
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
-    public Weapon WeaponIsSlots(WeaponType weaponType)
+    public Weapon WeaponInSlots(WeaponType weaponType)
     {
         foreach (Weapon weapon in weaponSlots)
         {

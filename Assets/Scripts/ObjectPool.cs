@@ -10,6 +10,9 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int poolSize =10;
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
 
+    [Header("To Initialize")]
+    [SerializeField] private GameObject weaponPickup;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,13 +22,14 @@ public class ObjectPool : MonoBehaviour
         }
 
         Instance = this; 
-        
-
     }    
+    private void Start() {
+        InitializeNewPool(weaponPickup);
+    }
     public GameObject GetObject(GameObject prefab)
     {
         if(poolDictionary.ContainsKey(prefab) == false)
-            InitalizeNewPool(prefab);
+            InitializeNewPool(prefab);
         
         if(poolDictionary[prefab].Count == 0)
             CreateNewObject(prefab);
@@ -50,7 +54,7 @@ public class ObjectPool : MonoBehaviour
         poolDictionary[originalToReturn].Enqueue(objectToReturn);
 
     }
-    private void InitalizeNewPool(GameObject prefab)
+    private void InitializeNewPool(GameObject prefab)
     {
         poolDictionary[prefab] = new Queue<GameObject>();
 

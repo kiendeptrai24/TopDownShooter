@@ -70,7 +70,7 @@ public class Weapon
     public float spreadCooldown { get; private set; }
     #endregion
 
-    
+    public Weapon_Data weaponData{ get; private set; }
     public Weapon(Weapon_Data weaponData)
     {
         bullletInMagazine = weaponData.bullletInMagazine;
@@ -97,6 +97,7 @@ public class Weapon
         burstBulletPerShot = weaponData.burstBulletPerShot;
         burstFireRate = weaponData.burstFireRate;
         burstFireDelay = weaponData.burstFireDelay;
+        this.weaponData = weaponData;
     }
 
 
