@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance { get; private set; }
-    [SerializeField] private int poolSize =10;
+    [SerializeField] private int poolSize = 10;
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
 
     [Header("To Initialize")]

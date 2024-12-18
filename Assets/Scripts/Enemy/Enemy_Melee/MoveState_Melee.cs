@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+
 
 public class MoveState_Melee : EnemyState
 {
@@ -15,19 +15,21 @@ public class MoveState_Melee : EnemyState
     {
         base.Enter();
         destination = enemy.GetPatrolDestination();
+        Debug.Log("destination " + destination);
         enemy.agent.SetDestination(destination);
+       
     }
     public override void Update()
     {
         base.Update();
-        if(enemy.agent.remainingDistance <= .1f)
-        {
+
+        enemy.FaceTarget(GetNextPathPoints());
+        if(Vector3.Distance(enemy.transform.position, destination) <= enemy.agent.stoppingDistance + 0.01f)
             stateMachine.ChangeState(enemy.idleState);
-            Debug.Log("destination");
-        }
     }
     public override void Exit()
     {
         base.Exit();
     }
+   
 }

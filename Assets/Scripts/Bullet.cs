@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    float impactForce;
+
     private BoxCollider cd;
     private Rigidbody rb;
     private MeshRenderer meshRenderer;
@@ -23,8 +25,10 @@ public class Bullet : MonoBehaviour
 
     }
  
-    public void Setup(float _flyDistance)
+    public void BulletSetup(float _flyDistance, float impactForce)
     {
+        this.impactForce = _flyDistance;
+
         startPosition = transform.position;
         this.flyDistance = _flyDistance +.5f;
         Rebase();
@@ -36,35 +40,29 @@ public class Bullet : MonoBehaviour
         ReturnToPoolIfNeeded();
 
     }
-
-    private void ReturnToPoolIfNeeded()
-    {
-        if (trailRenderer.time < 0)
-            ReturnBulletToPool();
-
-    }
-
-    private void DisableBulletIfNeeded()
-    {
-        if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
-        {
-            cd.enabled = false;
-            meshRenderer.enabled = false;
-            bulletDisabled = true;
-        }
-    }
-
-    private void FadeTrailIfNeeded()
-    {
-        if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
-            trailRenderer.time -= 5 * Time.deltaTime;
-    }
-
     private void OnCollisionEnter(Collision other)
     {
-
         CreateImpactFx(other);
         ReturnBulletToPool();
+
+        Enemy enemy= other.gameObject.GetComponentInParent<Enemy>();
+        EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
+        if(shield != null)
+        {
+            shield.ReduceDurability();
+            return;
+        }
+        if(enemy != null)
+        {
+            Vector3 force = rb.velocity.normalized * impactForce;            
+            Rigidbody hitrb = other.collider.attachedRigidbody;
+
+            enemy.GetHit();
+            enemy.DeadImpact(force, other.contacts[0].point, hitrb);
+
+        }
+
+
     }
 
     private void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
@@ -88,5 +86,27 @@ public class Bullet : MonoBehaviour
             newImpactFx.transform.position = contact.point;
             ObjectPool.Instance.ReturnObject(newImpactFx, 1);
         }
+    }
+    private void ReturnToPoolIfNeeded()
+    {
+        if (trailRenderer.time < 0)
+            ReturnBulletToPool();
+
+    }
+
+    private void DisableBulletIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
+        {
+            cd.enabled = false;
+            meshRenderer.enabled = false;
+            bulletDisabled = true;
+        }
+    }
+
+    private void FadeTrailIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
+            trailRenderer.time -= 5 * Time.deltaTime;
     }
 }
