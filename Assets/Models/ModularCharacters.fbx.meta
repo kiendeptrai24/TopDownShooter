@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: fa7f333b384764e4a937c376b5b897a2
+labels:
+- Character
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,7 +18,9 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tFound
+      duplicate transform 'Thumb_01' for human bone 'Right Thumb Proximal' and 'Left
+      Thumb Proximal'\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -4284,7 +4288,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

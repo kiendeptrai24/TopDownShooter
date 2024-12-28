@@ -103,7 +103,7 @@ public class PlayerAim : MonoBehaviour
     {
         Transform target = null;
 
-        if(GetMouseHitInfo().transform.GetComponent<Target>() != null)
+        if(GetMouseHitInfo().transform?.GetComponent<Target>() != null)
         {
             target = GetMouseHitInfo().transform;
         }

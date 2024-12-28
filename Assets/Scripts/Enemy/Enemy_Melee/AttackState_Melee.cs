@@ -14,8 +14,9 @@ public class AttackState_Melee : EnemyState
     public override void Enter()
     {
         base.Enter();
-
-        enemy.PulledWeapon();
+        enemy.UpdateAttackData();
+        enemy.visuals.EnableWeaponTrail(true);
+        enemy.EnableWeaponModel(true);
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.anim.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
         enemy.anim.SetFloat("AttackIndex", enemy.attackData.attackIndex);
@@ -50,6 +51,7 @@ public class AttackState_Melee : EnemyState
     {
         base.Exit();
         SetupNextAttack();
+        enemy.visuals.EnableWeaponTrail(false);
     }
 
     private void SetupNextAttack()
@@ -60,9 +62,9 @@ public class AttackState_Melee : EnemyState
     }
 
     private bool PlayerClose() => Vector3.Distance(enemy.transform.position,enemy.player.position) <= 1;
-    private AttackData UpdateAttackData()
+    private AttackData_EnemyMelee UpdateAttackData()
     {
-        List<AttackData> validAttacks = new List<AttackData>(enemy.attackList);
+        List<AttackData_EnemyMelee> validAttacks = new List<AttackData_EnemyMelee>(enemy.attackList);
 
 
         if(PlayerClose())

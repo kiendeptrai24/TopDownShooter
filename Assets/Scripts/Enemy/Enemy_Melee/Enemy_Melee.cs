@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
-public struct AttackData
+public struct AttackData_EnemyMelee
 {
     public string attackName;
     public float attackRange;
@@ -17,6 +17,7 @@ public enum AttackType_Melee {Close, Charge}
 public enum EnemyMelee_Type {Recular, Shield, Dodge, AxeThrow}
 public class Enemy_Melee : Enemy
 {
+    public Enemy_Visuals visuals{ get; private set; }
     #region States
     public IdleState_Melee idleState { get; private set; }
     public MoveState_Melee moveState { get; private set; }
@@ -42,15 +43,13 @@ public class Enemy_Melee : Enemy
     public Transform axeStartPoint;
 
     [Header("Attack data")]
-    public AttackData attackData;
-    public List<AttackData> attackList;
-
-    [SerializeField] private Transform hiddenWeapon;
-    [SerializeField] private Transform pullWeapon;
+    public AttackData_EnemyMelee attackData;
+    public List<AttackData_EnemyMelee> attackList;
 
     protected override void Awake()
     {
         base.Awake();
+        visuals = GetComponent<Enemy_Visuals>();
         idleState = new IdleState_Melee(this,stateMachine,"Idle");
         moveState = new MoveState_Melee(this,stateMachine,"Move");
         recoveryState = new RecoveryState_Melee(this,stateMachine, "Recovery");
@@ -63,8 +62,13 @@ public class Enemy_Melee : Enemy
     protected override void Start()
     {
         base.Start();
+        ResetCooldown();
+
         stateMachine.Initialize(idleState);
-        InitializeSpeciality();
+        InitializePerk();
+
+        visuals.SetupLook();
+        UpdateAttackData();
     }
     protected override void Update()
     {
@@ -86,18 +90,25 @@ public class Enemy_Melee : Enemy
         if(healthPoint <= 0)
             stateMachine.ChangeState(deadState);
     }
-    public void PulledWeapon()
+    public void EnableWeaponModel(bool active)
     {
-        hiddenWeapon.gameObject.SetActive(false);
-        pullWeapon.gameObject.SetActive(true);
-
+        visuals.currentWeaponModel.gameObject.SetActive(active);
     }
-    private void InitializeSpeciality()
+    private void InitializePerk()
     {
+        if(meleeType == EnemyMelee_Type.AxeThrow)
+        {
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Throw);
+        }
         if(meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("ChaseIndex", 1);
             shieldTranform.gameObject.SetActive(true);
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.OneHand);
+        }
+        if(meleeType == EnemyMelee_Type.Dodge)
+        {
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Unarmed);
         }
     }
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
@@ -119,7 +130,7 @@ public class Enemy_Melee : Enemy
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
-        pullWeapon.gameObject.SetActive(false);
+        visuals.currentWeaponModel.gameObject.SetActive(false);
 
     }
     public bool CanThrowAxe()
@@ -135,6 +146,22 @@ public class Enemy_Melee : Enemy
         return false;
         
     }
+    private void ResetCooldown()
+    {
+        lastTimeDodge -= dodgeCooldown;
+        lastTimeAxeThrown -= axeThrowCooldown;
+    }
+    public void UpdateAttackData()
+    {
+        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+
+        if(currentWeapon.weaponData != null)
+        {
+            attackList =new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
+            turnSpeed = currentWeapon.weaponData.turnSpeed;
+        }
+
+    }
     private float GetAnimationClipDuration(string clipName)
     {
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
@@ -146,6 +173,7 @@ public class Enemy_Melee : Enemy
         Debug.Log(clipName + " animation not found!");
         return 0;
     }
+    
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

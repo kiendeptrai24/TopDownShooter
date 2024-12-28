@@ -14,7 +14,7 @@ public class AbilityState_Melee : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.PulledWeapon();
+        enemy.EnableWeaponModel(true);
         moveSpeed = .5f;
         moveDirection = enemy.transform.position + (enemy.transform.forward * MAX_MOVE_DISTANCE);
 
@@ -37,7 +37,6 @@ public class AbilityState_Melee : EnemyState
     {
         base.Exit();
         enemy.anim.SetFloat("RecoveryIndex", 0);
-        enemy.PulledWeapon();
     }
     public override void AbilityTrigger()
     {
