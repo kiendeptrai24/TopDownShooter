@@ -17,7 +17,6 @@ public enum AttackType_Melee {Close, Charge}
 public enum EnemyMelee_Type {Recular, Shield, Dodge, AxeThrow}
 public class Enemy_Melee : Enemy
 {
-    public Enemy_Visuals visuals{ get; private set; }
     #region States
     public IdleState_Melee idleState { get; private set; }
     public MoveState_Melee moveState { get; private set; }
@@ -30,6 +29,7 @@ public class Enemy_Melee : Enemy
     
     [Header("Enemy Setting")]
     public EnemyMelee_Type meleeType;
+    public Enemy_MeleeWeaponType weaponType;
     public Transform shieldTranform;
     public float dodgeCooldown;
     private float lastTimeDodge;
@@ -49,7 +49,6 @@ public class Enemy_Melee : Enemy
     protected override void Awake()
     {
         base.Awake();
-        visuals = GetComponent<Enemy_Visuals>();
         idleState = new IdleState_Melee(this,stateMachine,"Idle");
         moveState = new MoveState_Melee(this,stateMachine,"Move");
         recoveryState = new RecoveryState_Melee(this,stateMachine, "Recovery");
@@ -74,8 +73,7 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.Update();
-        if(ShouldEnterBattleMode())
-            EnterBattleMode();
+        
     }
     public override void EnterBattleMode()
     {
@@ -98,17 +96,18 @@ public class Enemy_Melee : Enemy
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)
         {
-            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Throw);
+            weaponType = Enemy_MeleeWeaponType.Throw;
         }
         if(meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("ChaseIndex", 1);
             shieldTranform.gameObject.SetActive(true);
-            visuals.SetupWeaponType(Enemy_MeleeWeaponType.OneHand);
+            weaponType = Enemy_MeleeWeaponType.OneHand;
+
         }
         if(meleeType == EnemyMelee_Type.Dodge)
         {
-            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Unarmed);
+            weaponType = Enemy_MeleeWeaponType.Unarmed;
         }
     }
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;

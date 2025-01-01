@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     private float flyDistance;
     private bool bulletDisabled;
 
-    private void Awake() {
+    protected virtual void Awake() {
         cd = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
 
     }
  
-    public void BulletSetup(float _flyDistance, float impactForce)
+    public void BulletSetup(float _flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = _flyDistance;
 
@@ -33,14 +33,14 @@ public class Bullet : MonoBehaviour
         this.flyDistance = _flyDistance +.5f;
         Rebase();
     }
-    private void Update()
+    protected virtual void Update()
     {
         FadeTrailIfNeeded();
         DisableBulletIfNeeded();
         ReturnToPoolIfNeeded();
 
     }
-    private void OnCollisionEnter(Collision other)
+    protected virtual void OnCollisionEnter(Collision other)
     {
         CreateImpactFx(other);
         ReturnBulletToPool();
@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
+    protected void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
     
 
     private void Rebase()
@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
         trailRenderer.time = .5f;
     }
 
-    private void CreateImpactFx(Collision other)
+    protected void CreateImpactFx(Collision other)
     {
         if (other.contacts.Length > 0)
         {
@@ -87,14 +87,14 @@ public class Bullet : MonoBehaviour
             ObjectPool.Instance.ReturnObject(newImpactFx, 1);
         }
     }
-    private void ReturnToPoolIfNeeded()
+    protected void ReturnToPoolIfNeeded()
     {
         if (trailRenderer.time < 0)
             ReturnBulletToPool();
 
     }
 
-    private void DisableBulletIfNeeded()
+    protected void DisableBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
@@ -104,7 +104,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void FadeTrailIfNeeded()
+    protected void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
             trailRenderer.time -= 5 * Time.deltaTime;

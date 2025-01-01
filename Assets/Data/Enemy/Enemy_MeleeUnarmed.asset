@@ -12,4 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f92236f37b6ae4998bb8a264e1a0df, type: 3}
   m_Name: Enemy_MeleeUnarmed
   m_EditorClassIdentifier: 
-  attackData: []
+  attackData:
+  - attackName: Flying kick
+    attackRange: 2
+    moveSpeed: 5
+    attackIndex: 0
+    animationSpeed: 0
+    attackType: 1
+  - attackName: Boxing attack
+    attackRange: 1
+    moveSpeed: 0
+    attackIndex: 1
+    animationSpeed: 1.4
+    attackType: 0
+  turnSpeed: 10

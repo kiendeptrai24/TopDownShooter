@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
-    public Vector3[] patrolPointsPosition;
+    private Vector3[] patrolPointsPosition;
     private int currentPatrolIndex = 0;
     public bool inBattleMode { get; private set; }
 
@@ -27,13 +27,17 @@ public class Enemy : MonoBehaviour
 
 
     public EnemyStateMachine stateMachine { get; private set; }
+    public Enemy_Visuals visuals { get; private set; }
+
 
     protected virtual void Awake() 
     {
+
         player = GameObject.Find("Player").GetComponent<Transform>();
         stateMachine = new EnemyStateMachine();
 
 
+        visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
     }
@@ -45,6 +49,8 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         stateMachine.currentState.Update();
+        if(ShouldEnterBattleMode())
+            EnterBattleMode();
     }
     protected bool ShouldEnterBattleMode()
     {
