@@ -16,6 +16,7 @@ public class BattleState_Range : EnemyState
         base.Enter();
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+        enemy.visuals.EnableIK(true);
     }
     public override void Update()
     {
@@ -33,6 +34,12 @@ public class BattleState_Range : EnemyState
             Shoot();
         }
     }
+    public override void Exit()
+    {
+        base.Exit();
+        enemy.visuals.EnableIK(false);
+
+    }
 
     private void AttempToResetWeapon() => bulletsShot = 0;
 
@@ -48,8 +55,4 @@ public class BattleState_Range : EnemyState
         bulletsShot++;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
 }

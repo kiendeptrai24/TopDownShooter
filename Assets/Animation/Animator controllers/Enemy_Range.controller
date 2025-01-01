@@ -117,7 +117,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3e13510724781d444b7cfc3e6a53180a, type: 2}
+  m_Motion: {fileID: -203655887218126122, guid: 622363c8e8cf2bd46b437b56c8727679, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -207,7 +207,13 @@ AnimatorController:
     m_Name: Shotgun Layer
     m_StateMachine: {fileID: 3022020568629013626}
     m_Mask: {fileID: 0}
-    m_Motions: []
+    m_Motions:
+    - serializedVersion: 2
+      m_State: {fileID: 2181564011019991662}
+      m_Motion: {fileID: -203655887218126122, guid: ed3aa21847990814d9f1ba833839dc2e, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: -5214225634038868833}
+      m_Motion: {fileID: -203655887218126122, guid: a29c6c1343a2fb04899e869fe474be2a, type: 3}
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: 0
@@ -219,7 +225,13 @@ AnimatorController:
     m_Name: Rifle layer
     m_StateMachine: {fileID: -9138286983954727586}
     m_Mask: {fileID: 0}
-    m_Motions: []
+    m_Motions:
+    - serializedVersion: 2
+      m_State: {fileID: 2181564011019991662}
+      m_Motion: {fileID: -203655887218126122, guid: b7b47c9d848429a498d02a2d0b826b50, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: -5214225634038868833}
+      m_Motion: {fileID: -203655887218126122, guid: 3aec8723935d6524fbc7da3fcc7fbb35, type: 3}
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: 0
@@ -249,7 +261,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c7acd48afffca1f45a903a2bbbd85e35, type: 2}
+  m_Motion: {fileID: -203655887218126122, guid: c1dee72467f503e4b95a4d17e575f145, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
