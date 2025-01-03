@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName = "New weapon data", menuName = "Enemy Data/Enemy Weapon Data", order = 0)]
+[CreateAssetMenu(fileName = "New weapon data", menuName = "Enemy Data/Melee Weapon Data", order = 0)]
 public class Enemy_MeleeWeaponData : ScriptableObject {
     public List<AttackData_EnemyMelee> attackData;
     public float turnSpeed;

@@ -9,7 +9,8 @@ public class Enemy : MonoBehaviour
     public float idleTimer =3;
     public float aggressionRange;
     [Header("Move data")]
-    public float moveSpeed;
+    public float walkSpeed = 1.5f;
+    public float runSpeed = 3f;
     public float chaseSpeed;
     public float turnSpeed;
     private bool manualMovement;

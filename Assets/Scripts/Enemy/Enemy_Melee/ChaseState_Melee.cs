@@ -34,7 +34,7 @@ public class ChaseState_Melee : EnemyState
     public override void Exit()
     {
         base.Exit();
-        enemy.agent.speed = enemy.moveSpeed;
+        enemy.agent.speed = enemy.walkSpeed;
     }
     private bool CanUpdateDestination()
     {
