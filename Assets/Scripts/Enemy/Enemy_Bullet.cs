@@ -14,9 +14,9 @@ public class Enemy_Bullet : Bullet
 
         Player player = other.gameObject.GetComponent<Player>();
 
-        if(player != null)
-        {
-            Debug.Log("Fire player");
-        }
+        // if(player != null)
+        // {
+        //     Debug.Log("Fire player");
+        // }
     }
 }

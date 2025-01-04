@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
-
+public enum CoverPerk{ Unavailable, CanTakeCover, CanTakeAndChangeCover}
 public class Enemy_Range : Enemy
 {
+    [Header("Enemy Perks")]
+    public CoverPerk coverPerk;
+    [Header("Advance perk")]
+    public float advanceSpeed;
+    public float advanceStoppingDistance;
+
     [Header("Cover system")]
-    public bool canUseCovers = true;
+    public float safeDistance;
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
 
@@ -26,6 +32,7 @@ public class Enemy_Range : Enemy
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
+    public AdvancePlayerState_Range advancePlayerState { get; private set; }
         
     #endregion
     protected override void Awake()
@@ -35,6 +42,7 @@ public class Enemy_Range : Enemy
         moveState = new MoveState_Range(this, stateMachine,"Move");
         battleState = new BattleState_Range(this,stateMachine,"Battle");
         runToCoverState = new RunToCoverState_Range(this,stateMachine,"Run");
+        advancePlayerState = new AdvancePlayerState_Range(this,stateMachine,"Advance");
     }
     protected override void Start()
     {
@@ -81,7 +89,7 @@ public class Enemy_Range : Enemy
 
     public bool CanGetCover()
     {
-        if(canUseCovers  == false)
+        if(coverPerk == CoverPerk.Unavailable)
             return false;
 
         currentCover = AttempToFindCover()?.GetComponent<CoverPoint>();
@@ -158,5 +166,9 @@ public class Enemy_Range : Enemy
         else
             Debug.LogWarning("No avalible weapon data was found!");
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
+    }
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
     }
 }

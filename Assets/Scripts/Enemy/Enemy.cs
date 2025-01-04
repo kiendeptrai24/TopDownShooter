@@ -55,10 +55,7 @@ public class Enemy : MonoBehaviour
     }
     protected bool ShouldEnterBattleMode()
     {
-        // check distance between player and enemy
-        bool inAggressionRange = Vector3.Distance(transform.position, player.position) < aggressionRange;
-        
-        if(inAggressionRange && !inBattleMode)
+        if(IsPlayerInAggressionRange() && !inBattleMode)
         {
             EnterBattleMode();
             return true;
@@ -132,6 +129,7 @@ public class Enemy : MonoBehaviour
     
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
     #endregion
+    public bool IsPlayerInAggressionRange() => Vector3.Distance(transform.position, player.position) < aggressionRange;
     protected virtual void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position,aggressionRange);
     }
