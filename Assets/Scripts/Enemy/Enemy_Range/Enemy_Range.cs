@@ -11,8 +11,10 @@ public class Enemy_Range : Enemy
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
+    public float advanceTime = 2.5f;
 
     [Header("Cover system")]
+    public float minCoverTime = 2f;
     public float safeDistance;
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
@@ -26,7 +28,14 @@ public class Enemy_Range : Enemy
     public Transform WeaponHolder;
     public GameObject bulletPrefab;
 
+    [Header("Aim details")]
+    public float slowAim = 4f;
+    public float fastAim = 20f;
+    public Transform aim;
+    public Transform playersBody;
+    public LayerMask whatToIgnore;
     [SerializeField] List<Enemy_RangeWeaponData> avalibleWeaponData;
+
     #region State
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
@@ -47,6 +56,8 @@ public class Enemy_Range : Enemy
     protected override void Start()
     {
         base.Start();
+        playersBody = player.GetComponent<Player>().playerBody;
+        aim.parent = null;
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
@@ -72,7 +83,7 @@ public class Enemy_Range : Enemy
     public void FireSingleBullet()
     {
         anim.SetTrigger("Shoot");
-        Vector3  bulletsDirection = (player.position + Vector3.up - gunPoint.position).normalized;
+        Vector3  bulletsDirection = (aim.position - gunPoint.position).normalized;
 
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
         newBullet.transform.position = gunPoint.position;
@@ -167,8 +178,37 @@ public class Enemy_Range : Enemy
             Debug.LogWarning("No avalible weapon data was found!");
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
-    protected override void OnDrawGizmos()
+    #region Enemy's aim region
+        
+    public void UpdateAimPosition()
     {
-        base.OnDrawGizmos();
+
+        float aimSpeed = IsAimOnPlayer() ? fastAim : slowAim;
+        aim.position = Vector3.MoveTowards(aim.position, playersBody.position, aimSpeed * Time.deltaTime);
     }
+    public bool IsAimOnPlayer()
+    {
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+        return distanceAimToPlayer < 2;
+    }
+    public bool IsSeeingPlayer()
+    {
+        Vector3 enemyPosition = transform.position + Vector3.up;
+        Vector3 direction = playersBody.position - enemyPosition;
+        float distance = Vector3.Distance(transform.position, player.position);
+        
+        if(Physics.Raycast(enemyPosition, direction, out RaycastHit hit, distance, ~whatToIgnore))
+        {
+            Debug.Log(hit.collider.gameObject.GetComponent<Transform>().name.ToString());
+
+            if(hit.collider.GetComponentInParent<Player>())
+            {
+                UpdateAimPosition();
+                return true;
+            }
+        }
+        return false;
+    }
+   
+    #endregion
 }

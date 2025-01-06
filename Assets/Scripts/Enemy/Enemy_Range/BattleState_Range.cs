@@ -27,41 +27,26 @@ public class BattleState_Range : EnemyState
     public override void Update()
     {
         base.Update();
-        if(enemy.IsPlayerInAggressionRange() == false)
+        if(enemy.IsSeeingPlayer())
+            enemy.FaceTarget(enemy.aim.position);
+
+        if(enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover())
             stateMachine.ChangeState(enemy.advancePlayerState);
         ChangeCoverIfShould();
 
-        enemy.FaceTarget(enemy.player.position);
         if (WeaponOutOfBullet())
         {
             if (WeaponOnCooldown())
                 AttempToResetWeapon();
             return;
         }
-        if (CanShoot())
+        if (CanShoot() && enemy.IsAimOnPlayer())
         {
             Shoot();
         }
     }
 
-    private void ChangeCoverIfShould()
-    {
-        if(enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
-            return;
-
-        coverCheckTimer -= Time.deltaTime;
-
-        if(coverCheckTimer < 0)
-        {
-            coverCheckTimer = .5f; // checking cover each of 0.5 seconds
-            if(IsPlayerInClearSight() || IsPlayerClose()) // if player is close or in clear sight
-            {
-                
-                if (enemy.CanGetCover())
-                    stateMachine.ChangeState(enemy.runToCoverState);
-            }
-        }
-    }
+  
 
     public override void Exit()
     {
@@ -78,6 +63,35 @@ public class BattleState_Range : EnemyState
     }
 
     #region Weapon Region
+
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeToCover;
+    }
+    private void ChangeCoverIfShould()
+    {
+        if(enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
+            return;
+
+        coverCheckTimer -= Time.deltaTime;
+
+        if(coverCheckTimer < 0)
+        {
+            coverCheckTimer = .5f; // checking cover each of 0.5 seconds
+            if(ReadyToChangeCover()) // if player is close or in clear sight
+            {
+                
+                if (enemy.CanGetCover())
+                    stateMachine.ChangeState(enemy.runToCoverState);
+            }
+        }
+    }
+    private bool ReadyToChangeCover()
+    {
+        bool inDanger = IsPlayerInClearSight() || IsPlayerClose();
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.LastTimeAdvanced + enemy.advanceTime;
+        return inDanger && advanceTimeIsOver;
+    }
     private bool WeaponOnCooldown() => Time.time > lastTimeShoot + weaponCooldown;
     private bool WeaponOutOfBullet() => bulletsShot >= bulletsPerAttack;
     private bool CanShoot() =>  Time.time > lastTimeShoot + 1 / enemy.weaponData.fireRate; //firerate per second
