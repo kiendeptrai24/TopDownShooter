@@ -53,6 +53,10 @@ public class Enemy : MonoBehaviour
         if(ShouldEnterBattleMode())
             EnterBattleMode();
     }
+    protected virtual void InitializePerk() 
+    {
+        
+    }
     protected bool ShouldEnterBattleMode()
     {
         if(IsPlayerInAggressionRange() && !inBattleMode)

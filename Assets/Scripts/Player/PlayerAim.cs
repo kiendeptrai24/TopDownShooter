@@ -117,7 +117,6 @@ public class PlayerAim : MonoBehaviour
     {
         //getting position of the mouse 
         Ray ray = Camera.main.ScreenPointToRay(mouseInput);
-
         if(Physics.Raycast(ray, out RaycastHit hitInfo,Mathf.Infinity,aimPlayerMask))
         {
             lastKnowMouseHit = hitInfo;

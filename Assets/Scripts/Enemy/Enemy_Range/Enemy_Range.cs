@@ -4,14 +4,16 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 public enum CoverPerk{ Unavailable, CanTakeCover, CanTakeAndChangeCover}
+public enum UnstoppablePerk{ Unavailable, Unstoppable}
 public class Enemy_Range : Enemy
 {
     [Header("Enemy Perks")]
     public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
-    public float advanceTime = 2.5f;
+    public float advanceDuration = 2.5f;
 
     [Header("Cover system")]
     public float minCoverTime = 2f;
@@ -21,6 +23,7 @@ public class Enemy_Range : Enemy
 
 
     [Header("Weapon details")]
+    public float attackDelay;
     public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponData weaponData;
     [Space]
@@ -58,6 +61,7 @@ public class Enemy_Range : Enemy
         base.Start();
         playersBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
+        InitializePerk();
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
@@ -68,33 +72,13 @@ public class Enemy_Range : Enemy
         base.Update();
 
     }
-    public override void EnterBattleMode()
+    protected override void InitializePerk()
     {
-        if(inBattleMode)
-            return;
-        base.EnterBattleMode();
-
-        if(CanGetCover())
-            stateMachine.ChangeState(runToCoverState);
-        else
-            stateMachine.ChangeState(battleState);
-        
-    }
-    public void FireSingleBullet()
-    {
-        anim.SetTrigger("Shoot");
-        Vector3  bulletsDirection = (aim.position - gunPoint.position).normalized;
-
-        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
-        newBullet.transform.position = gunPoint.position;
-        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
-
-        newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
-        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
-
-        
-        rbNewBullet.mass = 20 / weaponData.bulletSpeed;
-        rbNewBullet.velocity = weaponData.ApplyWeaponSpread(bulletsDirection) * weaponData.bulletSpeed;
+        if(IsUnstoppable())
+        {
+            advanceSpeed = 1;
+            anim.SetFloat("AdvanceAnimIndex",1); // walking slow
+        }
     }
     #region Cover System
 
@@ -157,9 +141,36 @@ public class Enemy_Range : Enemy
         return collectedCovers;
     }    
 
-    
 
     #endregion
+    public override void EnterBattleMode()
+    {
+        if(inBattleMode)
+            return;
+        base.EnterBattleMode();
+
+        if(CanGetCover())
+            stateMachine.ChangeState(runToCoverState);
+        else
+            stateMachine.ChangeState(battleState);
+        
+    }
+    public void FireSingleBullet()
+    {
+        anim.SetTrigger("Shoot");
+        Vector3  bulletsDirection = (aim.position - gunPoint.position).normalized;
+
+        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
+        newBullet.transform.position = gunPoint.position;
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+
+        newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
+
+        
+        rbNewBullet.mass = 20 / weaponData.bulletSpeed;
+        rbNewBullet.velocity = weaponData.ApplyWeaponSpread(bulletsDirection) * weaponData.bulletSpeed;
+    }
     private void SetupWeapon()
     {
         List<Enemy_RangeWeaponData> filteredData = new List<Enemy_RangeWeaponData>();
@@ -199,8 +210,6 @@ public class Enemy_Range : Enemy
         
         if(Physics.Raycast(enemyPosition, direction, out RaycastHit hit, distance, ~whatToIgnore))
         {
-            Debug.Log(hit.collider.gameObject.GetComponent<Transform>().name.ToString());
-
             if(hit.collider.GetComponentInParent<Player>())
             {
                 UpdateAimPosition();
@@ -211,4 +220,8 @@ public class Enemy_Range : Enemy
     }
    
     #endregion
+    
+    public bool IsUnstoppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
+    
+
 }

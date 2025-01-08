@@ -7943,7 +7943,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 759223241771428353}
+        transform: {fileID: 1466313004}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -41686,7 +41686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoint: 25
   idleTimer: 3
-  aggressionRange: 7
+  aggressionRange: 5
   walkSpeed: 1.5
   runSpeed: 4
   chaseSpeed: 5
@@ -41698,9 +41698,13 @@ MonoBehaviour:
   - {fileID: 1606681279360809118}
   player: {fileID: 0}
   coverPerk: 0
+  unstoppablePerk: 1
   advanceSpeed: 3
-  advanceStoppingDistance: 10
+  advanceStoppingDistance: 3
+  advanceDuration: 2.5
+  minCoverTime: 4
   safeDistance: 2
+  attackDelay: 1
   weaponType: 2
   weaponData: {fileID: 0}
   gunPoint: {fileID: 0}

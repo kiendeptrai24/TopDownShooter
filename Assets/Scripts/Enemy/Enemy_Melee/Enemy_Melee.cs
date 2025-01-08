@@ -92,7 +92,7 @@ public class Enemy_Melee : Enemy
     {
         visuals.currentWeaponModel.gameObject.SetActive(active);
     }
-    private void InitializePerk()
+    protected override void InitializePerk()
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)
         {

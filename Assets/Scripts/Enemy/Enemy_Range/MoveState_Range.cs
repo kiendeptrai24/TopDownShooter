@@ -20,7 +20,7 @@ public class MoveState_Range : EnemyState
     public override void Update()
     {
         base.Update();
-         enemy.FaceTarget(GetNextPathPoints());
+        enemy.FaceTarget(GetNextPathPoints());
         if(Vector3.Distance(enemy.transform.position, destination) <= enemy.agent.stoppingDistance + 0.01f)
             stateMachine.ChangeState(enemy.idleState);
     }

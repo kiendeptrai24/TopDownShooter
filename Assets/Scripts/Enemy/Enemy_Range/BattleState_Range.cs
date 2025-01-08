@@ -11,6 +11,7 @@ public class BattleState_Range : EnemyState
     private int bulletsPerAttack;
     private float weaponCooldown;
     private float coverCheckTimer=.5f;
+    private bool firstTimeAttack = true;
     public BattleState_Range(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         enemy = _enemyBase as Enemy_Range;
@@ -18,24 +19,37 @@ public class BattleState_Range : EnemyState
     public override void Enter()
     {
         base.Enter();
+        SetupValuesForFirstAttack();
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
-        bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
-        weaponCooldown = enemy.weaponData.GetWeaponCooldown();
         enemy.visuals.EnableIK(true, true);
+        stateTimer = enemy.attackDelay;
     }
+
+    
+
     public override void Update()
     {
         base.Update();
-        if(enemy.IsSeeingPlayer())
+        if (enemy.IsSeeingPlayer())
             enemy.FaceTarget(enemy.aim.position);
-
-        if(enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover())
+        
+        if(MustAdvancePlayer())
             stateMachine.ChangeState(enemy.advancePlayerState);
+            
         ChangeCoverIfShould();
+        
+        if(stateTimer > 0)
+            return;
+
 
         if (WeaponOutOfBullet())
         {
+            if (enemy.IsUnstoppable() && UnstoppableWalkReady())
+            {
+                enemy.advanceDuration = weaponCooldown;
+                stateMachine.ChangeState(enemy.advancePlayerState);
+            }
             if (WeaponOnCooldown())
                 AttempToResetWeapon();
             return;
@@ -46,14 +60,19 @@ public class BattleState_Range : EnemyState
         }
     }
 
-  
-
     public override void Exit()
     {
         base.Exit();
         enemy.visuals.EnableIK(false, false);
 
     }
+    private bool MustAdvancePlayer()
+    {
+        if(enemy.IsUnstoppable())
+            return false;
+        return enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover();
+    }
+
 
     private void AttempToResetWeapon()
     {
@@ -61,7 +80,14 @@ public class BattleState_Range : EnemyState
         bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.weaponData.GetWeaponCooldown();
     }
-
+    private bool UnstoppableWalkReady()
+    {
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+        bool outOffStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
+        bool unstoppableWalkOnCooldown = 
+            Time.time < enemy.weaponData.minWeaponCooldown + enemy.advancePlayerState.LastTimeAdvanced;
+        return outOffStoppingDistance && unstoppableWalkOnCooldown == false;
+    }
     #region Weapon Region
 
     private bool ReadyToLeaveCover()
@@ -89,7 +115,7 @@ public class BattleState_Range : EnemyState
     private bool ReadyToChangeCover()
     {
         bool inDanger = IsPlayerInClearSight() || IsPlayerClose();
-        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.LastTimeAdvanced + enemy.advanceTime;
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.LastTimeAdvanced + enemy.advanceDuration;
         return inDanger && advanceTimeIsOver;
     }
     private bool WeaponOnCooldown() => Time.time > lastTimeShoot + weaponCooldown;
@@ -98,6 +124,7 @@ public class BattleState_Range : EnemyState
 
     private void Shoot()
     {
+        
         enemy.FireSingleBullet();
         lastTimeShoot = Time.time;
         bulletsShot++;
@@ -119,7 +146,15 @@ public class BattleState_Range : EnemyState
         }
         return false;
     }
-
+    private void SetupValuesForFirstAttack()
+    {
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
+            weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        }
+    }
     #endregion
 
     #endregion
