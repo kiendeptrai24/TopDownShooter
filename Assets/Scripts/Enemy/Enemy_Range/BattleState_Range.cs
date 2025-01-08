@@ -37,6 +37,8 @@ public class BattleState_Range : EnemyState
         if(MustAdvancePlayer())
             stateMachine.ChangeState(enemy.advancePlayerState);
             
+        if(enemy.CanThrowGrenade())
+            stateMachine.ChangeState(enemy.throwGrenadeState);
         ChangeCoverIfShould();
         
         if(stateTimer > 0)

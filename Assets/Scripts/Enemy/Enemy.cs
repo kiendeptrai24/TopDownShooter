@@ -73,7 +73,6 @@ public class Enemy : MonoBehaviour
     }
     public virtual void GetHit()
     {
-        Debug.Log(gameObject.name + " get hit");
         healthPoint--;
     }
     public virtual void DeadImpact(Vector3 force, Vector3 hitPoint,Rigidbody rb)
