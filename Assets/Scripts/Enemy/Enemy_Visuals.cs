@@ -11,6 +11,7 @@ public class Enemy_Visuals : MonoBehaviour
 {
 
     public GameObject currentWeaponModel { get; private set; }
+    public GameObject grenadeModel;
     [Header("Corruption visuals")]
     [SerializeField] private GameObject[] corruptionCrytals;
     // curruptionAmount should be less than corruptionCrytals.Length
@@ -24,14 +25,33 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private Transform leftEblowIK;
     [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
     [SerializeField] private MultiAimConstraint weaponAimConstraint;
-    
 
-   
+    private float leftHandTargetWeight;
+    private float weaponAimTargetWeight;
+    private float rigChangeRate = 0.1f;
+    private void Awake() {
+        GetComponentInChildren<Rig>().weight = 1;
+    }
+
+    private void Update()
+    {
+        leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+    }
     public void SetupLook()
     {
         SetUpRandomColor();
         SetupRandomWeapon();
         SetupRandomCorruption();
+    }
+    public void EnableGrenadeModel(bool active) => grenadeModel.SetActive(active);
+    public void EnableWeaponModel(bool active)
+    {
+        currentWeaponModel.gameObject.SetActive(active);
+    }
+    public void EnableSecondaryWeaponModel(bool active)
+    {
+        FindSecondaryWeaponModels()?.SetActive(active);
     }
     public void EnableWeaponTrail(bool enable)
     {
@@ -136,6 +156,20 @@ public class Enemy_Visuals : MonoBehaviour
         }
         return corruptionCrytals;
     }
+    private GameObject FindSecondaryWeaponModels()
+    {
+        Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondaryRangeWeaponModel>(true);
+        Enemy_RangeWeaponType weaponType = GetComponent<Enemy_Range>().weaponType;
+        foreach (Enemy_SecondaryRangeWeaponModel weaponModel in weaponModels)
+        {
+            if(weaponModel.weaponType == weaponType)
+            {
+                return weaponModel.gameObject;
+            }
+        }
+        return null;
+        
+    }
     private void SwitchAnimationLayer(int _layerIndex)
     {
         Animator anim = GetComponentInChildren<Animator>();
@@ -146,11 +180,13 @@ public class Enemy_Visuals : MonoBehaviour
         }
         anim.SetLayerWeight(_layerIndex,1);
     }
-    public void EnableIK(bool enableLeftHand, bool enableAim)
+    public void EnableIK(bool enableLeftHand, bool enableAim,float changeRate = 10)
     {
-        leftHandIKConstraint.weight = enableLeftHand ? 1 : 0;
-        weaponAimConstraint.weight = enableAim ? 1 : 0;
+        rigChangeRate = changeRate;
+        leftHandTargetWeight = enableLeftHand ? 1 : 0;
+        weaponAimTargetWeight = enableAim ? 1 : 0;
     }
+
     public void SetupLeftHandIK(Transform leftHandTarget,Transform leftEblowTarget)
     {
         leftHandIK.localPosition = leftHandTarget.localPosition;
@@ -159,6 +195,13 @@ public class Enemy_Visuals : MonoBehaviour
         leftEblowIK.localPosition = leftEblowTarget.localPosition;
         leftEblowIK.localRotation = leftEblowTarget.localRotation;
 
+    }
+    private float AdjustIKWeight(float currentWeight, float targetWeight)
+    {
+        if(Mathf.Abs(currentWeight - targetWeight) > 0.05f)
+            return Mathf.Lerp(currentWeight, targetWeight, rigChangeRate * Time.deltaTime);
+        else    
+            return targetWeight;
     }
 
 }

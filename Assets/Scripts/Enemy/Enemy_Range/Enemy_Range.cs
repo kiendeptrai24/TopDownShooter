@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 public enum CoverPerk{ Unavailable, CanTakeCover, CanTakeAndChangeCover}
@@ -13,8 +14,13 @@ public class Enemy_Range : Enemy
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
     [Header("Grenade perk")]
+    public GameObject grenadePrefab;
+    public float impactPower;
+    public float explosionTimer = .75f;
+    public float timeToTarget = 1.2f;
     public float grenadeCooldown;
     public float LastTimeGrenadeThrown = -10;
+    [SerializeField] private Transform grenadeStartPoint;
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
@@ -51,6 +57,7 @@ public class Enemy_Range : Enemy
     public RunToCoverState_Range runToCoverState { get; private set; }
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
     public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
+    public DeadState_Range deadState { get; private set; }
         
     #endregion
     protected override void Awake()
@@ -62,6 +69,7 @@ public class Enemy_Range : Enemy
         runToCoverState = new RunToCoverState_Range(this,stateMachine,"Run");
         advancePlayerState = new AdvancePlayerState_Range(this,stateMachine,"Advance");
         throwGrenadeState = new ThrowGrenadeState_Range(this,stateMachine,"ThrowGrenade");
+        deadState = new DeadState_Range(this,stateMachine,"Idle");
     }
     protected override void Start()
     {
@@ -72,12 +80,19 @@ public class Enemy_Range : Enemy
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
+        
 
     }
     protected override void Update()
     {
         base.Update();
 
+    }
+    public override void GetHit()
+    {
+        base.GetHit();
+        if(healthPoint <= 0 && stateMachine.currentState != deadState)
+            stateMachine.ChangeState(deadState);
     }
     public bool CanThrowGrenade()
     {
@@ -92,8 +107,18 @@ public class Enemy_Range : Enemy
     }
     public void ThrowGrenade()
     {
+        visuals.EnableGrenadeModel(false);
         LastTimeGrenadeThrown = Time.time;
-        Debug.Log("Grenade thrown!");
+
+        GameObject newGrenade = ObjectPool.Instance.GetObject(grenadePrefab);
+        newGrenade.transform.position = grenadeStartPoint.transform.position;
+        Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
+        if(stateMachine.currentState == deadState)
+        {
+            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer,impactPower);
+            return;
+        }
+        newGrenadeScript.SetupGrenade(player.position, timeToTarget, explosionTimer,impactPower);
     }
     protected override void InitializePerk()
     {

@@ -88,10 +88,7 @@ public class Enemy_Melee : Enemy
         if(healthPoint <= 0)
             stateMachine.ChangeState(deadState);
     }
-    public void EnableWeaponModel(bool active)
-    {
-        visuals.currentWeaponModel.gameObject.SetActive(active);
-    }
+   
     protected override void InitializePerk()
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)

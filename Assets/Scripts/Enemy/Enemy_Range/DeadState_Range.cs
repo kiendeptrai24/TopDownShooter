@@ -1,17 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-
-public class DeadState_Melee : EnemyState
+public class DeadState_Range : EnemyState
 {
-    Enemy_Melee enemy;
     private bool interactionDisable;
-    public DeadState_Melee(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
+    Enemy_Range enemy;
+    public DeadState_Range(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
-        enemy = _enemyBase as Enemy_Melee;
+        enemy = (Enemy_Range)_enemyBase;
     }
     public override void Enter()
     {
         base.Enter();
-
         interactionDisable = false;
 
         enemy.anim.enabled = false;
@@ -20,14 +21,18 @@ public class DeadState_Melee : EnemyState
         enemy.ragdoll.RagdollActive(true);
 
         stateTimer = 2.5f;
+        if(enemy.throwGrenadeState.finishedThrowingGrenaden == false)
+            enemy.ThrowGrenade();
     }
     public override void Update()
     {
         base.Update();
-        // uncomment if you want to disable interaction
         DisableInteractionIfShould();
     }
-
+    public override void Exit()
+    {
+        base.Exit();
+    }
     private void DisableInteractionIfShould()
     {
         if (stateTimer < 0 && interactionDisable == false)
@@ -38,8 +43,4 @@ public class DeadState_Melee : EnemyState
         }
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
 }
