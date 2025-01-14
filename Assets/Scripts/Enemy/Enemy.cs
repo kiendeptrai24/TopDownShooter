@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int healthPoint = 25;
@@ -11,7 +12,6 @@ public class Enemy : MonoBehaviour
     [Header("Move data")]
     public float walkSpeed = 1.5f;
     public float runSpeed = 3f;
-    public float chaseSpeed;
     public float turnSpeed;
     private bool manualMovement;
     private bool manualRotation;
@@ -91,7 +91,6 @@ public class Enemy : MonoBehaviour
     public Vector3 GetPatrolDestination()
     {
         Vector3 destination = patrolPointsPosition[currentPatrolIndex++];
-        Debug.Log(currentPatrolIndex);
         if(currentPatrolIndex == patrolPointsPosition.Length)
             currentPatrolIndex = 0;
         return destination;

@@ -38,10 +38,9 @@ public class ObjectPool : MonoBehaviour
             CreateNewObject(prefab);
     
         GameObject objectToGet = poolDictionary[prefab].Dequeue();
-        objectToGet.SetActive(true);
         objectToGet.transform.position = target.position;
-        Debug.Log($"Object position before activation: {objectToGet.transform.position} " + objectToGet.name);
         objectToGet.transform.parent = null;
+        objectToGet.SetActive(true);
 
         return objectToGet;
     }

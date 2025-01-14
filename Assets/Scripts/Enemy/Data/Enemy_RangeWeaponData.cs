@@ -20,7 +20,7 @@ public class Enemy_RangeWeaponData : ScriptableObject {
     public float bulletSpeed = 20f;
     public float weaponSpread = .1f;
 
-    public int GetBulletsPerAttack() => Random.Range(minBulletsPerAttack,maxBulletsPerAttack);
+    public int GetBulletsPerAttack() => Random.Range(minBulletsPerAttack, + 1);
     public float GetWeaponCooldown() => Random.Range(minWeaponCooldown,maxWeaponCooldown);
     public Vector3 ApplyWeaponSpread(Vector3 originalDirection)
     {
