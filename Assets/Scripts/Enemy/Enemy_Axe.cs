@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class EnemyAxe : MonoBehaviour
@@ -13,13 +14,15 @@ public class EnemyAxe : MonoBehaviour
     private Transform player;
     private float timer =1;
     private Vector3 direction;
-    public void SetupAxe(float flySpeed, Transform player,float timer)
+    public void SetupAxe(float flySpeed, Transform player, float timer)
     {
         this.flySpeed = flySpeed;
         this.player = player;
         this.timer = timer;
     }
+    
     private void Update() {
+
         timer -= Time.deltaTime;
         axeVisual.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
         if(timer > 0)
@@ -34,8 +37,8 @@ public class EnemyAxe : MonoBehaviour
         Player player= other.GetComponent<Player>();
         if(bullet != null || player != null)
         {
-            GameObject newFx = ObjectPool.Instance.GetObject(impactFx);
-            newFx.transform.position =gameObject.transform.position;
+            GameObject newFx = ObjectPool.Instance.GetObject(impactFx,transform);
+            
 
             ObjectPool.Instance.ReturnObject(gameObject);
             ObjectPool.Instance.ReturnObject(newFx,1f);

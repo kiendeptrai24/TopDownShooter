@@ -6,7 +6,7 @@ using UnityEngine;
 public class ThrowGrenadeState_Range : EnemyState
 {
     private Enemy_Range enemy;
-    public bool finishedThrowingGrenaden { get; private set; }
+    public bool finishedThrowingGrenaden { get; private set; } = true;
     public ThrowGrenadeState_Range(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         enemy = (Enemy_Range)_enemyBase;

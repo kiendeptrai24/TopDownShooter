@@ -12,7 +12,9 @@ public class IdleState_Range : EnemyState
     public override void Enter()
     {
         base.Enter();
+        enemy.anim.SetFloat("IdleAnimIndex", Random.Range(0, 3));
         stateTimer = enemy.idleTimer;
+        enemy.visuals.EnableIK(true, false);
     }
     public override void Update()
     {
@@ -23,5 +25,6 @@ public class IdleState_Range : EnemyState
     public override void Exit()
     {
         base.Exit();
+
     }
 }

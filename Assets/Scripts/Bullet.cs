@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     public void BulletSetup(float _flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = _flyDistance;
-
+        trailRenderer.Clear();
         startPosition = transform.position;
         this.flyDistance = _flyDistance +.5f;
         Rebase();
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
     }
     protected virtual void OnCollisionEnter(Collision other)
     {
-        CreateImpactFx(other);
+        CreateImpactFx();
         ReturnBulletToPool();
 
         Enemy enemy= other.gameObject.GetComponentInParent<Enemy>();
@@ -76,16 +76,11 @@ public class Bullet : MonoBehaviour
         trailRenderer.time = .5f;
     }
 
-    protected void CreateImpactFx(Collision other)
+    protected void CreateImpactFx()
     {
-        if (other.contacts.Length > 0)
-        {
-            ContactPoint contact = other.contacts[0];
-
-            GameObject newImpactFx = ObjectPool.Instance.GetObject(bulletImpactFX);
-            newImpactFx.transform.position = contact.point;
-            ObjectPool.Instance.ReturnObject(newImpactFx, 1);
-        }
+        GameObject newImpactFx = ObjectPool.Instance.GetObject(bulletImpactFX,transform);
+        ObjectPool.Instance.ReturnObject(newImpactFx, 1);
+        
     }
     protected void ReturnToPoolIfNeeded()
     {

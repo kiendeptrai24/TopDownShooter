@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class BattleState_Range : EnemyState
@@ -106,7 +105,7 @@ public class BattleState_Range : EnemyState
         if(coverCheckTimer < 0)
         {
             coverCheckTimer = .5f; // checking cover each of 0.5 seconds
-            if(ReadyToChangeCover()) // if player is close or in clear sight
+            if(ReadyToChangeCover() && ReadyToLeaveCover()) // if player is close or in clear sight
             {
                 
                 if (enemy.CanGetCover())
@@ -144,7 +143,7 @@ public class BattleState_Range : EnemyState
         Vector3 yOffset = new Vector3(0, .02f, 0);
         if(Physics.Raycast(enemy.transform.position + yOffset, directionToPlayer + yOffset, out RaycastHit hit))
         {
-            return hit.collider.gameObject.GetComponentInParent<Player>() != null;
+            return hit.transform.parent == enemy.player;
         }
         return false;
     }

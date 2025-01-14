@@ -129,6 +129,11 @@ public class Enemy_Melee : Enemy
         visuals.currentWeaponModel.gameObject.SetActive(false);
 
     }
+    public void ThrowAxe()
+    {
+        GameObject newAxe = ObjectPool.Instance.GetObject(axePrefab,axeStartPoint);
+        newAxe.GetComponent<EnemyAxe>().SetupAxe(axeFlySpeed,player,aimTimer);
+    }
     public bool CanThrowAxe()
     {
         if(meleeType != EnemyMelee_Type.AxeThrow)

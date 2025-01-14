@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
         InitializeNewPool(ammoPickup);
 
     }
-    public GameObject GetObject(GameObject prefab)
+    public GameObject GetObject(GameObject prefab,Transform target)
     {
         if(poolDictionary.ContainsKey(prefab) == false)
             InitializeNewPool(prefab);
@@ -39,7 +39,10 @@ public class ObjectPool : MonoBehaviour
     
         GameObject objectToGet = poolDictionary[prefab].Dequeue();
         objectToGet.SetActive(true);
+        objectToGet.transform.position = target.position;
+        Debug.Log($"Object position before activation: {objectToGet.transform.position} " + objectToGet.name);
         objectToGet.transform.parent = null;
+
         return objectToGet;
     }
     public void ReturnObject(GameObject objectToReturn,float delay = .001f) => StartCoroutine(DelayReturn(objectToReturn,delay)); 

@@ -25,8 +25,7 @@ public class Enemy_Grenade : MonoBehaviour
 
     private void Explode()
     {
-        GameObject newFx = ObjectPool.Instance.GetObject(explosionFx);
-        newFx.transform.position = transform.position;
+        GameObject newFx = ObjectPool.Instance.GetObject(explosionFx,transform);
         ObjectPool.Instance.ReturnObject(newFx,.5f);
         ObjectPool.Instance.ReturnObject(gameObject);
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
