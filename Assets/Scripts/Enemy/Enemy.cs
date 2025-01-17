@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] protected int healthPoint = 25;
     [Header("Idle data")]
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private int currentPatrolIndex = 0;
     public bool inBattleMode { get; private set; }
 
-    public Transform player;
+    public Transform player { get; private set; }
     public Animator anim { get; private set; }
 
     public NavMeshAgent agent { get; private set; }
@@ -105,8 +105,10 @@ public class Enemy : MonoBehaviour
         }
     }
     #endregion
-    public void FaceTarget(Vector3 target)
+    public void FaceTarget(Vector3 target,float turnSpeed = 0)
     {
+        if(turnSpeed == 0)
+            turnSpeed = this.turnSpeed;
         Quaternion targetQuaternion = Quaternion.LookRotation(target - transform.position);
 
         Vector3 currentEulerAngels = transform.rotation.eulerAngles;

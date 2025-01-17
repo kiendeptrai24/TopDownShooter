@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyState 
+public abstract class EnemyState 
 {
     protected Enemy enemyBase;
     protected EnemyStateMachine stateMachine;

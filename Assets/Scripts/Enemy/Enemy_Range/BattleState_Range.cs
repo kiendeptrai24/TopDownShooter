@@ -143,7 +143,8 @@ public class BattleState_Range : EnemyState
         Vector3 yOffset = new Vector3(0, .02f, 0);
         if(Physics.Raycast(enemy.transform.position + yOffset, directionToPlayer + yOffset, out RaycastHit hit))
         {
-            return hit.transform.parent == enemy.player;
+            if(hit.transform.parent == enemy.player || hit.transform == enemy.player)
+                return true;
         }
         return false;
     }
