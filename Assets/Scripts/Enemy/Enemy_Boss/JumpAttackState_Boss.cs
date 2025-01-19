@@ -18,8 +18,11 @@ public class JumpAttackState_Boss : EnemyState
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
         lastPlayerPos = enemy.player.position;
+
+        enemy.bossVisuals.PlayLandingZone(lastPlayerPos);
+        enemy.bossVisuals.EnableWeaponTrail(true);
         float distanceToPlayer = Vector3.Distance(lastPlayerPos, enemy.transform.position);
-        jumpAttackMovementSpeed = distanceToPlayer / enemy.travelTimeToAttack;
+        jumpAttackMovementSpeed = distanceToPlayer / enemy.travelTimeToTarget;
         enemy.FaceTarget(lastPlayerPos, 1000);
     }
     public override void Update()
@@ -41,5 +44,10 @@ public class JumpAttackState_Boss : EnemyState
         base.Exit();
         enemy.agent.enabled = true;
         enemy.SetJumpAttackOnCooldown();
+        enemy.bossVisuals.EnableWeaponTrail(false);
+    }
+    public override void AbilityTrigger()
+    {
+        enemy.JumpImpact();
     }
 }

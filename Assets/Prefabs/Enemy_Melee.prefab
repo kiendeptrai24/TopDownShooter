@@ -3552,7 +3552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8573891864767306051
 Transform:
   m_ObjectHideFlags: 0
@@ -3608,15 +3608,14 @@ MonoBehaviour:
   healthPoint: 25
   idleTimer: 2
   aggressionRange: 4
-  moveSpeed: 3
-  chaseSpeed: 8
+  walkSpeed: 1.5
+  runSpeed: 3
   turnSpeed: 3
   patrolPoints:
   - {fileID: 291266946731229313}
   - {fileID: 7232201945889311512}
   - {fileID: 5139240122674658192}
   - {fileID: 1615190458589077452}
-  player: {fileID: 0}
   meleeType: 1
   weaponType: 0
   shieldTranform: {fileID: 9040192536604308300}
@@ -3680,6 +3679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f830731af1eb76449a0ccf948972c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadeModel: {fileID: 0}
   corruptionCrytals: []
   corruptionAmount: 3
   colorTextures:
@@ -3690,7 +3690,8 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 5084555081371453108}
   leftHandIK: {fileID: 0}
   leftEblowIK: {fileID: 0}
-  rig: {fileID: 0}
+  leftHandIKConstraint: {fileID: 0}
+  weaponAimConstraint: {fileID: 0}
 --- !u!1 &6389126007357057061
 GameObject:
   m_ObjectHideFlags: 0

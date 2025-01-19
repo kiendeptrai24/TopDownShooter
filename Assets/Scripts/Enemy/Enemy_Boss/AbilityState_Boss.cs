@@ -17,13 +17,14 @@ public class AbilityState_Boss : EnemyState
         stateTimer = enemy.flamethrowDuration;
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+        enemy.bossVisuals.EnableWeaponTrail(true);
     }
     public override void Update()
     {
         base.Update();
         enemy.FaceTarget(enemy.player.position);
-        if(stateTimer < 0 && enemy.flamethrowActive)
-            enemy.ActivateFlamethrower(false);
+        if(stateTimer < 0)
+            DisableFlameThrower();
         if(triggerCalled)
             stateMachine.ChangeState(enemy.moveState);
     }
@@ -32,11 +33,19 @@ public class AbilityState_Boss : EnemyState
         base.Exit();
         enemy.SetAbilityOnCooldown();
         enemy.bossVisuals.ResetBatteries();
+        enemy.bossVisuals.EnableWeaponTrail(false);
+    }
+    public void DisableFlameThrower()
+    {
+        if(enemy.flamethrowActive == false)
+            return;
+        enemy.ActivateFlamethrower(false);
     }
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
         enemy.ActivateFlamethrower(true);
         enemy.bossVisuals.dischargeBatteries();
+        
     }
 }

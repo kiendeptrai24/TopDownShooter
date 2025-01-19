@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy_AnimationEvent : MonoBehaviour
 {
     private Enemy enemy;
+    
     private void Start() {
         enemy = GetComponentInParent<Enemy>();
     }
