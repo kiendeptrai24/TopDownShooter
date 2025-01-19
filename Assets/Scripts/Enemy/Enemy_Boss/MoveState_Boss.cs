@@ -7,6 +7,8 @@ public class MoveState_Boss : EnemyState
     private Enemy_Boss enemy;
     private Vector3 destination;
     private float actionTimer;
+    private float timeBeforeSpeedUp = 5;
+    private bool isSpeedUpActivated;
     public MoveState_Boss(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         enemy = (Enemy_Boss)_enemyBase;
@@ -18,9 +20,11 @@ public class MoveState_Boss : EnemyState
         enemy.agent.isStopped = false;
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);
-        enemy.agent.speed = enemy.walkSpeed;
+        ResetSpeed();
         actionTimer = enemy.actionCooldown;
     }
+
+
     public override void Update()
     {
         base.Update();
@@ -30,8 +34,10 @@ public class MoveState_Boss : EnemyState
         
         if(enemy.inBattleMode)
         {
+            if(ShouldSpeedUp())
+                SpeedUp();
+
             Vector3 playerPos = enemy.player.position;
-            
             enemy.agent.SetDestination(playerPos);
 
             if(actionTimer < 0)
@@ -49,9 +55,32 @@ public class MoveState_Boss : EnemyState
         }
 
     }
+
+    private void SpeedUp()
+    {
+        enemy.agent.speed = enemy.runSpeed;
+        enemy.anim.SetFloat("MoveAnimIndex", 1);
+        isSpeedUpActivated = true;
+    }
+
     public override void Exit()
     {
         base.Exit();
+    }
+    private void ResetSpeed()
+    {
+        isSpeedUpActivated = false;
+        enemy.anim.SetFloat("MoveAnimIndex", 0);
+        enemy.agent.speed = enemy.walkSpeed;
+    }
+    private bool ShouldSpeedUp()
+    {
+        if(isSpeedUpActivated)
+            return false;
+
+        if(Time.time > enemy.attackState.lastTimeAttacked + timeBeforeSpeedUp)
+            return true;
+        return false;
     }
     private void PerformRandomAction()
     {

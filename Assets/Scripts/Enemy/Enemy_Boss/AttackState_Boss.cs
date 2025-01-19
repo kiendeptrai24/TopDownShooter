@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackState_Boss : EnemyState
 {
     Enemy_Boss enemy;
+    public float lastTimeAttacked {get; private set;}
     public AttackState_Boss(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         enemy  = (Enemy_Boss)_enemyBase;
@@ -16,10 +17,13 @@ public class AttackState_Boss : EnemyState
         enemy.anim.SetFloat("AttackIndex",Random.Range(0,2));
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+        stateTimer = 1f;
     }
     public override void Update()
     {
         base.Update();
+        if(stateTimer > 0)
+            enemy.FaceTarget(enemy.player.position,20);
         if(triggerCalled)
         {
             if(enemy.PlayerInAttackRange())
@@ -31,5 +35,6 @@ public class AttackState_Boss : EnemyState
     public override void Exit()
     {
         base.Exit();
+        lastTimeAttacked = Time.time;
     }
 }
