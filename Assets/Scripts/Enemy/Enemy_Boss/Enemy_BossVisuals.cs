@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy_BossVisuals : MonoBehaviour
 {
     private Enemy_Boss enemy;
+    [SerializeField] private float landingOfset = 1;
     [SerializeField] private ParticleSystem landingZoneFx;
     [SerializeField] private GameObject[] weaponTrails;
     [SerializeField] private GameObject[] batteries;
@@ -38,7 +39,10 @@ public class Enemy_BossVisuals : MonoBehaviour
     public void PlayLandingZone(Vector3 target)
     {
         landingZoneFx.Stop();
-        landingZoneFx.transform.position = target;
+
+        Vector3 dir = target - transform.position;
+        Vector3 offset = dir.normalized * landingOfset;
+        landingZoneFx.transform.position = target + offset;
         landingZoneFx.transform.parent = null;
         landingZoneFx.Clear();
 

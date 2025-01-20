@@ -37,6 +37,8 @@ public class AbilityState_Boss : EnemyState
     }
     public void DisableFlameThrower()
     {
+        if(enemy.bossWeaponType != BossWeaponType.Flamethrower)
+            return;
         if(enemy.flamethrowActive == false)
             return;
         enemy.ActivateFlamethrower(false);
@@ -44,8 +46,15 @@ public class AbilityState_Boss : EnemyState
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
-        enemy.ActivateFlamethrower(true);
-        enemy.bossVisuals.dischargeBatteries();
+        if(enemy.bossWeaponType == BossWeaponType.Flamethrower)
+        {
+            enemy.ActivateFlamethrower(true);
+            enemy.bossVisuals.dischargeBatteries();
+
+        }
+        else if(enemy.bossWeaponType == BossWeaponType.Hummer){
+            enemy.ActivateHummer();
+        }
         
     }
 }

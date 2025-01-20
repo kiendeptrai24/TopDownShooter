@@ -24,6 +24,12 @@ public class JumpAttackState_Boss : EnemyState
         float distanceToPlayer = Vector3.Distance(lastPlayerPos, enemy.transform.position);
         jumpAttackMovementSpeed = distanceToPlayer / enemy.travelTimeToTarget;
         enemy.FaceTarget(lastPlayerPos, 1000);
+        if(enemy.bossWeaponType == BossWeaponType.Hummer)
+        {
+            enemy.agent.isStopped = false;
+            enemy.agent.speed = enemy.runSpeed;
+            enemy.agent.SetDestination(lastPlayerPos);
+        }
     }
     public override void Update()
     {

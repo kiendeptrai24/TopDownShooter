@@ -1,23 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.UI;
 
+
+public enum BossWeaponType{ Flamethrower, Hummer}
 public class Enemy_Boss : Enemy
 {
+    public BossWeaponType bossWeaponType;
     [Header("Boss destails")]
     public float actionCooldown = 10;
     public float attackRange;
     [Header("Ability")]
-    public ParticleSystem flamethrower;
+    public float minAbilityDistance;
     public float abilityCooldown;
     private float lastTimeUseAbility;
+    
+    [Header("Flamethrower")]
+    public ParticleSystem flamethrower;
     public float flamethrowDuration;
     public bool flamethrowActive {get; private set;}
+    [Header("Hummer")]
+    public GameObject activationPrefab;
+
+
     [Header("Jump attack")]
+
     public float jumpAttackCooldown = 10; 
     private float lastTimeJumped;
     public float travelTimeToTarget = 1;
@@ -25,6 +30,7 @@ public class Enemy_Boss : Enemy
     [Space]
     public float impactRadius = 2.5f;
     public float impactPower =5;
+    public Transform impactPoint;
     [SerializeField] private float upforceMultipler =10;
     [Space]
     [SerializeField] private LayerMask whatToIngore;
@@ -99,8 +105,16 @@ public class Enemy_Boss : Enemy
         flamethrower.Clear();
         flamethrower.Play();
     }
+    public void ActivateHummer()
+    {
+        GameObject newActivation = ObjectPool.Instance.GetObject(activationPrefab, impactPoint);
+        ObjectPool.Instance.ReturnObject(newActivation,1);
+    }
     public bool CanDoAbility()
     {
+        bool playerWithinDistance = Vector3.Distance(transform.position,player.position) < minAbilityDistance;
+        if(playerWithinDistance == false)
+            return false;
         if(Time.time > lastTimeUseAbility + abilityCooldown + flamethrowDuration)
         {
             return true;
@@ -109,7 +123,10 @@ public class Enemy_Boss : Enemy
     }
     public void JumpImpact()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
+        Transform impactPoint = this.impactPoint;
+        if(impactPoint == null)
+            impactPoint = transform;
+        Collider[] colliders = Physics.OverlapSphere(impactPoint.position, impactRadius);
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
@@ -174,6 +191,9 @@ public class Enemy_Boss : Enemy
         Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,impactRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position,minAbilityDistance);
+        
 
     }
 }
