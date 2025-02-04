@@ -45,24 +45,31 @@ public class Bullet : MonoBehaviour
         CreateImpactFx();
         ReturnBulletToPool();
 
-        Enemy enemy= other.gameObject.GetComponentInParent<Enemy>();
+        IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+        damagable?.TakeDamage();
+
         EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
-        if(shield != null)
+        if (shield != null)
         {
             shield.ReduceDurability();
             return;
         }
-        if(enemy != null)
+
+        ApplyBulletImpactToEnemy(other);
+
+    }
+
+    private void ApplyBulletImpactToEnemy(Collision other)
+    {
+        Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
+        if (enemy != null)
         {
-            Vector3 force = rb.velocity.normalized * impactForce;            
+            Vector3 force = rb.velocity.normalized * impactForce;
             Rigidbody hitrb = other.collider.attachedRigidbody;
 
-            enemy.GetHit();
-            enemy.DeadImpact(force, other.contacts[0].point, hitrb);
+            enemy.BulletImpact(force, other.contacts[0].point, hitrb);
 
         }
-
-
     }
 
     protected void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);

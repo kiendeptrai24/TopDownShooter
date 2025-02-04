@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] protected int healthPoint = 25;
+    public int healthPoint = 25;
     [Header("Idle data")]
     public float idleTimer =3;
     public float aggressionRange;
@@ -32,13 +32,14 @@ public abstract class Enemy : MonoBehaviour
 
     public Enemy_Ragdoll ragdoll { get; private set; }
 
-
+    public Enemy_Health health {get; private set;}
     protected virtual void Awake() 
     {
 
         player = GameObject.Find("Player").GetComponent<Transform>();
         stateMachine = new EnemyStateMachine();
 
+        health = GetComponent<Enemy_Health>();
         ragdoll = GetComponent<Enemy_Ragdoll>();
         visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
@@ -75,11 +76,18 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void GetHit()
     {
-        healthPoint--;
+        health.ReduceHealth();
+        if(health.ShouldIde())
+            Die();
     }
-    public virtual void DeadImpact(Vector3 force, Vector3 hitPoint,Rigidbody rb)
+    public virtual void Die()
     {
-        StartCoroutine(DeadImpactCoroutine(force, hitPoint, rb));
+
+    }
+    public virtual void BulletImpact(Vector3 force, Vector3 hitPoint,Rigidbody rb)
+    {
+        if(health.ShouldIde())
+            StartCoroutine(DeadImpactCoroutine(force, hitPoint, rb));
     }
     private IEnumerator DeadImpactCoroutine(Vector3 force, Vector3 hitPoint,Rigidbody rb)
     {
