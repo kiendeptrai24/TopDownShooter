@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
     private Vector3 startPosition;
     private float flyDistance;
     private bool bulletDisabled;
+    private LayerMask allyLayerMask;
 
     protected virtual void Awake() {
         cd = GetComponent<BoxCollider>();
@@ -25,9 +26,10 @@ public class Bullet : MonoBehaviour
 
     }
  
-    public void BulletSetup(float _flyDistance = 100, float impactForce = 100)
+    public void BulletSetup(LayerMask _allyLayerMask, float _flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = _flyDistance;
+        this.allyLayerMask = _allyLayerMask;
         trailRenderer.Clear();
         startPosition = transform.position;
         this.flyDistance = _flyDistance +.5f;
@@ -42,11 +44,18 @@ public class Bullet : MonoBehaviour
     }
     protected virtual void OnCollisionEnter(Collision other)
     {
+        if(FriendlyFireEnable() == false)
+        {
+            if((allyLayerMask.value & (1 << other.gameObject.layer)) > 0)
+            {
+                ReturnBulletToPool(10);
+                return;
+            }
+        }
         CreateImpactFx();
         ReturnBulletToPool();
-
-        IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
-        damagable?.TakeDamage();
+        //take damgage
+        StrategyDamage.InvokeDamage(other.gameObject);
 
         EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
         if (shield != null)
@@ -72,7 +81,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    protected void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
+    protected void ReturnBulletToPool(float delay = 0) => ObjectPool.Instance.ReturnObject(gameObject, delay);
     
 
     private void Rebase()
@@ -111,4 +120,5 @@ public class Bullet : MonoBehaviour
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5)
             trailRenderer.time -= 5 * Time.deltaTime;
     }
+    public bool FriendlyFireEnable() => GameManager.Instance.friendlyFire;
 }

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : MonoBehaviour
 {
+    public LayerMask whatIsAlly;
+    public LayerMask WhatIsPlayer;
     public int healthPoint = 25;
     [Header("Idle data")]
     public float idleTimer =3;
@@ -30,9 +32,9 @@ public abstract class Enemy : MonoBehaviour
     public EnemyStateMachine stateMachine { get; private set; }
     public Enemy_Visuals visuals { get; private set; }
 
-    public Enemy_Ragdoll ragdoll { get; private set; }
+    public Ragdoll ragdoll { get; private set; }
 
-    public Enemy_Health health {get; private set;}
+    public HealthController health {get; private set;}
     protected virtual void Awake() 
     {
 
@@ -40,7 +42,7 @@ public abstract class Enemy : MonoBehaviour
         stateMachine = new EnemyStateMachine();
 
         health = GetComponent<Enemy_Health>();
-        ragdoll = GetComponent<Enemy_Ragdoll>();
+        ragdoll = GetComponent<Ragdoll>();
         visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();

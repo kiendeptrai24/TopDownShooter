@@ -8,6 +8,7 @@ public class HealthController : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
+    
 
 
     protected virtual void Awake()

@@ -45,6 +45,10 @@ public class Enemy_Melee : Enemy
     [Header("Attack data")]
     public AttackData_EnemyMelee attackData;
     public List<AttackData_EnemyMelee> attackList;
+    public Enemy_WeaponModel currentWeapon;
+    private bool isAttackReady;
+    [Space]
+    [SerializeField] private GameObject meleeAttackFX;
 
     protected override void Awake()
     {
@@ -73,8 +77,37 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.Update();
-        
+        AttackCheck();
     }
+
+    //Checking if the weapon attacks the player
+    public void AttackCheck()
+    {
+        if(isAttackReady == false)
+            return;
+
+        foreach (Transform attackPoint in currentWeapon.damagePoints)
+        {
+            Collider[] detectedHits = 
+                Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, WhatIsPlayer);
+
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                // Takedamge
+                IDamagable damagable = detectedHits[i].GetComponent<IDamagable>();
+
+                if(damagable != null)
+                {
+                    StrategyDamage.InvokeDamage(detectedHits[i].gameObject);
+                    isAttackReady = false;
+                    GameObject newAttackFx = ObjectPool.Instance.GetObject(meleeAttackFX,attackPoint);
+                    ObjectPool.Instance.ReturnObject(newAttackFx,1);
+                    return;
+                }
+            }
+        }
+    }
+    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
     public override void EnterBattleMode()
     {
         if(inBattleMode)
@@ -85,10 +118,14 @@ public class Enemy_Melee : Enemy
     public override void GetHit()
     {
         base.GetHit();
-        if(healthPoint <= 0)
+    }
+    public override void Die()
+    {
+        base.Die();
+        if(stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
-   
+
     protected override void InitializePerk()
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)
@@ -129,6 +166,10 @@ public class Enemy_Melee : Enemy
         visuals.currentWeaponModel.gameObject.SetActive(false);
 
     }
+    
+
+    
+    
     public void ThrowAxe()
     {
         GameObject newAxe = ObjectPool.Instance.GetObject(axePrefab,axeStartPoint);
@@ -154,7 +195,7 @@ public class Enemy_Melee : Enemy
     }
     public void UpdateAttackData()
     {
-        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
 
         if(currentWeapon.weaponData != null)
         {

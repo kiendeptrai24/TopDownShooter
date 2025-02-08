@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 
 public class PlayerWeaponController : MonoBehaviour
 {
+    [SerializeField] private LayerMask whatIsAlly;
     private const float REFERENCE_BULLET_SPEED = 20;
 
     private Player player;
@@ -173,7 +174,7 @@ public class PlayerWeaponController : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gundistance,bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.gundistance,bulletImpactForce);
 
 
         //bullet spread

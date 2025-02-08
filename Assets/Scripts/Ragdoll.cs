@@ -1,14 +1,14 @@
 
 using UnityEngine;
 
-public class Enemy_Ragdoll : MonoBehaviour
+public class Ragdoll : MonoBehaviour
 {
     [SerializeField] private Transform ragdollParent;
     [SerializeField] private Collider[] ragdollColliders;
     [SerializeField] private Rigidbody[] ragdollRigidBodies;
     private void Awake() {
-        ragdollColliders = GetComponentsInChildren<Collider>();
-        ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
+        ragdollColliders = gameObject.GetComponentsInChildren<Collider>();
+        ragdollRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
 
         RagdollActive(false);
     }

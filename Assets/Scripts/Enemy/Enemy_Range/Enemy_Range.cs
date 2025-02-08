@@ -115,10 +115,10 @@ public class Enemy_Range : Enemy
         Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
         if(stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer,impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer,impactPower);
             return;
         }
-        newGrenadeScript.SetupGrenade(player.position, timeToTarget, explosionTimer,impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly, player.position, timeToTarget, explosionTimer,impactPower);
     }
     protected override void InitializePerk()
     {
@@ -213,7 +213,7 @@ public class Enemy_Range : Enemy
         newBullet.transform.position = gunPoint.position;
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
-        newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
+        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly);
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         

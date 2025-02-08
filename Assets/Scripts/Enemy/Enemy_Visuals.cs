@@ -30,13 +30,19 @@ public class Enemy_Visuals : MonoBehaviour
     private float weaponAimTargetWeight;
     private float rigChangeRate = 0.1f;
     private void Awake() {
-        GetComponentInChildren<Rig>().weight = 1;
+        
+        Rig rig = GetComponentInChildren<Rig>();
+        if(rig != null)
+            rig.weight = 1;
     }
 
     private void Update()
     {
-        leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
-        weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+        if(leftHandIKConstraint != null)
+            leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        if(weaponAimConstraint != null)
+            weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+
     }
     public void SetupLook()
     {
