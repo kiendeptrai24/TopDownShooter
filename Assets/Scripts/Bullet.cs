@@ -56,14 +56,7 @@ public class Bullet : MonoBehaviour
         ReturnBulletToPool();
         //take damgage
         StrategyDamage.InvokeDamage(other.gameObject);
-
-        EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
-        if (shield != null)
-        {
-            shield.ReduceDurability();
-            return;
-        }
-
+        
         ApplyBulletImpactToEnemy(other);
 
     }

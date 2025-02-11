@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     private Vector3[] patrolPointsPosition;
     private int currentPatrolIndex = 0;
     public bool inBattleMode { get; private set; }
+    protected bool isMeleeAttackReady;
 
     public Transform player { get; private set; }
     public Animator anim { get; private set; }
@@ -86,6 +87,34 @@ public abstract class Enemy : MonoBehaviour
     {
 
     }
+    public virtual void MeleeAttackCheck(Transform[] damagePoints, float attackCheckRadius,GameObject PrefabFX)
+    {
+        if(isMeleeAttackReady == false)
+            return;
+
+        foreach (Transform attackPoint in damagePoints)
+        {
+            Collider[] detectedHits = 
+                Physics.OverlapSphere(attackPoint.position, attackCheckRadius, WhatIsPlayer);
+
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                // Takedamge
+                IDamagable damagable = detectedHits[i].GetComponent<IDamagable>();
+
+                if(damagable != null)
+                {
+                    StrategyDamage.InvokeDamage(detectedHits[i].gameObject);
+                    isMeleeAttackReady = false;
+                    GameObject newAttackFx = ObjectPool.Instance.GetObject(PrefabFX,attackPoint);
+                    ObjectPool.Instance.ReturnObject(newAttackFx,1);
+                    return;
+                }
+            }
+        }
+    }
+    public void EnableAttackCheck(bool enable) => isMeleeAttackReady = enable;
+
     public virtual void BulletImpact(Vector3 force, Vector3 hitPoint,Rigidbody rb)
     {
         if(health.ShouldIde())

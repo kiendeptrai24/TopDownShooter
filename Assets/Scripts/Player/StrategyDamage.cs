@@ -6,9 +6,10 @@ using UnityEngine;
 public class StrategyDamage
 {
     private static IDamagable damagable;
-    public static void InvokeDamage(GameObject collider)
+    public static bool InvokeDamage(GameObject collider)
     {
         damagable = collider.GetComponent<IDamagable>();
         damagable?.TakeDamage();
+        return damagable == null ? false : true;
     }
 }

@@ -30,7 +30,10 @@ public class Enemy_Melee : Enemy
     [Header("Enemy Setting")]
     public EnemyMelee_Type meleeType;
     public Enemy_MeleeWeaponType weaponType;
+    [Header("Shield")]
+    public int shieldDurability;
     public Transform shieldTranform;
+    [Header("Dodge")]
     public float dodgeCooldown;
     private float lastTimeDodge;
 
@@ -46,7 +49,6 @@ public class Enemy_Melee : Enemy
     public AttackData_EnemyMelee attackData;
     public List<AttackData_EnemyMelee> attackList;
     public Enemy_WeaponModel currentWeapon;
-    private bool isAttackReady;
     [Space]
     [SerializeField] private GameObject meleeAttackFX;
 
@@ -77,37 +79,11 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.Update();
-        AttackCheck();
+        MeleeAttackCheck(currentWeapon.damagePoints,currentWeapon.attackRadius,meleeAttackFX);
     }
 
     //Checking if the weapon attacks the player
-    public void AttackCheck()
-    {
-        if(isAttackReady == false)
-            return;
-
-        foreach (Transform attackPoint in currentWeapon.damagePoints)
-        {
-            Collider[] detectedHits = 
-                Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, WhatIsPlayer);
-
-            for (int i = 0; i < detectedHits.Length; i++)
-            {
-                // Takedamge
-                IDamagable damagable = detectedHits[i].GetComponent<IDamagable>();
-
-                if(damagable != null)
-                {
-                    StrategyDamage.InvokeDamage(detectedHits[i].gameObject);
-                    isAttackReady = false;
-                    GameObject newAttackFx = ObjectPool.Instance.GetObject(meleeAttackFX,attackPoint);
-                    ObjectPool.Instance.ReturnObject(newAttackFx,1);
-                    return;
-                }
-            }
-        }
-    }
-    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
+   
     public override void EnterBattleMode()
     {
         if(inBattleMode)

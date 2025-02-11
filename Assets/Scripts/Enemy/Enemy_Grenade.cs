@@ -35,22 +35,19 @@ public class Enemy_Grenade : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
         foreach (Collider hit in colliders)
         {
-
-            if (IsTargetValid(hit) == false)
-                continue;
-            // the root which return the last parent 
-            GameObject rootEntity = hit.transform.root.gameObject;
-            // if rootEntity exists it will return false
-            if(rootEntity.name == "Plan")
+            IDamagable damagable = hit.GetComponent<IDamagable>();
+            if(damagable != null)
             {
-                Debug.Log("isGround");
-                continue;
+                if (IsTargetValid(hit) == false)
+                    continue;
+
+                // the root which return the last parent 
+                GameObject rootEntity = hit.transform.root.gameObject;
+                if (uniqueEntities.Add(rootEntity) == false)
+                    continue;
+                    
+                StrategyDamage.InvokeDamage(hit.gameObject);
             }
-            if (uniqueEntities.Add(rootEntity) == false)
-                continue;
-            if(hit.GetComponent<Collider>())
-                Debug.Log(hit.gameObject.name);
-            StrategyDamage.InvokeDamage(hit.gameObject);
 
             ApplyPhysicalForceTo(hit);
         }

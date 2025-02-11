@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,6 +15,7 @@ public class Enemy_Boss : Enemy
     private float lastTimeUseAbility;
     
     [Header("Flamethrower")]
+    public float flameDamageCooldown;
     public ParticleSystem flamethrower;
     public float flamethrowDuration;
     public bool flamethrowActive {get; private set;}
@@ -34,6 +36,12 @@ public class Enemy_Boss : Enemy
     [SerializeField] private float upforceMultipler =10;
     [Space]
     [SerializeField] private LayerMask whatToIngore;
+
+    [Header("Attack")]
+    [SerializeField] private Transform[] damagePoints;
+    [SerializeField] private float attackCheckRadius;
+    [SerializeField] private GameObject melleeAttackFx;
+
     public IdleState_Boss idleState {get; private set;}
     public MoveState_Boss moveState  {get; private set;}  
     public AttackState_Boss attackState {get; private set;}
@@ -74,6 +82,8 @@ public class Enemy_Boss : Enemy
             ChangeToDancerState(3);
         if(ShouldEnterBattleMode())
             EnterBattleMode();
+        
+        MeleeAttackCheck(damagePoints,attackCheckRadius,melleeAttackFx);
     }
     private void ChangeToDancerState(int index)
     {
@@ -126,16 +136,38 @@ public class Enemy_Boss : Enemy
         Transform impactPoint = this.impactPoint;
         if(impactPoint == null)
             impactPoint = transform;
-        Collider[] colliders = Physics.OverlapSphere(impactPoint.position, impactRadius);
+        MassDamage(impactPoint.position,impactRadius);
+    }
+    public void MassDamage(Vector3 impactPoint, float impactRadius)
+    {
+        HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
+        Collider[] colliders = Physics.OverlapSphere(impactPoint, impactRadius, ~whatIsAlly);
         foreach (Collider hit in colliders)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if(rb != null)
+            IDamagable damagable = hit.GetComponent<IDamagable>();
+            if (damagable != null)
             {
-                rb.AddExplosionForce(impactPower, transform.position, impactRadius, upforceMultipler, ForceMode.Impulse);
+                GameObject rootEntity = hit.transform.root.gameObject;
+                if (uniqueEntities.Add(rootEntity) == false)
+                    continue;
+
+                StrategyDamage.InvokeDamage(hit.gameObject);
+
             }
+            ApplyPhycicalForceTo(impactPoint, impactRadius, hit);
+        }
+
+    }
+
+    private void ApplyPhycicalForceTo(Vector3 impactPoint, float impactRadius, Collider hit)
+    {
+        Rigidbody rb = hit.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddExplosionForce(impactPower, impactPoint, impactRadius, upforceMultipler, ForceMode.Impulse);
         }
     }
+
     public void SetAbilityOnCooldown() => lastTimeUseAbility  = Time.time;
     public void SetJumpAttackOnCooldown() => lastTimeJumped = Time.time;
     public override void EnterBattleMode()
@@ -168,10 +200,10 @@ public class Enemy_Boss : Enemy
         }
         return false;
     }
-    public override void GetHit()
+    public override void Die()
     {
-        base.GetHit();
-        if(healthPoint <= 0 && stateMachine.currentState != deadState)
+        base.Die();
+        if(stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackRange;
@@ -187,13 +219,21 @@ public class Enemy_Boss : Enemy
             Gizmos.color = Color.red;
             Gizmos.DrawLine(myPos,playerPos);
         }
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,impactRadius);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position,minAbilityDistance);
         
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+        
+        if(damagePoints.Length > 0)
+        {
+            foreach (var damagePoint in damagePoints)
+            {
+                Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
+            }
+        }
     }
 }

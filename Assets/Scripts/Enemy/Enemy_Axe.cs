@@ -27,22 +27,20 @@ public class EnemyAxe : MonoBehaviour
         axeVisual.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
         if(timer > 0)
             direction = player.position + Vector3.up - axeVisual.position;
-
-        rb.velocity = direction.normalized * flySpeed;
-
         transform.forward = rb.velocity;
     }
-    private void OnTriggerEnter(Collider other) {
-        Bullet bullet= other.GetComponent<Bullet>();
-        Player player= other.GetComponent<Player>();
-        if(bullet != null || player != null)
-        {
-            GameObject newFx = ObjectPool.Instance.GetObject(impactFx,transform);
-            
-
-            ObjectPool.Instance.ReturnObject(gameObject);
-            ObjectPool.Instance.ReturnObject(newFx,1f);
-
-        }
+    private void FixedUpdate() {
+        // it will be smoother
+        rb.velocity = direction.normalized * flySpeed;
+        
     }
+    private void OnCollisionEnter(Collision other) {
+        StrategyDamage.InvokeDamage(other.gameObject);
+
+        GameObject newFx = ObjectPool.Instance.GetObject(impactFx,transform);
+        ObjectPool.Instance.ReturnObject(gameObject);
+        ObjectPool.Instance.ReturnObject(newFx,1f);
+
+    }
+
 }
