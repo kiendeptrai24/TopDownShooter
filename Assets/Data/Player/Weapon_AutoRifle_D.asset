@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_AutoRifle_D
   m_EditorClassIdentifier: 
   weaponName: Biaster K-567
+  bulletDamage: 30
   bullletInMagazine: 40
   magazineCapacity: 40
   totalReserveAmmo: 999999

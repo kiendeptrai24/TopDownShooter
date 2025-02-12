@@ -1611,7 +1611,8 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 8278726091937359314}
-  damagePoints: []
+  damagePoints:
+  - {fileID: 6570585270608596795}
   attackRadius: 0.25
 --- !u!1 &2452993129379590328
 GameObject:
@@ -3708,11 +3709,12 @@ MonoBehaviour:
   - {fileID: 7232201945889311512}
   - {fileID: 5139240122674658192}
   - {fileID: 1615190458589077452}
-  meleeType: 1
+  meleeType: 0
   weaponType: 0
   shieldDurability: 20
   shieldTranform: {fileID: 9040192536604308300}
   dodgeCooldown: 3
+  axeDamage: 0
   axePrefab: {fileID: 1751764100383087206, guid: 85683b6c0cd66b94f9e4663a3f233425, type: 3}
   axeFlySpeed: 5
   aimTimer: 1
@@ -3720,6 +3722,7 @@ MonoBehaviour:
   lastTimeAxeThrown: 0
   axeStartPoint: {fileID: 1491741294218557129}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0.5
@@ -3727,19 +3730,22 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 1
   attackList:
-  - attackName: 
+  - attackDamage: 25
+    attackName: 
     attackRange: 2
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 1
     attackType: 1
-  - attackName: 
+  - attackDamage: 21
+    attackName: 
     attackRange: 1.1
     moveSpeed: 0.1
     attackIndex: 1
     animationSpeed: 2
     attackType: 0
-  - attackName: 
+  - attackDamage: 21
+    attackName: 
     attackRange: 1.1
     moveSpeed: 0.2
     attackIndex: 1

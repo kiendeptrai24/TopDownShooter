@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    private int bulletDamage;
     float impactForce;
 
     private BoxCollider cd;
@@ -26,8 +27,9 @@ public class Bullet : MonoBehaviour
 
     }
  
-    public void BulletSetup(LayerMask _allyLayerMask, float _flyDistance = 100, float impactForce = 100)
+    public void BulletSetup(LayerMask _allyLayerMask,int bulletDamage, float _flyDistance = 100, float impactForce = 100)
     {
+        this.bulletDamage = bulletDamage;
         this.impactForce = _flyDistance;
         this.allyLayerMask = _allyLayerMask;
         trailRenderer.Clear();
@@ -55,7 +57,9 @@ public class Bullet : MonoBehaviour
         CreateImpactFx();
         ReturnBulletToPool();
         //take damgage
-        StrategyDamage.InvokeDamage(other.gameObject);
+        
+        IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+        damagable?.TakeDamage(bulletDamage);
         
         ApplyBulletImpactToEnemy(other);
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Revolver_D
   m_EditorClassIdentifier: 
   weaponName: Bolt R-7
+  bulletDamage: 15
   bullletInMagazine: 6
   magazineCapacity: 6
   totalReserveAmmo: 999999

@@ -23,6 +23,7 @@ public enum ShootType
 public class Weapon
 {
     public WeaponType weaponType;
+    public int bulletDamage;
 
     #region Regular mode vaiable
         
@@ -73,6 +74,7 @@ public class Weapon
     public Weapon_Data weaponData{ get; private set; }
     public Weapon(Weapon_Data weaponData)
     {
+        bulletDamage = weaponData.bulletDamage;
         bullletInMagazine = weaponData.bullletInMagazine;
         magazineCapacity = weaponData.magazineCapacity;
         totalReserveAmmo = weaponData.totalReserveAmmo;

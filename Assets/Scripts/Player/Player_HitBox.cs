@@ -11,10 +11,9 @@ public class Player_HitBox : HitBox
         base.Awake();
         player = GetComponentInParent<Player>();
     }
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage();
-        player.health.ReduceHealth();
+        player.health.ReduceHealth(damage);
         Debug.Log("Player get damage");
     }
 }

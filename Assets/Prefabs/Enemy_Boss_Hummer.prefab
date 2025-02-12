@@ -78,7 +78,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5118880658694889622}
   - component: {fileID: 4797567878936003659}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_MeleeWeaponTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7706,7 +7706,6 @@ Transform:
   - {fileID: 5407327451223381485}
   - {fileID: 7241995613281549666}
   - {fileID: 9218457248554586191}
-  - {fileID: 4582465873301991100}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &5783089436254942470
@@ -7761,14 +7760,16 @@ MonoBehaviour:
   - {fileID: 1313279918651639138}
   - {fileID: 5929152957979607949}
   bossWeaponType: 1
-  actionCooldown: 5
+  actionCooldown: 3
   attackRange: 0.9
   minAbilityDistance: 1.8
   abilityCooldown: 4
+  flameDamageCooldown: 0.2
   flamethrower: {fileID: 1513980568026055621}
   flamethrowDuration: 3
   activationPrefab: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
-  jumpAttackCooldown: 7
+  hummerRadius: 1.25
+  jumpAttackCooldown: 5
   travelTimeToTarget: 1
   minJumpDistanceRequired: 4
   impactRadius: 2.19
@@ -12826,7 +12827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368720739941263833}
   - component: {fileID: 8966811437810226083}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_MeleeWeaponTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19735,7 +19736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4115302755557967664}
   - component: {fileID: 8180633771593226225}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_MeleeWeaponTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20027,65 +20028,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1314490849927532585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5426837770267815975
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4484984276012873967}
-    m_Modifications:
-    - target: {fileID: 4432392523234654932, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Boss_Hummer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.8105242
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.44617495
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.9628077
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
---- !u!4 &4582465873301991100 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8415029083020172955, guid: 331ca337b3b39aa4e97d96ae844a487d, type: 3}
-  m_PrefabInstance: {fileID: 5426837770267815975}
-  m_PrefabAsset: {fileID: 0}

@@ -14,6 +14,7 @@ public class Enemy_Grenade : MonoBehaviour
     private float timer;
     private LayerMask allyLayerMask;
     private bool canExplore = true;
+    private int damage;
     private void Awake() => rb = GetComponent<Rigidbody>();
 
     public void Update()
@@ -46,7 +47,7 @@ public class Enemy_Grenade : MonoBehaviour
                 if (uniqueEntities.Add(rootEntity) == false)
                     continue;
                     
-                StrategyDamage.InvokeDamage(hit.gameObject);
+                damagable.TakeDamage(damage);
             }
 
             ApplyPhysicalForceTo(hit);
@@ -70,10 +71,10 @@ public class Enemy_Grenade : MonoBehaviour
         ObjectPool.Instance.ReturnObject(gameObject);
     }
 
-    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeTarget,float countdown,float impactPower)
+    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeTarget,float countdown,float impactPower,int damage)
     {
         canExplore = true;
-        
+        this.damage = damage;
         this.allyLayerMask = allyLayerMask;
         rb.velocity = CalculateLaunchVelocity(target, timeTarget);
         timer = countdown + timeTarget;

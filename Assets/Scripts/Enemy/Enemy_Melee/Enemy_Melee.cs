@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public struct AttackData_EnemyMelee
 {
+    public int attackDamage;
     public string attackName;
     public float attackRange;
     public float moveSpeed;
@@ -38,6 +39,7 @@ public class Enemy_Melee : Enemy
     private float lastTimeDodge;
 
     [Header("Axe throw ability")]
+    public int axeDamage;
     public GameObject axePrefab;
     public float axeFlySpeed;
     public float aimTimer;
@@ -45,7 +47,7 @@ public class Enemy_Melee : Enemy
     public float lastTimeAxeThrown;
     public Transform axeStartPoint;
 
-    [Header("Attack data")]
+    [Header("Attack data")] 
     public AttackData_EnemyMelee attackData;
     public List<AttackData_EnemyMelee> attackList;
     public Enemy_WeaponModel currentWeapon;
@@ -79,7 +81,7 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.Update();
-        MeleeAttackCheck(currentWeapon.damagePoints,currentWeapon.attackRadius,meleeAttackFX);
+        MeleeAttackCheck(currentWeapon.damagePoints,currentWeapon.attackRadius,meleeAttackFX,attackData.attackDamage);
     }
 
     //Checking if the weapon attacks the player
@@ -91,9 +93,9 @@ public class Enemy_Melee : Enemy
         base.EnterBattleMode();
         stateMachine.ChangeState(recoveryState);
     }
-    public override void GetHit()
+    public override void GetHit(int damage)
     {
-        base.GetHit();
+        base.GetHit(damage);
     }
     public override void Die()
     {
@@ -149,7 +151,7 @@ public class Enemy_Melee : Enemy
     public void ThrowAxe()
     {
         GameObject newAxe = ObjectPool.Instance.GetObject(axePrefab,axeStartPoint);
-        newAxe.GetComponent<EnemyAxe>().SetupAxe(axeFlySpeed,player,aimTimer);
+        newAxe.GetComponent<EnemyAxe>().SetupAxe(axeFlySpeed,player,aimTimer,axeDamage);
     }
     public bool CanThrowAxe()
     {

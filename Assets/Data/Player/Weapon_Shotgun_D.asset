@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Shotgun_D
   m_EditorClassIdentifier: 
   weaponName: Shotgun G-7
+  bulletDamage: 7
   bullletInMagazine: 30
   magazineCapacity: 30
   totalReserveAmmo: 999999

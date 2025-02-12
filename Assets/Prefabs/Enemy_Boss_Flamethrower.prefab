@@ -19334,12 +19334,12 @@ MonoBehaviour:
   actionCooldown: 0
   attackRange: 0.9
   minAbilityDistance: 7
-  abilityCooldown: 5
-  flameDamageCooldown: 0.5
+  abilityCooldown: 2
+  flameDamageCooldown: 0.2
   flamethrower: {fileID: 1506265920023279035}
   flamethrowDuration: 3
   activationPrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
-  jumpAttackCooldown: 28.43
+  jumpAttackCooldown: 7
   travelTimeToTarget: 1
   minJumpDistanceRequired: 4
   impactRadius: 1.55

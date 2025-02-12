@@ -52829,7 +52829,7 @@ AnimationClip:
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
     m_StopTime: 3.1666667
-    m_OrientationOffsetY: -60
+    m_OrientationOffsetY: -50
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
@@ -104475,6 +104475,20 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.73333335
+    functionName: BeginMeleeAttackCheck
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.4
+    functionName: FinishMeleeAttackCheck
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 3.1666667
     functionName: AnimationTrigger
     data: 

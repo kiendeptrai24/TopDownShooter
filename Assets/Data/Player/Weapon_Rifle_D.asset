@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Rifle_D
   m_EditorClassIdentifier: 
   weaponName: Stinger 97
+  bulletDamage: 13
   bullletInMagazine: 15
   magazineCapacity: 15
   totalReserveAmmo: 999999

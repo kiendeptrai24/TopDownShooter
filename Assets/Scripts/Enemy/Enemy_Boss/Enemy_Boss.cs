@@ -15,16 +15,19 @@ public class Enemy_Boss : Enemy
     private float lastTimeUseAbility;
     
     [Header("Flamethrower")]
+    public int flameDamage;
     public float flameDamageCooldown;
     public ParticleSystem flamethrower;
     public float flamethrowDuration;
     public bool flamethrowActive {get; private set;}
     [Header("Hummer")]
+    public int hummerAttiveDamage;
     public GameObject activationPrefab;
+    [SerializeField] private float hummerRadius;
 
 
     [Header("Jump attack")]
-
+    public int jumpAttackDamage;
     public float jumpAttackCooldown = 10; 
     private float lastTimeJumped;
     public float travelTimeToTarget = 1;
@@ -38,6 +41,7 @@ public class Enemy_Boss : Enemy
     [SerializeField] private LayerMask whatToIngore;
 
     [Header("Attack")]
+    [SerializeField] private int meleeAttackDamage;
     [SerializeField] private Transform[] damagePoints;
     [SerializeField] private float attackCheckRadius;
     [SerializeField] private GameObject melleeAttackFx;
@@ -83,7 +87,7 @@ public class Enemy_Boss : Enemy
         if(ShouldEnterBattleMode())
             EnterBattleMode();
         
-        MeleeAttackCheck(damagePoints,attackCheckRadius,melleeAttackFx);
+        MeleeAttackCheck(damagePoints,attackCheckRadius,melleeAttackFx,meleeAttackDamage);
     }
     private void ChangeToDancerState(int index)
     {
@@ -119,6 +123,8 @@ public class Enemy_Boss : Enemy
     {
         GameObject newActivation = ObjectPool.Instance.GetObject(activationPrefab, impactPoint);
         ObjectPool.Instance.ReturnObject(newActivation,1);
+
+        MassDamage(damagePoints[0].position, hummerRadius,hummerAttiveDamage);
     }
     public bool CanDoAbility()
     {
@@ -136,9 +142,9 @@ public class Enemy_Boss : Enemy
         Transform impactPoint = this.impactPoint;
         if(impactPoint == null)
             impactPoint = transform;
-        MassDamage(impactPoint.position,impactRadius);
+        MassDamage(impactPoint.position,impactRadius,jumpAttackDamage);
     }
-    public void MassDamage(Vector3 impactPoint, float impactRadius)
+    public void MassDamage(Vector3 impactPoint, float impactRadius,int damage)
     {
         HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
         Collider[] colliders = Physics.OverlapSphere(impactPoint, impactRadius, ~whatIsAlly);
@@ -151,7 +157,7 @@ public class Enemy_Boss : Enemy
                 if (uniqueEntities.Add(rootEntity) == false)
                     continue;
 
-                StrategyDamage.InvokeDamage(hit.gameObject);
+                damagable.TakeDamage(damage);
 
             }
             ApplyPhycicalForceTo(impactPoint, impactRadius, hit);
@@ -234,6 +240,8 @@ public class Enemy_Boss : Enemy
             {
                 Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
             }
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(damagePoints[0].position, hummerRadius);
         }
     }
 }
