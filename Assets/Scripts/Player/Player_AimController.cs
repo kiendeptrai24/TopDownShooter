@@ -5,7 +5,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAim : MonoBehaviour
+public class Player_Aim : MonoBehaviour
 {
     private Player player;
     private PlayerControls controls;

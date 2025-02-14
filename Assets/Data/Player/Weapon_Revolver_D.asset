@@ -30,6 +30,6 @@ MonoBehaviour:
   spreadIncreaseRate: 0.3
   weaponType: 1
   reloadSpeed: 1
-  equipmentSpeed: 1
+  equipmentSpeed: 1.5
   gundistance: 6
   camreaDistance: 6

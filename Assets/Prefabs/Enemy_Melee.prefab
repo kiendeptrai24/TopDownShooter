@@ -191,6 +191,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdbcad6606674754dbdf31111b380de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &397936106242970149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8509771033508032830}
+  m_Layer: 11
+  m_Name: Enemy_unarmedTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8509771033508032830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397936106242970149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1203, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3420475630503319337}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439306602357064939
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1640571187311671709
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8990436395619775784
 Transform:
   m_ObjectHideFlags: 0
@@ -868,13 +900,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743905536866575228}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4350139, y: 0.5647841, z: 0.4279222, w: 0.5555757}
-  m_LocalPosition: {x: -0.439, y: 0.207, z: 0.023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6957549448231243058}
   m_Father: {fileID: 8458569341039448132}
-  m_LocalEulerAnglesHint: {x: -75.18, y: 93.684, z: -3.562}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4384623387633226841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,8 +928,10 @@ MonoBehaviour:
   - {fileID: 5687960254688741513}
   - {fileID: 2166932552491413646}
   - {fileID: 6235486353184080069}
-  damagePoints: []
-  attackRadius: 0
+  damagePoints:
+  - {fileID: 8509771033508032830}
+  - {fileID: 6957549448231243058}
+  attackRadius: 0.1
 --- !u!1 &1763007406388320844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1986553872085674025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &2147153404847371421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,7 +1564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7225223150869045371
 Transform:
   m_ObjectHideFlags: 0
@@ -2243,6 +2280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &4158354504589275819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,6 +2479,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5333132540453055421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4580099823106756203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6957549448231243058}
+  m_Layer: 11
+  m_Name: Enemy_unarmedTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6957549448231243058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580099823106756203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.053, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8990436395619775784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4605023393558804664
 GameObject:
@@ -2764,6 +2833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &4903961143989437123
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,6 +3362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &5551293301077373297
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,6 +3561,7 @@ Transform:
   - {fileID: 6133277515405996688}
   - {fileID: 4025906174143371879}
   - {fileID: 9040192536604308300}
+  - {fileID: 8509771033508032830}
   m_Father: {fileID: 7690392246946966663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6011521333733846040
@@ -3700,24 +3772,24 @@ MonoBehaviour:
     m_Bits: 256
   healthPoint: 25
   idleTimer: 2
-  aggressionRange: 4
+  aggressionRange: 1
   walkSpeed: 1.5
-  runSpeed: 3
+  runSpeed: 4
   turnSpeed: 3
   patrolPoints:
   - {fileID: 291266946731229313}
   - {fileID: 7232201945889311512}
   - {fileID: 5139240122674658192}
   - {fileID: 1615190458589077452}
-  meleeType: 0
-  weaponType: 0
-  shieldDurability: 20
+  meleeType: 2
+  weaponType: 2
+  shieldDurability: 400
   shieldTranform: {fileID: 9040192536604308300}
   dodgeCooldown: 3
-  axeDamage: 0
+  axeDamage: 70
   axePrefab: {fileID: 1751764100383087206, guid: 85683b6c0cd66b94f9e4663a3f233425, type: 3}
   axeFlySpeed: 5
-  aimTimer: 1
+  aimTimer: 1.25
   axeThrowCooldown: 4
   lastTimeAxeThrown: 0
   axeStartPoint: {fileID: 1491741294218557129}
@@ -3731,23 +3803,16 @@ MonoBehaviour:
     attackType: 1
   attackList:
   - attackDamage: 25
-    attackName: 
+    attackName: Flying kick
     attackRange: 2
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 1
     attackType: 1
   - attackDamage: 21
-    attackName: 
+    attackName: Sword spin attack
     attackRange: 1.1
     moveSpeed: 0.1
-    attackIndex: 1
-    animationSpeed: 2
-    attackType: 0
-  - attackDamage: 21
-    attackName: 
-    attackRange: 1.1
-    moveSpeed: 0.2
     attackIndex: 1
     animationSpeed: 2
     attackType: 0
@@ -3805,7 +3870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae254ee8dbfda7249afdb8b5100b1322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
 --- !u!1 &6389126007357057061
 GameObject:
@@ -3982,6 +4047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6467679849608386059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4424,6 +4490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6676585169968891496
 GameObject:
   m_ObjectHideFlags: 0
@@ -4980,6 +5047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &7355202787641179886
 GameObject:
   m_ObjectHideFlags: 0
@@ -5643,6 +5711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &8046344298360895939
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,6 +5950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1.5
 --- !u!1 &8451069730178219481
 GameObject:
   m_ObjectHideFlags: 0

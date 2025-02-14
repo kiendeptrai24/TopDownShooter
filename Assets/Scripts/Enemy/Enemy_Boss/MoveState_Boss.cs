@@ -60,6 +60,7 @@ public class MoveState_Boss : EnemyState
     {
         enemy.agent.speed = enemy.runSpeed;
         enemy.anim.SetFloat("MoveAnimIndex", 1);
+        enemy.anim.SetFloat("MoveAnimSppedMutiplier",1.5f);
         isSpeedUpActivated = true;
     }
 
@@ -71,6 +72,7 @@ public class MoveState_Boss : EnemyState
     {
         isSpeedUpActivated = false;
         enemy.anim.SetFloat("MoveAnimIndex", 0);
+        enemy.anim.SetFloat("MoveAnimSppedMutiplier",1);
         enemy.agent.speed = enemy.walkSpeed;
     }
     private bool ShouldSpeedUp()

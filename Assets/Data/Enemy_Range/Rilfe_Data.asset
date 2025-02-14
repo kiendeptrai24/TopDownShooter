@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Rilfe_Data
   m_EditorClassIdentifier: 
   weaponType: 4
-  fireRate: 10
+  fireRate: 1
   minBulletsPerAttack: 1
   maxBulletsPerAttack: 1
   minWeaponCooldown: 2
   maxWeaponCooldown: 3
+  bulletDamage: 100
   bulletSpeed: 35
   weaponSpread: 0

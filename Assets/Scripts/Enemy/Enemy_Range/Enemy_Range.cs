@@ -260,7 +260,7 @@ public class Enemy_Range : Enemy
         
         if(Physics.Raycast(enemyPosition, direction, out RaycastHit hit, distance, ~whatToIgnore))
         {
-            if(hit.collider.GetComponentInParent<Player>())
+            if(hit.transform.root == player.root)
             {
                 UpdateAimPosition();
                 return true;

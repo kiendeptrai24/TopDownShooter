@@ -3870,67 +3870,6 @@ Transform:
   - {fileID: 1819209939}
   m_Father: {fileID: 819610776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &641461957
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6259634783869049186, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Melee
-      objectReference: {fileID: 0}
-    - target: {fileID: 6259634783869049186, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573891864767306051, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 330bbeceae1003f49b78b3769cd2e5b8, type: 3}
 --- !u!1 &644352359
 GameObject:
   m_ObjectHideFlags: 0
@@ -17654,6 +17593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &597950218263679896
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -20223,6 +20163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &3123546258485803421
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -20848,6 +20789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!65 &3524677659217219830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21959,6 +21901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &4495790983210801403
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -23490,6 +23433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &5752868402349169678
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -29512,6 +29456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &6638190875769725807
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -30150,6 +30095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &7120495559680184380
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -31353,6 +31299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &8052949413009226346
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -36572,6 +36519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &8459681113561596366
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -36825,6 +36773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &8627608809488570440
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -37124,6 +37073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fed4f3cd7f6d543bbc1a90baf0eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!144 &8734588853762869211
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -37697,5 +37647,4 @@ SceneRoots:
   - {fileID: 1807518851}
   - {fileID: 2047645507}
   - {fileID: 2221036711237880918}
-  - {fileID: 641461957}
   - {fileID: 339281036}

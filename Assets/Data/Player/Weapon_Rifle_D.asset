@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Weapon_Rifle_D
   m_EditorClassIdentifier: 
   weaponName: Stinger 97
-  bulletDamage: 13
-  bullletInMagazine: 15
-  magazineCapacity: 15
+  bulletDamage: 80
+  bullletInMagazine: 12
+  magazineCapacity: 12
   totalReserveAmmo: 999999
   shootType: 0
   bulletsPerShot: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   maximumSpread: 0
   spreadIncreaseRate: 0.3
   weaponType: 4
-  reloadSpeed: 1
-  equipmentSpeed: 1
-  gundistance: 8
+  reloadSpeed: 3
+  equipmentSpeed: 3
+  gundistance: 25
   camreaDistance: 6

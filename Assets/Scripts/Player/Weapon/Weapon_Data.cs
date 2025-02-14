@@ -41,7 +41,7 @@ public class Weapon_Data : ScriptableObject
     public float reloadSpeed = 1;
     [Range(1,3)]
     public float equipmentSpeed = 1;
-    [Range(2,12)]
+    [Range(2,25)]
     public float gundistance = 4;
     [Range(3,8)]
     public float camreaDistance = 6;

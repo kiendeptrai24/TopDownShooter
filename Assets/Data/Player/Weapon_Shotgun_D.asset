@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Weapon_Shotgun_D
   m_EditorClassIdentifier: 
   weaponName: Shotgun G-7
-  bulletDamage: 7
-  bullletInMagazine: 30
-  magazineCapacity: 30
+  bulletDamage: 21
+  bullletInMagazine: 20
+  magazineCapacity: 20
   totalReserveAmmo: 999999
   shootType: 0
   bulletsPerShot: 5
@@ -25,11 +25,11 @@ MonoBehaviour:
   burstBulletPerShot: 0
   burstFireRate: 0
   burstFireDelay: 0.1
-  baseSpread: 15
-  maximumSpread: 15
+  baseSpread: 13
+  maximumSpread: 13
   spreadIncreaseRate: 0.3
   weaponType: 3
-  reloadSpeed: 1
+  reloadSpeed: 2
   equipmentSpeed: 1
-  gundistance: 4.5
+  gundistance: 25
   camreaDistance: 6

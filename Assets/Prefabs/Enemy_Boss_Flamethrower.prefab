@@ -9951,6 +9951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &690789072626721174
 GameObject:
   m_ObjectHideFlags: 0
@@ -10095,6 +10096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &746137353836303191
 GameObject:
   m_ObjectHideFlags: 0
@@ -10508,6 +10510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1.5
 --- !u!1 &1250380290973209736
 GameObject:
   m_ObjectHideFlags: 0
@@ -10767,6 +10770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1534957453389687568
 GameObject:
   m_ObjectHideFlags: 0
@@ -11745,7 +11749,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.77, y: 0.77, z: 0.77}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4933077781626982481}
@@ -16779,6 +16783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &3263377265123863985
 GameObject:
   m_ObjectHideFlags: 0
@@ -17102,6 +17107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &3846014258794819500
 GameObject:
   m_ObjectHideFlags: 0
@@ -17522,6 +17528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &4889531081473808202
 GameObject:
   m_ObjectHideFlags: 0
@@ -17878,6 +17885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &5481182113652449207
 GameObject:
   m_ObjectHideFlags: 0
@@ -18118,6 +18126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &5727443743771326466
 GameObject:
   m_ObjectHideFlags: 0
@@ -18507,6 +18516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6109306727065871112
 GameObject:
   m_ObjectHideFlags: 0
@@ -18715,6 +18725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6153540106661074740
 GameObject:
   m_ObjectHideFlags: 0
@@ -19335,20 +19346,25 @@ MonoBehaviour:
   attackRange: 0.9
   minAbilityDistance: 7
   abilityCooldown: 2
+  flameDamage: 30
   flameDamageCooldown: 0.2
   flamethrower: {fileID: 1506265920023279035}
   flamethrowDuration: 3
+  hummerAttiveDamage: 0
   activationPrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+  hummerRadius: 0
+  jumpAttackDamage: 50
   jumpAttackCooldown: 7
   travelTimeToTarget: 1
   minJumpDistanceRequired: 4
-  impactRadius: 1.55
+  impactRadius: 3.5
   impactPower: 20
   impactPoint: {fileID: 0}
   upforceMultipler: 20
   whatToIngore:
     serializedVersion: 2
     m_Bits: 2048
+  meleeAttackDamage: 25
   damagePoints:
   - {fileID: 154605929498949789}
   - {fileID: 2174806846482886610}
@@ -19402,7 +19418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae254ee8dbfda7249afdb8b5100b1322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 2000
   currentHealth: 0
 --- !u!1 &7303708304028869120
 GameObject:

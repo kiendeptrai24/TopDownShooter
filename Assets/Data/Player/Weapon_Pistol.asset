@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4019a18f55bf0de499bf08d485d51b69, type: 3}
-  m_Name: Weapon_Pistal
+  m_Name: Weapon_Pistol
   m_EditorClassIdentifier: 
   weaponName: Heaven 567
-  bulletDamage: 5
-  bullletInMagazine: 20
-  magazineCapacity: 20
+  bulletDamage: 25
+  bullletInMagazine: 15
+  magazineCapacity: 15
   totalReserveAmmo: 999999
   shootType: 1
   bulletsPerShot: 1
-  fireRate: 4
+  fireRate: 5
   burstAvalible: 0
   burstActive: 0
   burstBulletPerShot: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   maximumSpread: 2
   spreadIncreaseRate: 0.15
   weaponType: 0
-  reloadSpeed: 1
-  equipmentSpeed: 1
+  reloadSpeed: 1.5
+  equipmentSpeed: 1.2
   gundistance: 6
   camreaDistance: 6

@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &147190858189408708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1486370205949954471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1554727004072271304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,6 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1.5
 --- !u!1 &1994468964042215870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,6 +2780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &2493700243678442503
 GameObject:
   m_ObjectHideFlags: 0
@@ -3497,6 +3502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &3253644342641416035
 GameObject:
   m_ObjectHideFlags: 0
@@ -4394,6 +4400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &4289969434470475782
 GameObject:
   m_ObjectHideFlags: 0
@@ -4517,9 +4524,12 @@ MonoBehaviour:
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
+  WhatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
   healthPoint: 5
   idleTimer: 3
-  aggressionRange: 28.82
+  aggressionRange: 10
   walkSpeed: 1.5
   runSpeed: 4
   turnSpeed: 5.56
@@ -4530,12 +4540,13 @@ MonoBehaviour:
   - {fileID: 624437446618838098}
   coverPerk: 0
   unstoppablePerk: 0
-  grenadePerk: 1
+  grenadePerk: 0
+  grenadeDamage: 30
   grenadePrefab: {fileID: 3101301886937204304, guid: e8ac14126e7f92f4bb7f1b8d5256d70c, type: 3}
   impactPower: 5
   explosionTimer: 0.75
   timeToTarget: 1.2
-  grenadeCooldown: 1
+  grenadeCooldown: 10
   LastTimeGrenadeThrown: 0
   grenadeStartPoint: {fileID: 1303927983960646488}
   advanceSpeed: 3
@@ -4544,7 +4555,7 @@ MonoBehaviour:
   minCoverTime: 4
   safeDistance: 2
   attackDelay: 1
-  weaponType: 0
+  weaponType: 2
   weaponData: {fileID: 0}
   gunPoint: {fileID: 0}
   WeaponHolder: {fileID: 5958913134439558422}
@@ -4599,7 +4610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae254ee8dbfda7249afdb8b5100b1322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 200
   currentHealth: 0
 --- !u!1 &4515454933638464751
 GameObject:
@@ -5544,6 +5555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &5062554509552519827
 GameObject:
   m_ObjectHideFlags: 0
@@ -6857,6 +6869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6604656800274167623
 GameObject:
   m_ObjectHideFlags: 0
@@ -7444,6 +7457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &7268130782077530653
 GameObject:
   m_ObjectHideFlags: 0
@@ -8616,6 +8630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ce18f2069b2e498a60f32b3156dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &8237792161333273343
 GameObject:
   m_ObjectHideFlags: 0

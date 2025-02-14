@@ -177,7 +177,7 @@ public class Enemy_Melee : Enemy
 
         if(currentWeapon.weaponData != null)
         {
-            attackList =new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
+            attackList = new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
             turnSpeed = currentWeapon.weaponData.turnSpeed;
         }
 

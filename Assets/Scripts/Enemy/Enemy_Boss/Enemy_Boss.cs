@@ -201,7 +201,7 @@ public class Enemy_Boss : Enemy
         Vector3 directionToPlayer = (playerPos - myPos).normalized;
         if(Physics.Raycast(myPos, directionToPlayer, out RaycastHit hit, 100, ~whatToIngore))
         {
-            if(hit.transform == player || hit.transform.parent == player)
+            if(hit.transform.root == player.root)
                 return true;
         }
         return false;

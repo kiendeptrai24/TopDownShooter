@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Weapon_AutoRifle_D
   m_EditorClassIdentifier: 
   weaponName: Biaster K-567
-  bulletDamage: 30
-  bullletInMagazine: 40
-  magazineCapacity: 40
+  bulletDamage: 12
+  bullletInMagazine: 32
+  magazineCapacity: 32
   totalReserveAmmo: 999999
   shootType: 1
   bulletsPerShot: 1
-  fireRate: 10
+  fireRate: 8
   burstAvalible: 1
   burstActive: 0
   burstBulletPerShot: 3
@@ -29,7 +29,7 @@ MonoBehaviour:
   maximumSpread: 3
   spreadIncreaseRate: 0.15
   weaponType: 2
-  reloadSpeed: 1
-  equipmentSpeed: 1
-  gundistance: 6
+  reloadSpeed: 2.3
+  equipmentSpeed: 1.5
+  gundistance: 25
   camreaDistance: 6
