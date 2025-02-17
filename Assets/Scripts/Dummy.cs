@@ -15,6 +15,19 @@ public class Dummy : MonoBehaviour, IDamagable
     [Space]
     public float refreshCooldown;
     private float lastTimeDamage;
+    private void Awake() {
+        transform.rotation = Quaternion.Euler(90, 0, 0);
+    }
+    [ContextMenu("rotation y 65")]
+    public void RorationY()
+    {
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles +  new Vector3(0, 90, 0));
+    }
+    [ContextMenu("rotation z 75")]
+    public void RorationZ()
+    {
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles +  new Vector3(0, 0, 90));
+    }
     private void Refresh()
     {
         currentHealth = maxHealth;
