@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 public enum Enemy_MeleeWeaponType{ OneHand, Throw, Unarmed}
-public enum Enemy_RangeWeaponType{ Pistol, Revolver,  AutoRifle, Shotgun,Rifle}
+public enum Enemy_RangeWeaponType{ Pistol, Revolver,  AutoRifle, Shotgun,Rifle , Random}
 
 public class Enemy_Visuals : MonoBehaviour
 {

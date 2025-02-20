@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,7 @@ public enum GrenadePerk{ Unavailable, CanThrowGrenade}
 public class Enemy_Range : Enemy
 {
     [Header("Enemy Perks")]
+    public Enemy_RangeWeaponType weaponType;
     public CoverPerk coverPerk;
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
@@ -36,7 +38,6 @@ public class Enemy_Range : Enemy
 
     [Header("Weapon details")]
     public float attackDelay;
-    public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponData weaponData;
     [Space]
     public Transform gunPoint;
@@ -123,12 +124,30 @@ public class Enemy_Range : Enemy
     }
     protected override void InitializePerk()
     {
-        if(IsUnstoppable())
+        if(weaponType == Enemy_RangeWeaponType.Random)
+        {
+            ChooseRandomWeaponType();
+        }
+        if (IsUnstoppable())
         {
             advanceSpeed = 1;
             anim.SetFloat("AdvanceAnimIndex",1); // walking slow
         }
     }
+
+    private void ChooseRandomWeaponType()
+    {
+        List<Enemy_RangeWeaponType> validTypes = new List<Enemy_RangeWeaponType>();
+
+        foreach (Enemy_RangeWeaponType value in Enum.GetValues(typeof(Enemy_RangeWeaponType)))
+        {
+            if (value != Enemy_RangeWeaponType.Random || value != Enemy_RangeWeaponType.Rifle)
+                validTypes.Add(value);
+        }
+        int randomIndex = UnityEngine.Random.Range(0, validTypes.Count);
+        weaponType = validTypes[randomIndex];
+    }
+
     public override void EnterBattleMode()
     {
         if(inBattleMode)
@@ -232,7 +251,7 @@ public class Enemy_Range : Enemy
         }
         if(filteredData.Count > 0)
         {
-            int random = Random.Range(0, filteredData.Count);
+            int random = UnityEngine.Random.Range(0, filteredData.Count);
             weaponData = filteredData[random];
         }
         else
@@ -272,6 +291,11 @@ public class Enemy_Range : Enemy
     #endregion
     
     public bool IsUnstoppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
-    
 
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, advanceStoppingDistance);
+    }
 }

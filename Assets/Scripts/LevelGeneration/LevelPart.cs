@@ -11,21 +11,21 @@ public class LevelPart : MonoBehaviour
 
     public bool IntersectionDetected()
     {
-        Physics.SyncTransforms();
-        foreach (var collider in intersectionCheckColliders)
-        {
-            Collider[] hitColliders = 
-                Physics.OverlapBox(collider.bounds.center,collider.bounds.extents,Quaternion.identity,intersectionPlayer);
-
-            foreach (var hit in hitColliders)
+            Physics.SyncTransforms();
+            foreach (var collider in intersectionCheckColliders)
             {
-                IntersectionCheck intersectionCheck = hit.GetComponentInParent<IntersectionCheck>();
+                Collider[] hitColliders = 
+                    Physics.OverlapBox(collider.bounds.center,collider.bounds.extents,Quaternion.identity,intersectionPlayer);
 
-                if(intersectionCheck != null && intersectionCheckParent != intersectionCheck.transform)
-                    return true;
+                foreach (var hit in hitColliders)
+                {
+                    IntersectionCheck intersectionCheck = hit.GetComponentInParent<IntersectionCheck>();
+
+                    if(intersectionCheck != null && intersectionCheckParent != intersectionCheck.transform)
+                        return true;
+                }
             }
-        }
-        return false;
+            return false;
     }
     public void SnapAndAlignPartTo(SnapPoint targetSnapPoint)
     {

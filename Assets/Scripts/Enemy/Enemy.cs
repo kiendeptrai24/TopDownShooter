@@ -7,7 +7,6 @@ public abstract class Enemy : MonoBehaviour
 {
     public LayerMask whatIsAlly;
     public LayerMask WhatIsPlayer;
-    public int healthPoint = 25;
     [Header("Idle data")]
     public float idleTimer =3;
     public float aggressionRange;

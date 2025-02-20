@@ -16,6 +16,8 @@ public class MoveState_Range : EnemyState
         enemy.agent.speed = enemy.walkSpeed;
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);
+        enemy.visuals.EnableIK(false, false);
+        
     }
     public override void Update()
     {
