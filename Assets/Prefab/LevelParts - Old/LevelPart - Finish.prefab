@@ -507,9 +507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0073279a835c3c24a9b85f06c58908ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionPlayer:
+  intersectionLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 0
   intersectionCheckColliders:
   - {fileID: 4445347976822209087}
   intersectionCheckParent: {fileID: 2584437720583383850}

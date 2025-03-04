@@ -2,9 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+public enum EnemyType
+{
+    Melee,
+    Ranged,
+    Boss,
+    Random
+}
+
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : MonoBehaviour
 {
+    public EnemyType enemyType;
     public LayerMask whatIsAlly;
     public LayerMask WhatIsPlayer;
     [Header("Idle data")]
@@ -35,6 +45,7 @@ public abstract class Enemy : MonoBehaviour
     public Ragdoll ragdoll { get; private set; }
 
     public HealthController health {get; private set;}
+    public Enemy_DropController dropController {get; private set;}  
     protected virtual void Awake() 
     {
 
@@ -46,6 +57,7 @@ public abstract class Enemy : MonoBehaviour
         visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+        dropController = GetComponent<Enemy_DropController>();
     }
     protected virtual void Start()
     {
@@ -57,6 +69,13 @@ public abstract class Enemy : MonoBehaviour
         stateMachine.currentState.Update();
         if(ShouldEnterBattleMode())
             EnterBattleMode();
+    }
+    public virtual void MakeEnemyVIP()
+    {
+        int additionalHealth = Mathf.RoundToInt(health.currentHealth * 1.5f);
+        health.currentHealth += additionalHealth;
+
+        transform.localScale = transform.localScale * 1.15f;
     }
     protected virtual void InitializePerk() 
     {
@@ -79,12 +98,15 @@ public abstract class Enemy : MonoBehaviour
     public virtual void GetHit(int damage)
     {
         health.ReduceHealth(damage);
-        if(health.ShouldIde())
+        if(health.ShouldDie())
             Die();
+
     }
     public virtual void Die()
     {
-
+        dropController.DropItem();
+        MissionObject_HuntTarget  huntTarget = GetComponent<MissionObject_HuntTarget>();
+        huntTarget?.InvokeOntargetKilled();
     }
     public virtual void MeleeAttackCheck(Transform[] damagePoints, float attackCheckRadius,GameObject PrefabFX,int damage)
     {
@@ -116,7 +138,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void BulletImpact(Vector3 force, Vector3 hitPoint,Rigidbody rb)
     {
-        if(health.ShouldIde())
+        if(health.ShouldDie())
             StartCoroutine(DeadImpactCoroutine(force, hitPoint, rb));
     }
     private IEnumerator DeadImpactCoroutine(Vector3 force, Vector3 hitPoint,Rigidbody rb)

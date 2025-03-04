@@ -5,17 +5,34 @@ using UnityEngine;
 public class LevelPart : MonoBehaviour
 {
     [Header("Intersection check")]
-    [SerializeField] private LayerMask intersectionPlayer;
+    [SerializeField] private LayerMask intersectionLayer;
     [SerializeField] private Collider[] intersectionCheckColliders;
     [SerializeField] private Transform intersectionCheckParent;
 
+    private void Start() {
+        if(intersectionCheckColliders.Length <= 0)
+        {
+            intersectionCheckColliders = intersectionCheckParent.GetComponentsInChildren<Collider>();
+        }
+    }
+    [ContextMenu("Set static to environment layer")]
+    private void AdjustLayerForStaticObject()
+    {
+        foreach (Transform childTransform in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if(childTransform.gameObject.isStatic)
+            {
+                childTransform.gameObject.layer = LayerMask.NameToLayer("Environment");
+            }
+        }
+    }
     public bool IntersectionDetected()
     {
             Physics.SyncTransforms();
             foreach (var collider in intersectionCheckColliders)
             {
                 Collider[] hitColliders = 
-                    Physics.OverlapBox(collider.bounds.center,collider.bounds.extents,Quaternion.identity,intersectionPlayer);
+                    Physics.OverlapBox(collider.bounds.center,collider.bounds.extents,Quaternion.identity,intersectionLayer);
 
                 foreach (var hit in hitColliders)
                 {
@@ -82,5 +99,6 @@ public class LevelPart : MonoBehaviour
         }
         return null;
     }
+    public Enemy[] MyEnemies() => GetComponentsInChildren<Enemy>(true);
 
 }

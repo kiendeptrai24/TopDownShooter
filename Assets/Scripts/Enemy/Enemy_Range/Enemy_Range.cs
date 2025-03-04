@@ -141,7 +141,7 @@ public class Enemy_Range : Enemy
 
         foreach (Enemy_RangeWeaponType value in Enum.GetValues(typeof(Enemy_RangeWeaponType)))
         {
-            if (value != Enemy_RangeWeaponType.Random || value != Enemy_RangeWeaponType.Rifle)
+            if (value != Enemy_RangeWeaponType.Random && value != Enemy_RangeWeaponType.Rifle)
                 validTypes.Add(value);
         }
         int randomIndex = UnityEngine.Random.Range(0, validTypes.Count);

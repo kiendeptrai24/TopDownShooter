@@ -14,7 +14,7 @@ public class Player_Health : HealthController
     public override void ReduceHealth(int damage)
     {
         base.ReduceHealth(damage);
-        if(ShouldIde())
+        if(ShouldDie())
             Die();
             
     }
