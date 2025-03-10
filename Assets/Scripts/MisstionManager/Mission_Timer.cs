@@ -14,12 +14,19 @@ public class Mission_Timer : Mission
     public override void UpdateMission()
     {
         currentTime -= Time.deltaTime;
-        if(currentTime < 0)
+        if (currentTime < 0)
             Debug.Log("gameOver");
-
-        string timeText = System.TimeSpan.FromSeconds(currentTime).ToString("mm':'ss");
-        Debug.Log(timeText);
+        UpdateMissionUI();
     }
+
+    private void UpdateMissionUI()
+    {
+        string timeText = System.TimeSpan.FromSeconds(currentTime).ToString("mm':'ss");
+        string misstionText = "Get to the evacuation point before time runs out";
+        string missionDetails = "Time left: " + timeText;
+        UI.Instance.inGameUI.UpdateMissionInfo(misstionText, missionDetails);
+    }
+
     public override bool MissionCompleted()
     {
         return currentTime > 0;

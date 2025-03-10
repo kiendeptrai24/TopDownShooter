@@ -23,7 +23,7 @@ MonoBehaviour:
   - attackDamage: 22
     attackName: Boxing attack
     attackRange: 1
-    moveSpeed: 0
+    moveSpeed: 5
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0

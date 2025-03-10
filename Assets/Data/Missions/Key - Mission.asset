@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Key - Mission
   m_EditorClassIdentifier: 
   misssionName: The Key to Flight
-  misstionDescription: You must locate and defeat the key-holder to retrieve the
-    key. Be cautious, as this enemy is might be heavily guarded.
+  missionDescription: You must locate and defeat the key-holder to retrieve the key.
+    Be cautious, as this enemy is might be heavily guarded.
   key: {fileID: 6022665159986667038, guid: 7106c9ae1eee6b840b9f6df3662c7d8b, type: 3}

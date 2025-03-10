@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hunt - Mission
   m_EditorClassIdentifier: 
   misssionName: Scavenger Hunt
-  misstionDescription: Hunt 12 enemies equipped with signal disruptors. There devices
+  missionDescription: Hunt 12 enemies equipped with signal disruptors. These devices
     are interfering with the plane's radar system, preventing a safe takeoff. Eliminate
     the threat and clear the path for your escape.
   amountToKill: 12

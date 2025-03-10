@@ -55,7 +55,7 @@ public class LevelPart : MonoBehaviour
     {
         var rotationOffset = 
             ownSnapPoint.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y;
-        transform.rotation = targetSnapPoint.transform.rotation;
+            transform.rotation = targetSnapPoint.transform.rotation;
         
         transform.Rotate(0,180,0);
         transform.Rotate(0,-rotationOffset,0);

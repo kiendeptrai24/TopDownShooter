@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 2761732783408733036}
   - component: {fileID: 1941498969982601571}
   - component: {fileID: 4919389230295050722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LevelPart - Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}

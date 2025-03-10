@@ -33,3 +33,4 @@ MonoBehaviour:
   equipmentSpeed: 1.5
   gundistance: 6
   camreaDistance: 6
+  weaponIcon: {fileID: 21300000, guid: bbb99038d2bbd6d4890035392d8a3990, type: 3}

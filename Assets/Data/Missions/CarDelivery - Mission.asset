@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c6bc5d36c625f438c6431ea5f9ebdf, type: 3}
   m_Name: CarDelivery - Mission
   m_EditorClassIdentifier: 
-  misssionName: 
-  misstionDescription: 
+  misssionName: A Mechanical Lifeline
+  missionDescription: You need to find a functioning vehicle and deliver it to evacuation
+    spot. The parts of the vehicle can be used to repair evacuation plane.

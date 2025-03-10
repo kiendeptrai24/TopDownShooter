@@ -143,6 +143,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UIMission ToolTip Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb67395d-db83-4363-9cc9-b98639b7cc1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -332,6 +341,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62820c67-f39e-4320-a2fb-bae1eb040c93"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UIMission ToolTip Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -353,6 +373,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_Reload = m_Character.FindAction("Reload", throwIfNotFound: true);
         m_Character_ToogleWeaponMode = m_Character.FindAction("Toogle Weapon Mode", throwIfNotFound: true);
         m_Character_Interaction = m_Character.FindAction("Interaction", throwIfNotFound: true);
+        m_Character_UIMissionToolTipSwitch = m_Character.FindAction("UIMission ToolTip Switch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -427,6 +448,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Reload;
     private readonly InputAction m_Character_ToogleWeaponMode;
     private readonly InputAction m_Character_Interaction;
+    private readonly InputAction m_Character_UIMissionToolTipSwitch;
     public struct CharacterActions
     {
         private @PlayerControls m_Wrapper;
@@ -444,6 +466,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Character_Reload;
         public InputAction @ToogleWeaponMode => m_Wrapper.m_Character_ToogleWeaponMode;
         public InputAction @Interaction => m_Wrapper.m_Character_Interaction;
+        public InputAction @UIMissionToolTipSwitch => m_Wrapper.m_Character_UIMissionToolTipSwitch;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -492,6 +515,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @UIMissionToolTipSwitch.started += instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.performed += instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.canceled += instance.OnUIMissionToolTipSwitch;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -535,6 +561,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @UIMissionToolTipSwitch.started -= instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.performed -= instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.canceled -= instance.OnUIMissionToolTipSwitch;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -567,5 +596,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnToogleWeaponMode(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnUIMissionToolTipSwitch(InputAction.CallbackContext context);
     }
 }

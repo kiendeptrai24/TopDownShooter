@@ -10,7 +10,7 @@ public abstract class Mission : ScriptableObject
 
     public string misssionName;
     [TextArea]
-    public string misstionDescription;
+    public string missionDescription;
     public abstract void StartMisstion();
     public abstract bool MissionCompleted(); 
     public virtual void UpdateMission()

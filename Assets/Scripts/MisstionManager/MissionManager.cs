@@ -9,11 +9,12 @@ public class MissionManager : MonoBehaviour
     private void Awake() {
         instance = this;
     }
-    private void Start() {
-        Invoke(nameof(StartMission), 1);
-    }
     private void Update() {
         currentMission?.UpdateMission();
+    }
+    public void SetCurrrentMission(Mission newMission) {
+        currentMission = newMission;
+        StartMission();
     }
     private void StartMission() => currentMission.StartMisstion();
     public bool MissionCompleted() => currentMission.MissionCompleted();

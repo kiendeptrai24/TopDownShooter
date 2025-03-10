@@ -16,7 +16,7 @@ public class Player_Health : HealthController
         base.ReduceHealth(damage);
         if(ShouldDie())
             Die();
-            
+        UI.Instance.inGameUI.UpdateHealthUI(currentHealth, maxHealth);
     }
     private void Die()
     {

@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UIMission ToolTip Switch",
+                    "type": "Button",
+                    "id": "bb67395d-db83-4363-9cc9-b98639b7cc1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -308,6 +317,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62820c67-f39e-4320-a2fb-bae1eb040c93",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIMission ToolTip Switch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

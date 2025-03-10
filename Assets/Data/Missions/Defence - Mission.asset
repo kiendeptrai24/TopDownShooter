@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac3c11aeceb161479963b3b11f6238d, type: 3}
   m_Name: Defence - Mission
   m_EditorClassIdentifier: 
-  misssionName: Final Defense
-  misstionDescription: "Get to the exit point and defend the airplane till it\u2019s
-    ready to take off."
+  misssionName: Scavenger hunt
+  missionDescription: Get to the exit point and defend the airplane till it is ready
+    to take off.
   defenceBegun: 0
   defenceDuration: 120
   waveColldown: 15
   amountOfRepawwnSpoints: 2
-  respawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  respawnPoints: []
   enemiesPerWave: 4
   possibleEnemies:
   - {fileID: 2782577236634771924, guid: 295bbdbf6d3c10a4494b51fcc233d583, type: 3}

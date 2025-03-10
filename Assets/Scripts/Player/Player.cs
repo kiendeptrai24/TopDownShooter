@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,7 +9,7 @@ public class Player : MonoBehaviour
     public PlayerControls controls{get; private set;}
     public Player_Aim aim{get; private set;}
     public PlayerMovement movement{get; private set;}
-    public PlayerWeaponController weapon {get; private set;}
+    public Player_WeaponController weapon {get; private set;}
     public PlayerWeaponVisuals weaponVisuals{get; private set;}
     public PlayerInteraction interaction{get; private set;}
     public Player_Health health {get; private set;}
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         controls = new PlayerControls();
         aim = GetComponent<Player_Aim>();
         movement = GetComponent<PlayerMovement>();
-        weapon = GetComponent<PlayerWeaponController>();
+        weapon = GetComponent<Player_WeaponController>();
         weaponVisuals = GetComponent<PlayerWeaponVisuals>();
         interaction = GetComponent<PlayerInteraction>();
         health = GetComponent<Player_Health>();
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     }
     private void OnEnable() {
         controls.Enable();
+        controls.Character.UIMissionToolTipSwitch.performed += ctx => UI.Instance.inGameUI.SwitchMissionTooltip();
     }
     private void OnDisable() {
         controls.Disable();

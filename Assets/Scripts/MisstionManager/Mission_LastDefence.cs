@@ -28,6 +28,8 @@ public class Mission_LastDefence : Mission
     {
         defencePoint = FindObjectOfType<MissionEnd_Trigger>().transform.position;
         respawnPoints = new List<Transform>(ClosestPoints(amountOfRepawwnSpoints));
+
+        UI.Instance.inGameUI.UpdateMissionInfo("Get to the evacuation point");
     }
     public override bool MissionCompleted()
     {
@@ -46,8 +48,11 @@ public class Mission_LastDefence : Mission
     }
     public override void UpdateMission()
     {
-        if(defenceBegun == false)
+        if (defenceBegun == false)
             return;
+        if (defenceTimer < 0)
+            return;
+            
         defenceTimer -= Time.deltaTime;
         waveTimer -= Time.deltaTime;
         if (waveTimer < 0)
@@ -55,9 +60,17 @@ public class Mission_LastDefence : Mission
             CreateNewEnemies(enemiesPerWave);
             waveTimer = waveColldown;
         }
-        defenceTimerText = System.TimeSpan.FromSeconds(defenceTimer).ToString("mm':'ss");
-        Debug.Log(defenceTimerText);
+        UpdateMissionUI();
     }
+
+    private void UpdateMissionUI()
+    {
+        defenceTimerText = System.TimeSpan.FromSeconds(defenceTimer).ToString("mm':'ss");
+        string misstionText = "Defend yourselt till plane is ready to take off.";
+        string misstionDetails = "Time left: " + defenceTimerText;
+        UI.Instance.inGameUI.UpdateMissionInfo(misstionText, misstionDetails);
+    }
+
     private void CreateNewEnemies(int amount)
     {
         for (int i = 0; i < amount; i++)

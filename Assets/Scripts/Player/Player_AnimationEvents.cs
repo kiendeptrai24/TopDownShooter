@@ -7,16 +7,17 @@ using UnityEngine.VFX;
 public class PlayerAnimationEvents : MonoBehaviour
 {
     private PlayerWeaponVisuals visualController;
-    private PlayerWeaponController weaponController; 
+    private Player_WeaponController weaponController; 
     private void Start() {
         visualController = GetComponentInParent<PlayerWeaponVisuals>();
-        weaponController = GetComponentInParent<PlayerWeaponController>();
+        weaponController = GetComponentInParent<Player_WeaponController>();
     }
     public void ReloadIsOver()
     {
         visualController.MaximizeRigWeigth();
         weaponController.CurrentWeapon().RefillBullets();
         weaponController.SetWeaponReady(true);
+        weaponController.UpdateWeaponUI();
     }
     public void ReturnRig()
     {

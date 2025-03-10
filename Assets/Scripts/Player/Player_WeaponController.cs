@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
 
-public class PlayerWeaponController : MonoBehaviour
+public class Player_WeaponController : MonoBehaviour
 {
     [SerializeField] private LayerMask whatIsAlly;
     private const float REFERENCE_BULLET_SPEED = 20;
@@ -42,6 +42,11 @@ public class PlayerWeaponController : MonoBehaviour
             Shoot();
 
     }
+    public void UpdateWeaponUI()
+    {
+        UI.Instance.inGameUI.UpdateWeaponUI(weaponSlots,currentWeapon);
+
+    }
 
     #region Slot Mangement Pickup\Equip\Drop\Ready Weapon
     public void PickupWeapon(Weapon newWeapon)
@@ -74,6 +79,7 @@ public class PlayerWeaponController : MonoBehaviour
         // EquipWeapon(newEeaponIndex);
         ///
         player.weaponVisuals.SwitchOnBackupWeaponModels();
+        UpdateWeaponUI();
     }
     public void WeaponStartingWeapon()
     {
@@ -86,13 +92,14 @@ public class PlayerWeaponController : MonoBehaviour
     
     private void EquipWeapon(int index)
     {
+        
         if(index >= weaponSlots.Count)
             return;
         SetWeaponReady(false);
         
         currentWeapon = weaponSlots[index];
         player.weaponVisuals.PlayWeaponEquipAnimation();
-
+        UpdateWeaponUI();
         // CameraManager.Instance.ChangeCameraDistance(currentWeapon.camreaDistance);        
     }
     private void DropWeapon()
@@ -166,6 +173,7 @@ public class PlayerWeaponController : MonoBehaviour
     }
     private void FireSingleBullet()
     {
+        UpdateWeaponUI();
         currentWeapon.bullletInMagazine--;
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab,GunPoint());
         
