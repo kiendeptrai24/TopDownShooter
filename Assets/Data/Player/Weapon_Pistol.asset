@@ -33,4 +33,7 @@ MonoBehaviour:
   equipmentSpeed: 1.2
   gundistance: 6
   camreaDistance: 6
-  weaponIcon: {fileID: 21300000, guid: bbb99038d2bbd6d4890035392d8a3990, type: 3}
+  weaponIcon: {fileID: 21300000, guid: f608f69e0fea00b499fd3ff96634b71f, type: 3}
+  weaponIconSmall: {fileID: 21300000, guid: 06ae20df45d8cc54d862abba84a236dc, type: 3}
+  weaponInfo: 'Pistol: A compact, lightweight handgun, semi-automatic, suitable for
+    close combat and personal defense.'

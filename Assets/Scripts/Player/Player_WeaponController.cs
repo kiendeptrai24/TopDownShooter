@@ -10,7 +10,7 @@ public class Player_WeaponController : MonoBehaviour
     private const float REFERENCE_BULLET_SPEED = 20;
 
     private Player player;
-    [SerializeField] private Weapon_Data defaultWeaponData;
+    [SerializeField] private List<Weapon_Data> defaultWeaponData;
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -35,7 +35,6 @@ public class Player_WeaponController : MonoBehaviour
         player = GetComponent<Player>();
         AssignInputEvents();
         currentWeapon.bullletInMagazine = currentWeapon.totalReserveAmmo;
-        Invoke(nameof(WeaponStartingWeapon),.3f);
     }
     private void Update() {
         if(isShooting)
@@ -81,13 +80,17 @@ public class Player_WeaponController : MonoBehaviour
         player.weaponVisuals.SwitchOnBackupWeaponModels();
         UpdateWeaponUI();
     }
-    public void WeaponStartingWeapon()
+    public void SetDefaultWeapon(List<Weapon_Data> defaultWeapons)
     {
-        weaponSlots[0] = new Weapon(defaultWeaponData);
+        defaultWeaponData.AddRange(defaultWeapons);
+        weaponSlots.Clear();
+        foreach (Weapon_Data weaponData in defaultWeaponData)
+        {
+            PickupWeapon(new Weapon(weaponData));
+        }
 
         EquipWeapon(0);
-
-    } 
+    }
 
     
     private void EquipWeapon(int index)

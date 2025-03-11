@@ -34,3 +34,6 @@ MonoBehaviour:
   gundistance: 25
   camreaDistance: 6
   weaponIcon: {fileID: 21300000, guid: c5620b2fb30fdbb4587c4b8b5ba123ea, type: 3}
+  weaponIconSmall: {fileID: 21300000, guid: c1791452d1aff9442955f33b947668f4, type: 3}
+  weaponInfo: 'Rifle: A long-range firearm with high accuracy, often used by snipers
+    for precision shooting.'
