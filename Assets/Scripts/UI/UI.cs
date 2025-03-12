@@ -35,6 +35,7 @@ public class UI : MonoBehaviour
         SwitchTo(inGameUI.gameObject);
         GameManager.Instance.GameStart();
         ControlsManager.Instance.SwitchToCharactorControls();
+
     }
     public void StartTheGame() => SwitchToInGameUI();
     public void QuitTheGame() => Application.Quit();
@@ -48,13 +49,13 @@ public class UI : MonoBehaviour
             SwitchTo(inGameUI.gameObject);
 
             ControlsManager.Instance.SwitchToCharactorControls();
-            Time.timeScale = 1;
+            TimeManager.Instance.ResumeTime();
         }
         else
         {
             SwitchTo(pauseUI);
             ControlsManager.Instance.SwitchToUIControls();
-            Time.timeScale = 0;
+            TimeManager.Instance.PauseTime();
         }
     }
     private void AssignInputUI()

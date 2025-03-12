@@ -15,7 +15,7 @@ public class ControlsManager : MonoBehaviour
         controls = GameManager.Instance.player.controls;
         player = GameManager.Instance.player;
         
-        SwitchToCharactorControls();
+        SwitchToUIControls();
     }
     public void SwitchToCharactorControls()
     {
