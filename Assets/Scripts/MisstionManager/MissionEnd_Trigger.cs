@@ -13,10 +13,10 @@ public class MissionEnd_Trigger : MonoBehaviour
     {
         if(other.gameObject != player)
             return;
-        if(MissionManager.instance.MissionCompleted())
+        if(MissionManager.Instance.MissionCompleted())
         {
             Debug.Log("Level comleted!");
-            MissionManager.instance.currentMission = null;
+            MissionManager.Instance.currentMission = null;
         }
     }
 }

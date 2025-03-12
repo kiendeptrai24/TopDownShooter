@@ -61,7 +61,8 @@ public class Player_Aim : MonoBehaviour
 
         if(aimLaser.enabled == false)
             return;
-
+        if(player.controlsEnable == false)
+            return;
 
         WeaponModel weaponModel= player.weaponVisuals.CurrentWeaponModel();
 

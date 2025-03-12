@@ -24,6 +24,7 @@ public class UI_WeaponSelectionButton : UI_Button
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
+        weaponSelectionUI.SetWeaponWindowBackground();
         emptySlot = weaponSelectionUI.GetEmptySlot();
         emptySlot?.UpdateSlotInfo(weaponData);
             
@@ -31,6 +32,7 @@ public class UI_WeaponSelectionButton : UI_Button
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
+        weaponSelectionUI.SetWeaponWindowBackground();
         
         if(weaponSelectionUI.WeaponWindowIsHas())
         {
@@ -50,15 +52,27 @@ public class UI_WeaponSelectionButton : UI_Button
         if(SlotBusyThisWeapon != null)
         {
             SlotBusyThisWeapon.SetWeaponSlot(null);
+            weaponSelectionUI.SetWeaponWindowBackground();
+
         }
         else
         {
             emptySlot = weaponSelectionUI.GetEmptySlot();
             emptySlot?.SetWeaponSlot(weaponData);
-            weaponSelectionUI.SetCheckWeaponWindow(false);
+            weaponSelectionUI.SetWeaponWindowBackground();
+
+            FindWindow();
+
         }
+
         emptySlot = null;
 
     }
 
+    private void FindWindow()
+    {
+        weaponSelectionUI.SetCheckWeaponWindow(false);
+        if (weaponSelectionUI.GetEmptySlot() == null)
+            emptySlot.ResetWindowIfNull();
+    }
 }

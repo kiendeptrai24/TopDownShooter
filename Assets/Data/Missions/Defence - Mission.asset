@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac3c11aeceb161479963b3b11f6238d, type: 3}
   m_Name: Defence - Mission
   m_EditorClassIdentifier: 
-  misssionName: Scavenger hunt
+  misssionName: Defense enemies
   missionDescription: Get to the exit point and defend the airplane till it is ready
     to take off.
   defenceBegun: 0

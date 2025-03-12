@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.Lumin;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public static LevelGenerator instance {get; private set;}
+    public static LevelGenerator Instance {get; private set;}
     private List<Enemy> enemyList;
     //navmesh
     [SerializeField] private NavMeshSurface navMeshSurface;
@@ -25,15 +26,15 @@ public class LevelGenerator : MonoBehaviour
     [Space]
     [SerializeField] private float generationCooldown;
     private float cooldownTimer;
-    private bool generationOver;
+    private bool generationOver = true;
     private void Awake() {
-        instance = this;
+        Instance = this;
     }
     void Start()
     {
         enemyList = new List<Enemy>();
         defaultSnapPoint = nextSnapPoint;
-        InitializeGeneration();
+        
     }
     private void Update() {
         if(generationOver)
@@ -53,7 +54,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
     [ContextMenu("Restart generation")]
-    private void InitializeGeneration()
+    public void InitializeGeneration()
     {
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
@@ -88,6 +89,8 @@ public class LevelGenerator : MonoBehaviour
             enemy.transform.parent = null;
             enemy.gameObject.SetActive(true);
         }
+        // Once the map is complete, start creating quests.
+        MissionManager.Instance.StartMission();
     }
 
     [ContextMenu("Create next level part")]
@@ -127,7 +130,7 @@ public class LevelGenerator : MonoBehaviour
     public Enemy GetRandomEnemy()
     {
         int randomIndex = Random.Range(0, enemyList.Count);
-        return enemyList[randomIndex];
+        return enemyList.Count <= 0 ? null : enemyList[randomIndex];
     }
     public List<Enemy> GetEnemyList() => enemyList == null ? new List<Enemy>() : enemyList;
 }

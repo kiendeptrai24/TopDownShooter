@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,10 +17,16 @@ public class GameManager : MonoBehaviour
         Instance = this;
         player = FindObjectOfType<Player>();
     }
-    public void SetDefaultWeapons()
+    public void GameStart()
+    {
+        SetDefaultWeaponsForPlayer();
+        LevelGenerator.Instance.InitializeGeneration();
+    }
+    private void SetDefaultWeaponsForPlayer()
     {
         List<Weapon_Data> defaultWeapons = UI.Instance.weaponSelectionUI.GetSelectedWeapons();
 
         player.weapon.SetDefaultWeapon(defaultWeapons);
     }
+    public void ReStartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }

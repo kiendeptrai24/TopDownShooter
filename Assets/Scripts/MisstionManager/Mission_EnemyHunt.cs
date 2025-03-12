@@ -20,10 +20,10 @@ public class Mission_EnemyHunt : Mission
         List<Enemy> validEnemies = new List<Enemy>();
         if(enemyType == EnemyType.Random)
         {
-            validEnemies = LevelGenerator.instance.GetEnemyList();
+            validEnemies = LevelGenerator.Instance.GetEnemyList();
         }
         else{
-            foreach (Enemy enemy in LevelGenerator.instance.GetEnemyList())
+            foreach (Enemy enemy in LevelGenerator.Instance.GetEnemyList())
             {
                 if (enemy.enemyType == enemyType)
                 {
