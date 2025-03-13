@@ -32,7 +32,7 @@ MonoBehaviour:
   reloadSpeed: 2.3
   equipmentSpeed: 1.5
   gundistance: 25
-  camreaDistance: 6
+  camreaDistance: 5
   weaponIcon: {fileID: 21300000, guid: bbb99038d2bbd6d4890035392d8a3990, type: 3}
   weaponIconSmall: {fileID: 21300000, guid: 75e2888baabb48446b64aadf5783409a, type: 3}
   weaponInfo: ' Auto Rifle: A fully automatic rifle with a high fire rate, commonly

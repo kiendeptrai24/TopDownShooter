@@ -39,6 +39,7 @@ public class TimeManager : MonoBehaviour
         timeAdjustRate = resumeRate;
         targetTimeScale = 1;
     }
+    
     public void SlowMotionFor(float seconds) => StartCoroutine(SlowTimeCo(seconds));
     
     private IEnumerator SlowTimeCo(float seconds)

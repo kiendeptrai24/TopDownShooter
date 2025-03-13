@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
         SetDefaultWeaponsForPlayer();
         LevelGenerator.Instance.InitializeGeneration();
     }
+    public void GameOver()
+    {
+        TimeManager.Instance.SlowMotionFor(1);
+        UI.Instance.SwitchToGameOverUI();
+        CameraManager.Instance.ChangeCameraDistance(6);
+        ControlsManager.Instance.SwitchToUIControls();
+    }
     private void SetDefaultWeaponsForPlayer()
     {
         List<Weapon_Data> defaultWeapons = UI.Instance.weaponSelectionUI.GetSelectedWeapons();

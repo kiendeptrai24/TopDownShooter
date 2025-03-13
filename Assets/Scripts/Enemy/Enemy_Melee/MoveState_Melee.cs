@@ -15,7 +15,6 @@ public class MoveState_Melee : EnemyState
     {
         base.Enter();
         destination = enemy.GetPatrolDestination();
-        Debug.Log("destination " + destination);
         enemy.agent.SetDestination(destination);
        
     }

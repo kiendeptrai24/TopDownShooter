@@ -15,7 +15,9 @@ public class Mission_Timer : Mission
     {
         currentTime -= Time.deltaTime;
         if (currentTime < 0)
-            Debug.Log("gameOver");
+        {
+            //GameManager.Instance.GameOver();
+        }
         UpdateMissionUI();
     }
 

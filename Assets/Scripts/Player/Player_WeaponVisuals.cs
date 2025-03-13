@@ -75,6 +75,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         anim.SetFloat("EquipType", (float)equipType);
         anim.SetFloat("EquipSpeed", equipmentSpeed);
         anim.SetTrigger("EquipWeapon");
+        CameraManager.Instance.ChangeCameraDistance(player.weapon.CurrentWeapon().gundistance);
     }
 
 

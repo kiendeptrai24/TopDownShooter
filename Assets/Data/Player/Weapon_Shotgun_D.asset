@@ -32,7 +32,7 @@ MonoBehaviour:
   reloadSpeed: 2
   equipmentSpeed: 1
   gundistance: 25
-  camreaDistance: 6
+  camreaDistance: 5
   weaponIcon: {fileID: 21300000, guid: 42682c302d94c104cb32c33ff8552e56, type: 3}
   weaponIconSmall: {fileID: 21300000, guid: fbf079f4c44b6fd40927f3bc9e3b7603, type: 3}
   weaponInfo: 'Shotgun: A firearm that fires spread pellets, dealing high damage

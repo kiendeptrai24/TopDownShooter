@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelPart : MonoBehaviour
@@ -8,7 +9,10 @@ public class LevelPart : MonoBehaviour
     [SerializeField] private LayerMask intersectionLayer;
     [SerializeField] private Collider[] intersectionCheckColliders;
     [SerializeField] private Transform intersectionCheckParent;
-
+    private Enemy[] enemyList;
+    private void Awake() {
+        enemyList = GetComponentsInChildren<Enemy>(true);
+    }
     private void Start() {
         if(intersectionCheckColliders.Length <= 0)
         {
@@ -99,6 +103,6 @@ public class LevelPart : MonoBehaviour
         }
         return null;
     }
-    public Enemy[] MyEnemies() => GetComponentsInChildren<Enemy>(true);
+    public Enemy[] MyEnemies() => enemyList;
 
 }

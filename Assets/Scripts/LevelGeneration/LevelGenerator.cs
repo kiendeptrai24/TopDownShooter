@@ -83,14 +83,18 @@ public class LevelGenerator : MonoBehaviour
         generationOver = true;
         GenerateNextLevelPart();
         navMeshSurface.BuildNavMesh();
+        BuildEnemies();
+        // Once the map is complete, start creating quests.
+        MissionManager.Instance.StartMission();
+    }
 
+    private void BuildEnemies()
+    {
         foreach (Enemy enemy in enemyList)
         {
             enemy.transform.parent = null;
             enemy.gameObject.SetActive(true);
         }
-        // Once the map is complete, start creating quests.
-        MissionManager.Instance.StartMission();
     }
 
     [ContextMenu("Create next level part")]

@@ -6,6 +6,7 @@ public class UI : MonoBehaviour
 {
     public static UI Instance { get; private set; }
     public UI_InGame inGameUI { get; private set; }
+    public UI_GameOver gameOverUI {get; private set;}
     public UI_WeaponSelection weaponSelectionUI { get; private set; }
     public GameObject pauseUI;
 
@@ -17,6 +18,7 @@ public class UI : MonoBehaviour
         Instance = this;
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         weaponSelectionUI = GetComponentInChildren<UI_WeaponSelection>(true);
+        gameOverUI = GetComponentInChildren<UI_GameOver>(true);
     }
     private void Start() {
         AssignInputUI();
@@ -35,7 +37,14 @@ public class UI : MonoBehaviour
         SwitchTo(inGameUI.gameObject);
         GameManager.Instance.GameStart();
         ControlsManager.Instance.SwitchToCharactorControls();
+        Time.timeScale = 1;
 
+    }
+    public void SwitchToGameOverUI(string message = "GAME OVER!!!")
+    {
+        SwitchTo(gameOverUI.gameObject);
+        gameOverUI.ShowGameOverMessage(message);
+        
     }
     public void StartTheGame() => SwitchToInGameUI();
     public void QuitTheGame() => Application.Quit();
