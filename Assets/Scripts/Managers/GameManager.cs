@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     public Player player;
 
     [Header("Settings")]
+
     public bool friendlyFire;
+    [Space]
+    public bool quickStart;
 
     private void Awake() {
         Instance = this;
@@ -20,7 +23,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         SetDefaultWeaponsForPlayer();
-        LevelGenerator.Instance.InitializeGeneration();
+        // LevelGenerator.Instance.InitializeGeneration();
     }
     public void GameOver()
     {
@@ -28,6 +31,12 @@ public class GameManager : MonoBehaviour
         UI.Instance.SwitchToGameOverUI();
         CameraManager.Instance.ChangeCameraDistance(6);
         ControlsManager.Instance.SwitchToUIControls();
+    }
+    public void GameCompleted()
+    {
+        UI.Instance.ShowVictoryScreenUI();
+        ControlsManager.Instance.controls.Character.Disable();
+        player.health.currentHealth += 99999;
     }
     private void SetDefaultWeaponsForPlayer()
     {

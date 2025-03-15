@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     public UI_InGame inGameUI { get; private set; }
     public UI_GameOver gameOverUI {get; private set;}
     public UI_WeaponSelection weaponSelectionUI { get; private set; }
+    public GameObject victoryScreenUI;
     public GameObject pauseUI;
 
 
@@ -23,8 +24,14 @@ public class UI : MonoBehaviour
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         weaponSelectionUI = GetComponentInChildren<UI_WeaponSelection>(true);
         gameOverUI = GetComponentInChildren<UI_GameOver>(true);
+        /// important remove this if before build, it's only easier testing
     }
     private void Start() {
+        if(GameManager.Instance.quickStart)
+        {
+            LevelGenerator.Instance.InitializeGeneration();
+            StartTheGame();
+        }
         AssignInputUI();
         StartCoroutine(ChangeImageAlpha(0,1.5f,null));
     }
@@ -63,19 +70,46 @@ public class UI : MonoBehaviour
 
     public void StartTheGame() => SwitchToInGameUI();
     public void QuitTheGame() => Application.Quit();
-    public void RestartTheGame() => StartCoroutine(ChangeImageAlpha(1,1f,GameManager.Instance.ReStartScene));
-    
+    public void RestartTheGame() => StartCoroutine(ReStartGameSequence());
+    private IEnumerator ReStartGameSequence()
+    {
+        TimeManager.Instance.ChangeTimer(1,1);
+        StartCoroutine(ChangeImageAlpha(1,1,null));
+        yield return new WaitForSeconds(1);
+        GameManager.Instance.ReStartScene();
+        ControlsManager.Instance.SwitchToCharactorControls();
+        StartCoroutine(ChangeImageAlpha(0,1,null));
 
+    }
+    public void StartLevelGeneration() => LevelGenerator.Instance.InitializeGeneration();
+    public void ShowVictoryScreenUI()
+    {
+        StartCoroutine(ChangeImageAlpha(1,1.5f,SwitchToVictoryScreenUI));
+    }
+    private void SwitchToVictoryScreenUI()
+    {
+        SwitchTo(victoryScreenUI);
+
+        Color color = fadeImage.color;
+        color.a = 0;
+
+        fadeImage.color = color;
+    }
     private IEnumerator StartGameSequence()
     {
-        StartCoroutine(ChangeImageAlpha(1,1,null));
-        Debug.Log("turn on");
-        yield return new WaitForSeconds(1);
+        
+        yield return null;
         SwitchTo(inGameUI.gameObject);
         GameManager.Instance.GameStart();
         ControlsManager.Instance.SwitchToCharactorControls();
-        StartCoroutine(ChangeImageAlpha(0,1,null));
-        Debug.Log("turn off");
+        StartCoroutine(ChangeImageAlpha(0,.1f,null));
+
+        // StartCoroutine(ChangeImageAlpha(1,1,null));
+        // yield return new WaitForSeconds(1);
+        // SwitchTo(inGameUI.gameObject);
+        // GameManager.Instance.GameStart();
+        // ControlsManager.Instance.SwitchToCharactorControls();
+        // StartCoroutine(ChangeImageAlpha(0,1,null));
 
     }
     private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, Action onComplete)
@@ -85,7 +119,7 @@ public class UI : MonoBehaviour
         float startAlpha = currentColor.a;
         while(time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             float alpha = Mathf.Lerp(startAlpha,targetAlpha,time/duration);
 
             fadeImage.color = new Color(currentColor.r,currentColor.g,currentColor.b,alpha);

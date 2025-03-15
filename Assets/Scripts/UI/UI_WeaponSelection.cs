@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class UI_WeaponSelection : MonoBehaviour
 {
+    [SerializeField] private GameObject nextUIToSwitchOn;
     public UI_SelectedWeaponWindow[] selectedWeaponWindow;
     private int indexWeaponWindow;
     private bool checkWeaponWindow = false;
@@ -88,5 +91,16 @@ public class UI_WeaponSelection : MonoBehaviour
             window.SetFocusBackground();
         }
     }
+    public void ComfirmWeaponSelection()
+    {
+        if(AtLeastOneWeaponSelection())
+        {
+            UI.Instance.SwitchTo(nextUIToSwitchOn);
+            UI.Instance.StartLevelGeneration();
+        }
+
+        
+    }
+    private bool AtLeastOneWeaponSelection() => GetSelectedWeapons().Count > 0;
 
 }

@@ -27,6 +27,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float generationCooldown;
     private float cooldownTimer;
     private bool generationOver = true;
+    private bool generationFinish = false;
     private void Awake() {
         Instance = this;
     }
@@ -56,6 +57,8 @@ public class LevelGenerator : MonoBehaviour
     [ContextMenu("Restart generation")]
     public void InitializeGeneration()
     {
+        if(generationFinish == true)
+            return;
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
         currentLevelParts = new List<Transform>(levelParts);
@@ -86,6 +89,7 @@ public class LevelGenerator : MonoBehaviour
         BuildEnemies();
         // Once the map is complete, start creating quests.
         MissionManager.Instance.StartMission();
+        generationFinish = true;
     }
 
     private void BuildEnemies()

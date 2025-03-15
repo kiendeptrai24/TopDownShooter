@@ -24,6 +24,7 @@ public class UI_SelectedWeaponWindow : MonoBehaviour, IPointerDownHandler, IDrag
         background = GetComponent<Image>();
         defaultImage = background.sprite;
         weaponSelectionUI = GetComponentInParent<UI_WeaponSelection>();
+        weaponData = null;
         UpdateSlotInfo(null);
 
     }

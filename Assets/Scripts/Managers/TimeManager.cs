@@ -49,4 +49,11 @@ public class TimeManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(seconds);
         ResumeTime();
     }
+    public void ChangeTimer(float targetAlpha, float timeScale)
+    {
+        targetTimeScale = targetAlpha;
+        Time.timeScale = timeScale;
+    }
+
+
 }
