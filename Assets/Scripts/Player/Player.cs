@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public bool controlsEnable {get; private set;}
 
     private void Awake() {
-        controls = new PlayerControls();
+        controls = ControlsManager.Instance.controls;
         aim = GetComponent<Player_Aim>();
         movement = GetComponent<PlayerMovement>();
         weapon = GetComponent<Player_WeaponController>();

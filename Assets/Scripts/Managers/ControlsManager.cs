@@ -10,23 +10,32 @@ public class ControlsManager : MonoBehaviour
             Instance = this;
         else
             Destroy(Instance.gameObject);
+        controls = new PlayerControls();
     }
     private void Start() {
-        controls = GameManager.Instance.player.controls;
         player = GameManager.Instance.player;
-        
         SwitchToUIControls();
     }
     public void SwitchToCharactorControls()
     {
         controls.UI.Disable();
+        controls.Car.Disable();
         controls.Character.Enable();
         player.SetControlsEnabledTo(true);
     }
     public void SwitchToUIControls()
     {
         controls.Character.Disable();
+        controls.Car.Disable();
         controls.UI.Enable();
         player.SetControlsEnabledTo(false);
+    }
+    public void SwitchToCarControls()
+    {
+        controls.UI.Disable();
+        controls.Character.Disable();
+        controls.Car.Enable();
+        player.SetControlsEnabledTo(false);
+
     }
 }

@@ -101,7 +101,7 @@ public class UI : MonoBehaviour
         yield return null;
         SwitchTo(inGameUI.gameObject);
         GameManager.Instance.GameStart();
-        ControlsManager.Instance.SwitchToCharactorControls();
+        ControlsManager.Instance.SwitchToCarControls();
         StartCoroutine(ChangeImageAlpha(0,.1f,null));
 
         // StartCoroutine(ChangeImageAlpha(1,1,null));
