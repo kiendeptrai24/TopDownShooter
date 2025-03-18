@@ -11,9 +11,9 @@ public class ControlsManager : MonoBehaviour
         else
             Destroy(Instance.gameObject);
         controls = new PlayerControls();
+        player = GameManager.Instance.player;
     }
     private void Start() {
-        player = GameManager.Instance.player;
         SwitchToUIControls();
     }
     public void SwitchToCharactorControls()
