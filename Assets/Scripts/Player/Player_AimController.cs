@@ -44,17 +44,22 @@ public class Player_Aim : MonoBehaviour
     }
     private void Update()
     {
-
         if(Input.GetKeyDown(KeyCode.P))
             isAimingPrecisly = !isAimingPrecisly;
         if(Input.GetKeyDown(KeyCode.L))
             isLockingToTarget= !isLockingToTarget; 
-
+        if(player.controlsEnable == false)
+            return;
         UpdateAimVisuals();   
         UpdateAimPosition();
         UpdateCameraPosition();
     }
-
+    public Transform GetAimCameraTarget()
+    {
+        cameraTarget.position = player.transform.position;
+        return cameraTarget;
+    }
+    public void EnableAimLazer(bool enable) => aimLaser.enabled = enable;
     private void UpdateAimVisuals()
     {
         aimLaser.enabled = player.weapon.WeaponReady();
@@ -112,14 +117,14 @@ public class Player_Aim : MonoBehaviour
         return target;
     }
 
-    public Transform Aim() =>aim;
+    public Transform Aim() => aim;
     public bool CanAimPrecisly() => isAimingPrecisly;
 
     public RaycastHit GetMouseHitInfo()
     {
-        //getting position of the mouse 
+        //getting position of the mouse
         Ray ray = Camera.main.ScreenPointToRay(mouseInput);
-        if(Physics.Raycast(ray, out RaycastHit hitInfo,Mathf.Infinity,aimPlayerMask))
+        if(Physics.Raycast(ray, out RaycastHit hitInfo ,Mathf.Infinity , aimPlayerMask))
         {
             lastKnowMouseHit = hitInfo;
             return lastKnowMouseHit;

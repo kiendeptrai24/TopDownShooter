@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    protected MeshRenderer mesh;
     protected Player_WeaponController weaponController;
+    [SerializeField] protected MeshRenderer mesh;
 
     [SerializeField] private Material highlightMaterial;
-    protected Material defaultMaterial;
+    [SerializeField] protected Material defaultMaterial;
     private void Start() {
         if(mesh == null)
             mesh = GetComponentInChildren<MeshRenderer>();
