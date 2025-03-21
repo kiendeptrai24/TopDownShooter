@@ -207,6 +207,29 @@ public class Car_Controller : MonoBehaviour
             }
         }
     }
+    public void BrakeTheCar()
+    {
+        motorForce = 0;
+        isDrifting = true;
+        frontDriftFactor = 1;
+        backBrakesSensetivity = 1;
+    }
+    public void ActivateCar(bool activate)
+    {
+        carActive = activate;
+        if(activate)
+            rb.constraints = RigidbodyConstraints.None;
+        else
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+
+    }
+
+    [ContextMenu("Fucus camera and enable")]
+    public void TestThisCar()
+    {
+        ActivateCar(true);
+        CameraManager.Instance.ChangeCameraTarget(transform,12);
+    }
 
     private void AssignInpuEtvents()
     {
@@ -236,21 +259,5 @@ public class Car_Controller : MonoBehaviour
 
 
         controls.Car.CarExit.performed += ctx => GetComponent<Car_Interaction>().GetOutOfTheCar();
-    }
-    public void ActivateCar(bool activate)
-    {
-        carActive = activate;
-        if(activate)
-            rb.constraints = RigidbodyConstraints.None;
-        else
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
-    }
-    
-    [ContextMenu("Fucus camera and enable")]
-    public void TestThisCar()
-    {
-        ActivateCar(true);
-        CameraManager.Instance.ChangeCameraTarget(transform,12);
     }
 }
