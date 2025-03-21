@@ -46,6 +46,7 @@ public abstract class Enemy : MonoBehaviour
 
     public HealthController health {get; private set;}
     public Enemy_DropController dropController {get; private set;}  
+
     protected virtual void Awake() 
     {
 
@@ -104,6 +105,12 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void Die()
     {
+        anim.enabled = false;
+        agent.isStopped = true;
+        agent.enabled = false;
+
+        ragdoll.RagdollActive(true);
+
         dropController.DropItem();
         MissionObject_HuntTarget  huntTarget = GetComponent<MissionObject_HuntTarget>();
         huntTarget?.InvokeOntargetKilled();

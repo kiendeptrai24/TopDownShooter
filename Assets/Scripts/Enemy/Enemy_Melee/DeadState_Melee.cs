@@ -14,10 +14,7 @@ public class DeadState_Melee : EnemyState
 
         interactionDisable = false;
 
-        enemy.anim.enabled = false;
-        enemy.agent.isStopped = true;
-
-        enemy.ragdoll.RagdollActive(true);
+      
 
         stateTimer = 2.5f;
     }
@@ -25,7 +22,7 @@ public class DeadState_Melee : EnemyState
     {
         base.Update();
         // uncomment if you want to disable interaction
-        DisableInteractionIfShould();
+        //DisableInteractionIfShould();
     }
 
     private void DisableInteractionIfShould()

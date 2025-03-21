@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     {
         movementDir = new Vector3(moveInput.x, 0, moveInput.y);
         ApplyGavility();
-        if (movementDir.magnitude > 0)
+        if (movementDir.magnitude > 0 && characterController.enabled)
         {
             characterController.Move(movementDir * Time.deltaTime * speed);
         }

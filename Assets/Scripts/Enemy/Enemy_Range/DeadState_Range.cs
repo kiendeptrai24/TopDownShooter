@@ -15,11 +15,6 @@ public class DeadState_Range : EnemyState
         base.Enter();
         interactionDisable = false;
 
-        enemy.anim.enabled = false;
-        enemy.agent.isStopped = true;
-
-        enemy.ragdoll.RagdollActive(true);
-
         stateTimer = 2.5f;
         if(enemy.throwGrenadeState.finishedThrowingGrenaden == false)
             enemy.ThrowGrenade();

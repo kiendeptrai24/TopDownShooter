@@ -11,6 +11,10 @@ public class Ragdoll : MonoBehaviour
         ragdollRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
 
         RagdollActive(false);
+        foreach (Rigidbody rb in ragdollRigidBodies)
+        {
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+        }
     }
     public void RagdollActive(bool active)
     {

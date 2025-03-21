@@ -15,12 +15,6 @@ public class DeadState_Boss : EnemyState
         base.Enter();
         enemy.abilityState.DisableFlameThrower();
         interactionDisable = false;
-
-        enemy.anim.enabled = false;
-        enemy.agent.isStopped = true;
-
-        enemy.ragdoll.RagdollActive(true);
-
         stateTimer = 2.5f;
     }
     public override void Update()

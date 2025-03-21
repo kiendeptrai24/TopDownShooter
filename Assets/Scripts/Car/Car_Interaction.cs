@@ -14,7 +14,15 @@ public class Car_Interaction : Interactable
     private void Start() {
         car = GetComponent<Car_Controller>();
         player = GameManager.Instance.player.transform;
-        
+        DisablePoint();
+    }
+    private void DisablePoint()
+    {
+        foreach (var point in exitPoints)
+        {
+            point.GetComponent<MeshRenderer>().enabled = false;
+            point.GetComponent<SphereCollider>().enabled = false;
+        }
     }
     public override void Interaction()
     {
@@ -30,7 +38,7 @@ public class Car_Interaction : Interactable
         player.localScale = new Vector3(0.01f,0.01f,0.01f);
         player.transform.parent = transform;
         player.transform.localPosition = Vector3.up / 2;
-        CameraManager.Instance.ChangeCameraTarget(transform);
+        CameraManager.Instance.ChangeCameraTarget(transform,20);
     }
     public void GetOutOfTheCar()
     {
@@ -42,7 +50,7 @@ public class Car_Interaction : Interactable
         player.transform.localScale = new Vector3(defautPlayerScale, defautPlayerScale, defautPlayerScale);
         ControlsManager.Instance.SwitchToCharactorControls();
         Player_Aim aim = GameManager.Instance.player.aim;
-        CameraManager.Instance.ChangeCameraTarget(aim.GetAimCameraTarget());
+        CameraManager.Instance.ChangeCameraTarget(aim.GetAimCameraTarget(), 20);
     }
     private Vector3 GetExitPoint()
     {

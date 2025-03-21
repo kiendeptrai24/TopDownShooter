@@ -11,7 +11,7 @@ public class Car_Controller : MonoBehaviour
     public bool carActive {get; private set;}
     public static Car_Controller Instance {get; private set;}
     private PlayerControls controls;
-    private Rigidbody rb;
+    public Rigidbody rb {get; private set;}
 
     private float moveInput;
     private float steerInput;
@@ -70,6 +70,7 @@ public class Car_Controller : MonoBehaviour
         
         AssignInpuEtvents();
         SetupDefaultValues();
+        ActivateCar(false);
     }
     private void Update()
     {
@@ -239,7 +240,13 @@ public class Car_Controller : MonoBehaviour
     public void ActivateCar(bool activate)
     {
         carActive = activate;
+        if(activate)
+            rb.constraints = RigidbodyConstraints.None;
+        else
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+
     }
+    
     [ContextMenu("Fucus camera and enable")]
     public void TestThisCar()
     {
