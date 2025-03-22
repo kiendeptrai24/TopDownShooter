@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UI_InGame : MonoBehaviour
 {
+    [SerializeField] private GameObject charactorUI;
+    [SerializeField] private GameObject carUI;
     [Header("Health")]
     [SerializeField] private Image healthBar;
     [Header("Weapons")]
@@ -13,10 +15,23 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private GameObject missionTooltip;
     [SerializeField] private TextMeshProUGUI missionText;
     [SerializeField] private TextMeshProUGUI missionDetails;
+    [Header("Car Info")]
+    [SerializeField] private Image carHealthbar;
+    [SerializeField] private TextMeshProUGUI carSpeedText;
     private bool tooltipActive = true;
 
     private void Awake() {
         weaponSlots_UI = GetComponentsInChildren<UI_WeaponSlot>();
+    }
+    public void SwitchToCharactorUI()
+    {
+        charactorUI.SetActive(true);
+        carUI.SetActive(false);
+    }
+    public void SwitchToCarUI()
+    {
+        charactorUI.SetActive(false);
+        carUI.SetActive(true);
     }
     public void SwitchMissionTooltip()
     {
@@ -49,5 +64,10 @@ public class UI_InGame : MonoBehaviour
         healthBar.fillAmount = currentHealth / maxHealth;
         
     }
+    public void UpdateCarHealthUI(float currentHealth, float maxHealth)
+    {
+        carHealthbar.fillAmount = currentHealth/maxHealth;
+    }
+    public void UpdateSpeedText(string text) => carSpeedText.text = text;
    
 }

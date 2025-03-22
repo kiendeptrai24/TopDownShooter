@@ -60,11 +60,12 @@ public class Car_Controller : MonoBehaviour
 
     private Car_Wheel[] wheels;
     public Action CarControls {get; private set;}
+    private UI ui;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<Car_Wheel>();
-
+        ui = UI.Instance;
         controls = ControlsManager.Instance.controls;
         // ControlsManager.Instance.SwitchToCarControls();
         
@@ -77,7 +78,7 @@ public class Car_Controller : MonoBehaviour
         if(carActive == false)
             return;
         speed = rb.velocity.magnitude;
-
+        ui.inGameUI.UpdateSpeedText(Mathf.RoundToInt(speed) + " km/h");
         //ApplyDurationDrift();
 
     }

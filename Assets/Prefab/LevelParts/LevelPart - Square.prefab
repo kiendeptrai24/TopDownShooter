@@ -6256,7 +6256,7 @@ GameObject:
   - component: {fileID: 4021081362992740928}
   - component: {fileID: 4678027447798085976}
   - component: {fileID: 7682484901689454201}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10864,7 +10864,7 @@ GameObject:
   - component: {fileID: 957774342387168623}
   - component: {fileID: 937742980316588310}
   - component: {fileID: 7558467996741095910}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16431,7 +16431,7 @@ GameObject:
   - component: {fileID: 6303670132961146478}
   - component: {fileID: 1881483585922312881}
   - component: {fileID: 6575639192783196161}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19315,7 +19315,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -33257,7 +33257,7 @@ GameObject:
   - component: {fileID: 4814925789970091889}
   - component: {fileID: 6072701703102662445}
   - component: {fileID: 1347503887826124229}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34484,7 +34484,7 @@ GameObject:
   - component: {fileID: 1417611921726214814}
   - component: {fileID: 1877767225175164635}
   - component: {fileID: 6505050677426299284}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40876,7 +40876,7 @@ GameObject:
   - component: {fileID: 3800889443839438623}
   - component: {fileID: 5837144255335380163}
   - component: {fileID: 6830921816671633378}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: dune_high_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

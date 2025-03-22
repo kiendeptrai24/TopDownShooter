@@ -112,8 +112,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5032094193431078547}
   - {fileID: 3109407353931158691}
+  - {fileID: 5032094193431078547}
   - {fileID: 8838320067604961550}
   - {fileID: 110943995704394334}
   m_Father: {fileID: 3230213476151137642}
@@ -493,6 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 0
+  model: {fileID: 0}
 --- !u!1 &1701175374405228095
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 1
+  model: {fileID: 0}
 --- !u!1 &3276924939550885956
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +868,7 @@ GameObject:
   - component: {fileID: 7961161923696104267}
   - component: {fileID: 2874874279531377002}
   - component: {fileID: 6828382124339185157}
+  - component: {fileID: 3989236932380883022}
   m_Layer: 0
   m_Name: Car_Truck
   m_TagString: Untagged
@@ -973,8 +976,8 @@ MonoBehaviour:
   defaultMaterial: {fileID: 3758952881610933197, guid: d2858e1f48611f643b7ba488af654dd9, type: 3}
   exitCheckRadius: 0
   exitPoints:
-  - {fileID: 5032094193431078547}
   - {fileID: 3109407353931158691}
+  - {fileID: 5032094193431078547}
   - {fileID: 8838320067604961550}
   - {fileID: 110943995704394334}
   whatToIngoreForExit:
@@ -1017,6 +1020,20 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0.9, z: -1}
   m_TimeToStationary: 0.5
+--- !u!114 &3989236932380883022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276924939550885956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8341a4dd0c98946ae22da88bf1c432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1000
+  currentHealth: 0
 --- !u!1 &3553732914696213312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 1
+  model: {fileID: 0}
 --- !u!1 &5551103248376050486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,6 +1638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 0
+  model: {fileID: 0}
 --- !u!1 &6048335651681388456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,6 +1913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 1
+  model: {fileID: 0}
 --- !u!1 &7347647002411070477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axelType: 1
+  model: {fileID: 0}
 --- !u!1 &8541057908554714642
 GameObject:
   m_ObjectHideFlags: 0

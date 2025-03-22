@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Car_Interaction : Interactable
 {
+    private Car_HealthController carHealthController;
     private Car_Controller car;
     private Transform player;
     private float defautPlayerScale;
@@ -13,6 +14,7 @@ public class Car_Interaction : Interactable
     [SerializeField] private LayerMask whatToIngoreForExit;
     private void Start() {
         car = GetComponent<Car_Controller>();
+        carHealthController = GetComponent<Car_HealthController>();
         player = GameManager.Instance.player.transform;
         DisablePoint();
     }
@@ -33,12 +35,13 @@ public class Car_Interaction : Interactable
     private void GetIntoTheCar()
     {
         ControlsManager.Instance.SwitchToCarControls();
+        carHealthController.UpdateCarHealthUI();
         car.ActivateCar(true);
         defautPlayerScale = player.localScale.x;
         player.localScale = new Vector3(0.01f,0.01f,0.01f);
         player.transform.parent = transform;
         player.transform.localPosition = Vector3.up / 2;
-        CameraManager.Instance.ChangeCameraTarget(transform,20);
+        CameraManager.Instance.ChangeCameraTarget(transform,20,.5f);
     }
     public void GetOutOfTheCar()
     {
@@ -50,7 +53,7 @@ public class Car_Interaction : Interactable
         player.transform.localScale = new Vector3(defautPlayerScale, defautPlayerScale, defautPlayerScale);
         ControlsManager.Instance.SwitchToCharactorControls();
         Player_Aim aim = GameManager.Instance.player.aim;
-        CameraManager.Instance.ChangeCameraTarget(aim.GetAimCameraTarget(), 20);
+        CameraManager.Instance.ChangeCameraTarget(aim.GetAimCameraTarget());
     }
     private Vector3 GetExitPoint()
     {

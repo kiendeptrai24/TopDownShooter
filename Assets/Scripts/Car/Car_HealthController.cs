@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car_HealthController :MonoBehaviour, IDamagable
+public class Car_HealthController : MonoBehaviour, IDamagable
 {
     private Car_Controller carController;
     public int maxHealth;
@@ -15,12 +15,14 @@ public class Car_HealthController :MonoBehaviour, IDamagable
     }
     public void TakeDamage(int damage)
     {
+        if(carBroken)
+            return;
+
         ReduceHealth(damage);
+        UpdateCarHealthUI();
     }
     private void ReduceHealth(int damage)
     {
-        if(carBroken)
-            return;
         currentHealth -= damage;
         if(currentHealth <= 0)
             BrakeTheCar();
@@ -31,4 +33,9 @@ public class Car_HealthController :MonoBehaviour, IDamagable
         carBroken = true;
         carController.BrakeTheCar();
     }
+    public void UpdateCarHealthUI()
+    {
+        UI.Instance.inGameUI.UpdateCarHealthUI(currentHealth,maxHealth);
+    }
+    
 }

@@ -46,7 +46,6 @@ public abstract class Enemy : MonoBehaviour
 
     public HealthController health {get; private set;}
     public Enemy_DropController dropController {get; private set;}  
-
     protected virtual void Awake() 
     {
 

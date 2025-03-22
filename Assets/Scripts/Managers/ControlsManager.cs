@@ -22,6 +22,7 @@ public class ControlsManager : MonoBehaviour
         controls.Car.Disable();
         controls.Character.Enable();
         player.SetControlsEnabledTo(true);
+        UI.Instance.inGameUI.SwitchToCharactorUI();
     }
     public void SwitchToUIControls()
     {
@@ -36,6 +37,7 @@ public class ControlsManager : MonoBehaviour
         controls.Character.Disable();
         controls.Car.Enable();
         player.SetControlsEnabledTo(false);
+        UI.Instance.inGameUI.SwitchToCarUI();
 
     }
 }
