@@ -46,6 +46,7 @@ public abstract class Enemy : MonoBehaviour
 
     public HealthController health {get; private set;}
     public Enemy_DropController dropController {get; private set;}  
+    public AudioManager audioManager {get; private set;}
     protected virtual void Awake() 
     {
 
@@ -58,10 +59,12 @@ public abstract class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         dropController = GetComponent<Enemy_DropController>();
+        
     }
     protected virtual void Start()
     {
         InitialzePatrolPoints();
+        audioManager = AudioManager.Instance;
     }
 
     protected virtual void Update()

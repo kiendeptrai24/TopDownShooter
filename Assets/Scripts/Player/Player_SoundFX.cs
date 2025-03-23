@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_SoundFX : MonoBehaviour
 {
     public AudioSource weaponReady;
-    public AudioSource footSteps;
-    
+    public AudioSource walkSFX;
+    public AudioSource RunSFX;
+
 }

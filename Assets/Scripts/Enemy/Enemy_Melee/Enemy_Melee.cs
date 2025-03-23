@@ -53,6 +53,8 @@ public class Enemy_Melee : Enemy
     public Enemy_WeaponModel currentWeapon;
     [Space]
     [SerializeField] private GameObject meleeAttackFX;
+    public Enemy_MeleeSFX meleeSFX {get; private set;}
+
 
     protected override void Awake()
     {
@@ -64,6 +66,7 @@ public class Enemy_Melee : Enemy
         attackState = new AttackState_Melee(this, stateMachine, "Attack");
         deadState = new DeadState_Melee(this,stateMachine,"Idle");
         abilityState = new AbilityState_Melee(this,stateMachine,"AxeThrow");
+        meleeSFX = GetComponent<Enemy_MeleeSFX>();
 
     }
     protected override void Start()

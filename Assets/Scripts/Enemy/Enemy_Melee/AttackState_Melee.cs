@@ -38,7 +38,7 @@ public class AttackState_Melee : EnemyState
         }
         if(enemy.ManualMovementActive())
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, attackDirection, attackMoveSpeed * Time.deltaTime);
-        Debug.Log("attack");
+        Debug.Log(triggerCalled);
         if(triggerCalled)
         {
             if(enemy.PlayerInAttackRange())

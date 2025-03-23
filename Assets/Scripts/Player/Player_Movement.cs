@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,13 +18,20 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 moveInput { get; private set; }
 
     private bool isRunning;
+    private AudioSource walkSFX;
+    private AudioSource runSFX;
+    private bool canPlayFootsteps;
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
         player = GetComponent<Player>();
         speed = walkSpeed;
+        walkSFX = player.sound.walkSFX;
+        runSFX = player.sound.RunSFX;
+        Invoke(nameof(AllowFootstepsSFX),1f);
         AssignInputEvents();
+        movementDir = Vector3.zero;
         
     }
     private void Update()
@@ -66,8 +74,44 @@ public class PlayerMovement : MonoBehaviour
         ApplyGavility();
         if (movementDir.magnitude > 0 && characterController.enabled)
         {
+            Vector3 move = new Vector3(movementDir.x,0,movementDir.z);
+
+            if(move.magnitude > .001f)
+                PlayFootstepsSFX();
+            
+            
             characterController.Move(movementDir * Time.deltaTime * speed);
+
         }
+    }
+
+    private void PlayFootstepsSFX()
+    {
+        if(canPlayFootsteps == false)
+            return;
+        if (isRunning)
+        {
+            if (runSFX.isPlaying == false)
+            {
+                walkSFX.Stop();
+                runSFX.Play();
+            }
+        }
+        else
+        {
+            if (walkSFX.isPlaying == false)
+            {
+                runSFX.Stop();
+                walkSFX.Play();
+            }
+        }
+    }
+    private void AllowFootstepsSFX() => canPlayFootsteps = true;
+
+    private void StopFootstepsSFX()
+    {
+        walkSFX.Stop();
+        runSFX.Stop();
     }
 
     private void ApplyGavility()
@@ -78,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             verticalVeloccity = verticalVeloccity - 9.81f * Time.deltaTime;
             movementDir.y = verticalVeloccity;
         }
-        else
+        else if(verticalVeloccity != -.5f)
             verticalVeloccity = -.5f;    
         
     }
@@ -86,8 +130,15 @@ public class PlayerMovement : MonoBehaviour
     private void AssignInputEvents()
     {
         controls = player.controls;
-        controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
+        controls.Character.Movement.performed += context =>
+        {
+            moveInput = context.ReadValue<Vector2>();
+        };
+        controls.Character.Movement.canceled += context =>
+        {
+            StopFootstepsSFX();
+            moveInput = Vector2.zero;
+        };
 
         controls.Character.Run.performed += context =>
         {

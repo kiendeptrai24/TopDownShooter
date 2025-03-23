@@ -19,7 +19,11 @@ public class Enemy_AnimationEvent : MonoBehaviour
         enemy.visuals.EnableSecondaryWeaponModel(false);
         enemy.visuals.EnableWeaponModel(true);
     }
-    public void BeginMeleeAttackCheck() => enemy?.EnableAttackCheck(true);
+    public void BeginMeleeAttackCheck()
+    {
+        enemy?.EnableAttackCheck(true);
+        enemy?.audioManager.PlaySFX((enemy as Enemy_Melee)?.meleeSFX.Swoosh,true);
+    } 
     public void FinishMeleeAttackCheck() => enemy?.EnableAttackCheck(false);
 
 }
