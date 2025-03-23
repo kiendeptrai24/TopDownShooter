@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     protected Dictionary<TextMeshProUGUI, Color> originalTextColors = new();
     protected Dictionary<Image, Color> originalImageColors = new();
@@ -14,6 +14,9 @@ public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private float alphaText = .5f;
     [Range(0,1)]
     [SerializeField] private float alphaImage = .2f;
+    [Header("Audio")]
+    [SerializeField] protected AudioSource pointerEnterSFX;
+    [SerializeField] protected AudioSource pointerDownSFX;
 
 
     protected virtual void Start() {
@@ -28,6 +31,8 @@ public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPoint
     }
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
+        if(pointerEnterSFX != null)
+            pointerEnterSFX.Play();
         foreach (var image in originalImageColors.Keys)
         {
             SetAlphaImage(image, alphaImage);
@@ -42,6 +47,11 @@ public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPoint
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         this.ResetColors();
+    }
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        if(pointerDownSFX != null)
+            pointerDownSFX?.Play();
     }
 
     public void ResetColors()
@@ -66,6 +76,11 @@ public class UI_TransparentOnHover : MonoBehaviour, IPointerEnterHandler, IPoint
         var color = text.color;
         color.a = alpha;
         text.color = color;
+    }
+    public void AssignAudioSource()
+    {
+        pointerEnterSFX = GameObject.Find("UI_Pointer_Enter").GetComponent<AudioSource>();
+        pointerDownSFX = GameObject.Find("UI_Pointer_Down").GetComponent<AudioSource>();
     }
 
 }

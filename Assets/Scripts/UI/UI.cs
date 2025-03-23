@@ -9,6 +9,9 @@ public class UI : MonoBehaviour
     public static UI Instance { get; private set; }
     public UI_InGame inGameUI { get; private set; }
     public UI_GameOver gameOverUI {get; private set;}
+    [SerializeField] private GameObject loadingUI;
+    [SerializeField] private GameObject mainMenuUI;
+
     public UI_WeaponSelection weaponSelectionUI { get; private set; }
     public GameObject victoryScreenUI;
     public GameObject pauseUI;
@@ -25,6 +28,7 @@ public class UI : MonoBehaviour
         weaponSelectionUI = GetComponentInChildren<UI_WeaponSelection>(true);
         gameOverUI = GetComponentInChildren<UI_GameOver>(true);
         /// important remove this if before build, it's only easier testing
+        SwitchTo(mainMenuUI);
     }
     private void Start() {
         if(GameManager.Instance.quickStart)
@@ -33,8 +37,14 @@ public class UI : MonoBehaviour
             StartTheGame();
         }
         AssignInputUI();
+        AssignAudioListenersToButtons();
         StartCoroutine(ChangeImageAlpha(0,1.5f,null));
     }
+    public void SwitchToLoading() {
+        SwitchTo(loadingUI);
+        GenerateMap();
+
+    } 
     public void SwitchTo(GameObject uiToSwitchOn)
     {
         foreach (var go in UI_Elements)
@@ -97,21 +107,24 @@ public class UI : MonoBehaviour
     }
     private IEnumerator StartGameSequence()
     {
-        
-        yield return null;
-        SwitchTo(inGameUI.gameObject);
-        GameManager.Instance.GameStart();
-        ControlsManager.Instance.SwitchToCharactorControls();
-        StartCoroutine(ChangeImageAlpha(0,.1f,null));
-
-        // StartCoroutine(ChangeImageAlpha(1,1,null));
-        // yield return new WaitForSeconds(1);
+        // yield return null;
         // SwitchTo(inGameUI.gameObject);
         // GameManager.Instance.GameStart();
         // ControlsManager.Instance.SwitchToCharactorControls();
-        // StartCoroutine(ChangeImageAlpha(0,1,null));
-
+        // StartCoroutine(ChangeImageAlpha(0,.1f,null));
+        
+        StartCoroutine(ChangeImageAlpha(1,1,null));
+        yield return new WaitForSeconds(1);
+        SwitchTo(inGameUI.gameObject);
+        GameManager.Instance.GameStart();
+        ControlsManager.Instance.SwitchToCharactorControls();
+        StartCoroutine(ChangeImageAlpha(0,1,null));
     }
+    public void GenerateMap()
+    {
+        LevelGenerator.Instance.InitializeGeneration();
+    }
+
     private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, Action onComplete)
     {
         float time = 0;
@@ -133,5 +146,14 @@ public class UI : MonoBehaviour
     {
         PlayerControls controls = GameManager.Instance.player.controls;
         controls.UI.UIPause.performed += ctx => PauseSwitch();
+    }
+    [ContextMenu("Assign Audio to Buttons")]
+    public void AssignAudioListenersToButtons()
+    {
+        UI_TransparentOnHover[] buttons = FindObjectsOfType<UI_TransparentOnHover>(true);
+        foreach (var button in buttons)
+        {
+            button.AssignAudioSource();
+        }
     }
 }

@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Button : UI_TransparentOnHover, IPointerDownHandler
+public class UI_Button : UI_TransparentOnHover
 {
     [SerializeField] private Image focus;
     [Range(0, 1)]
     [SerializeField] private float alphaFocus = 1f;
+    
+
     protected override void Start()
     {
         base.Start();
@@ -33,8 +35,9 @@ public class UI_Button : UI_TransparentOnHover, IPointerDownHandler
         focus?.gameObject.SetActive(false);
     }
 
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)
     {
+        base.OnPointerDown(eventData);
         ResetColors();
     }
 }

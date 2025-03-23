@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.Lumin;
+using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -83,12 +85,23 @@ public class LevelGenerator : MonoBehaviour
 
     private void FinishGeneration()
     {
+        StartCoroutine(BuildNavMeshWithLoading());
+    }
+    private IEnumerator BuildNavMeshWithLoading()
+    {
         generationOver = true;
         GenerateNextLevelPart();
+
+        // Xây dựng NavMesh trong một frame khác để tránh lag
+        yield return new WaitForSeconds(0.5f);
+
         navMeshSurface.BuildNavMesh();
+
         BuildEnemies();
-        // Once the map is complete, start creating quests.
+
         MissionManager.Instance.StartMission();
+        // Hoàn thành, tắt UI
+        UI.Instance.SwitchToInGameUI();
         generationFinish = true;
     }
 

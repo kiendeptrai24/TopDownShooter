@@ -43,7 +43,7 @@ public class Weapon_Data : ScriptableObject
     public float equipmentSpeed = 1;
     [Range(2,25)]
     public float gundistance = 4;
-    [Range(3,8)]
+    [Range(3,15)]
     public float camreaDistance = 6;
     [Header("UI elements")]
     public Sprite weaponIcon;

@@ -17,6 +17,7 @@ public class UI_WeaponSlot : MonoBehaviour
         if(myWeapon == null)
         {
             weaponIcon.color = Color.clear;
+            weaponIcon.sprite = null;
             ammoText.text = "";
             return;
         }

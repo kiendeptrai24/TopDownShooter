@@ -140,7 +140,7 @@ public class Player_Aim : MonoBehaviour
         cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesiredCameraPosition(), cameraSensetvity * Time.deltaTime);
     }
     private Vector3 DesiredCameraPosition()
-    {
+    {        
         //when player is going down maxdistance equal to mindistance  
         float actualMaxCameraDistance = player.movement.moveInput.y < -.5f ? minCameraDistance : maxCameraDistance;
         //getting direction of player to mouse
