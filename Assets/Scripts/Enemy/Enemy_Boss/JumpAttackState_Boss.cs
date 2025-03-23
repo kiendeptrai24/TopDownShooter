@@ -43,7 +43,7 @@ public class JumpAttackState_Boss : EnemyState
 
         }
         if(triggerCalled)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.GetState<MoveState_Boss>());
     }
     public override void Exit()
     {

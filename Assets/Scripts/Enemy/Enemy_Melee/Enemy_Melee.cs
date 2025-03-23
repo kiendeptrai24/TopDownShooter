@@ -19,13 +19,13 @@ public enum EnemyMelee_Type {Recular, Shield, Dodge, AxeThrow}
 public class Enemy_Melee : Enemy
 {
     #region States
-    public IdleState_Melee idleState { get; private set; }
-    public MoveState_Melee moveState { get; private set; }
-    public RecoveryState_Melee recoveryState{ get; private set; }
-    public ChaseState_Melee chaseState { get; private set; }
-    public AttackState_Melee attackState{ get; private set; }
-    public DeadState_Melee deadState { get; private set; }
-    public AbilityState_Melee abilityState { get; private set; }
+    // public IdleState_Melee idleState { get; private set; }
+    // public MoveState_Melee moveState { get; private set; }
+    // public RecoveryState_Melee recoveryState{ get; private set; }
+    // public ChaseState_Melee chaseState { get; private set; }
+    // public AttackState_Melee attackState{ get; private set; }
+    // public DeadState_Melee deadState { get; private set; }
+    // public AbilityState_Melee abilityState { get; private set; }
     #endregion
     
     [Header("Enemy Setting")]
@@ -55,26 +55,22 @@ public class Enemy_Melee : Enemy
     [SerializeField] private GameObject meleeAttackFX;
     public Enemy_MeleeSFX meleeSFX {get; private set;}
 
-
+    // private Dictionary<Type, EnemyState> meleeStates = new Dictionary<Type, EnemyState>();
     protected override void Awake()
     {
         base.Awake();
-        idleState = new IdleState_Melee(this,stateMachine,"Idle");
-        moveState = new MoveState_Melee(this,stateMachine,"Move");
-        recoveryState = new RecoveryState_Melee(this,stateMachine, "Recovery");
-        chaseState = new ChaseState_Melee(this,stateMachine,"Chase");
-        attackState = new AttackState_Melee(this, stateMachine, "Attack");
-        deadState = new DeadState_Melee(this,stateMachine,"Idle");
-        abilityState = new AbilityState_Melee(this,stateMachine,"AxeThrow");
         meleeSFX = GetComponent<Enemy_MeleeSFX>();
+
+       statesDirtionary = EnemyStateFactory.Instance.CreateStateByType(this,stateMachine,EnemyArchetypes.Melee);
 
     }
     protected override void Start()
     {
         base.Start();
+        
         ResetCooldown();
 
-        stateMachine.Initialize(idleState);
+        stateMachine.Initialize(GetState<IdleState_Melee>());
         InitializePerk();
 
         visuals.SetupLook();
@@ -83,7 +79,7 @@ public class Enemy_Melee : Enemy
     protected override void Update()
     {
         base.Update();
-        stateMachine.currentState.Update();
+        stateMachine.GetCurrentState().Update();
         MeleeAttackCheck(currentWeapon.damagePoints,currentWeapon.attackRadius,meleeAttackFX,attackData.attackDamage);
     }
 
@@ -94,7 +90,7 @@ public class Enemy_Melee : Enemy
         if(inBattleMode)
             return;
         base.EnterBattleMode();
-        stateMachine.ChangeState(recoveryState);
+        stateMachine.ChangeState(GetState<RecoveryState_Melee>());
     }
     public override void GetHit(int damage)
     {
@@ -103,8 +99,8 @@ public class Enemy_Melee : Enemy
     public override void Die()
     {
         base.Die();
-        if(stateMachine.currentState != deadState)
-            stateMachine.ChangeState(deadState);
+        if(stateMachine.GetCurrentState() != GetState<DeadState_Melee>())
+            stateMachine.ChangeState(GetState<DeadState_Melee>());
     }
 
     protected override void InitializePerk()
@@ -130,7 +126,7 @@ public class Enemy_Melee : Enemy
     {
         if(meleeType != EnemyMelee_Type.Dodge)
             return;
-        if(stateMachine.currentState != chaseState)
+        if(stateMachine.GetCurrentState() != GetState<ChaseState_Melee>())
             return;
         if(Vector3.Distance(transform.position, player.position) < 2f)
             return;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,31 +47,20 @@ public class Enemy_Boss : Enemy
     [SerializeField] private float attackCheckRadius;
     [SerializeField] private GameObject melleeAttackFx;
 
-    public IdleState_Boss idleState {get; private set;}
-    public MoveState_Boss moveState  {get; private set;}  
-    public AttackState_Boss attackState {get; private set;}
-    public JumpAttackState_Boss jumpAttackState {get; private set;}
-    public DancerState_Boss dancerState {get; private set;}
-    public AbilityState_Boss abilityState {get; private set;}
-    public DeadState_Boss deadState {get; private set;}
-
     public Enemy_BossVisuals bossVisuals {get; private set;}
+    
     protected override void Awake()
     {
         base.Awake();
-        idleState = new IdleState_Boss(this,stateMachine,"Idle");
-        moveState = new MoveState_Boss(this,stateMachine,"Move");
-        attackState = new AttackState_Boss(this,stateMachine,"Attack");
-        jumpAttackState = new JumpAttackState_Boss(this, stateMachine,"JumpAttack");
-        dancerState = new DancerState_Boss(this,stateMachine,"Dancer");
-        abilityState = new AbilityState_Boss(this, stateMachine, "Ability");
-        deadState = new DeadState_Boss(this, stateMachine, "Idle");
+
+        statesDirtionary = EnemyStateFactory.Instance.CreateStateByType(this,stateMachine,EnemyArchetypes.Boss);
         bossVisuals = GetComponent<Enemy_BossVisuals>();
     }
+    
     protected override void Start()
     {
         base.Start();
-        stateMachine.Initialize(idleState);
+        stateMachine.Initialize(GetState<IdleState_Boss>());
     }
     protected override void Update()
     {
@@ -89,15 +79,17 @@ public class Enemy_Boss : Enemy
         
         MeleeAttackCheck(damagePoints,attackCheckRadius,melleeAttackFx,meleeAttackDamage);
     }
+    
+
     private void ChangeToDancerState(int index)
     {
-        if(stateMachine.currentState == dancerState)
+        if(stateMachine.GetCurrentState() == GetState<DancerState_Boss>())
         {
             AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             anim.Play(stateInfo.shortNameHash, 0, 0f);
         }
         anim.SetFloat("DancerIndex",index);
-        stateMachine.ChangeState(dancerState);
+        stateMachine.ChangeState(GetState<DancerState_Boss>());
     }
 
     public void ActivateFlamethrower(bool activate)
@@ -181,7 +173,7 @@ public class Enemy_Boss : Enemy
         if(inBattleMode)
             return;
         base.EnterBattleMode();
-        stateMachine.ChangeState(moveState);
+        stateMachine.ChangeState(GetState<MoveState_Boss>());
     }
     public bool CanDoJumpAttack()
     {
@@ -209,8 +201,8 @@ public class Enemy_Boss : Enemy
     public override void Die()
     {
         base.Die();
-        if(stateMachine.currentState != deadState)
-            stateMachine.ChangeState(deadState);
+        if(stateMachine.GetCurrentState() != GetState<DeadState_Boss>())
+            stateMachine.ChangeState(GetState<DeadState_Boss>());
     }
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackRange;
 

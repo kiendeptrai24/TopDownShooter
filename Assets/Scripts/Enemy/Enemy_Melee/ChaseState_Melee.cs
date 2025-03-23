@@ -20,7 +20,7 @@ public class ChaseState_Melee : EnemyState
         base.Update();
         
         if(enemy.PlayerInAttackRange())
-            stateMachine.ChangeState(enemy.attackState);
+            stateMachine.ChangeState(enemy.GetState<AttackState_Melee>());
             
         if(CanUpdateDestination())
         {

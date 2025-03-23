@@ -42,9 +42,9 @@ public class AttackState_Melee : EnemyState
         if(triggerCalled)
         {
             if(enemy.PlayerInAttackRange())
-                stateMachine.ChangeState(enemy.recoveryState);
+                stateMachine.ChangeState(enemy.GetState<RecoveryState_Melee>());
             else
-                stateMachine.ChangeState(enemy.chaseState);
+                stateMachine.ChangeState(enemy.GetState<ChaseState_Melee>());
         }
     }
     public override void Exit()

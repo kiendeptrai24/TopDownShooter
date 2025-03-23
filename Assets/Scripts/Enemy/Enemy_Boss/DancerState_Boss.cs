@@ -20,7 +20,7 @@ public class DancerState_Boss : EnemyState
     {
         base.Update();
         if(triggerCalled)
-            stateMachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.GetState<IdleState_Boss>());
         
     }
     public override void Exit()

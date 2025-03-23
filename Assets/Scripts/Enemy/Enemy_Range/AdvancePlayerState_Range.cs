@@ -31,7 +31,7 @@ public class AdvancePlayerState_Range : EnemyState
         enemy.FaceTarget(GetNextPathPoints());
         if(CanEnterBattleState() && enemy.IsSeeingPlayer())
         {
-            stateMachine.ChangeState(enemy.battleState);
+            stateMachine.ChangeState(enemy.GetState<BattleState_Range>());
             stateTimer = enemy.advanceDuration;
         }
     }

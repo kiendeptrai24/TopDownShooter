@@ -30,7 +30,7 @@ public class ThrowGrenadeState_Range : EnemyState
         
         enemy.FaceTarget(enemy.aim.position);
         if(triggerCalled)
-            stateMachine.ChangeState(enemy.battleState);
+            stateMachine.ChangeState(enemy.GetState<BattleState_Range>());
     }
     public override void Exit()
     {

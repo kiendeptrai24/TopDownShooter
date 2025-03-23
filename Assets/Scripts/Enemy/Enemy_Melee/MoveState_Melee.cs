@@ -24,7 +24,7 @@ public class MoveState_Melee : EnemyState
 
         enemy.FaceTarget(GetNextPathPoints());
         if(Vector3.Distance(enemy.transform.position, destination) <= enemy.agent.stoppingDistance + 0.01f)
-            stateMachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.GetState<IdleState_Melee>());
     }
     public override void Exit()
     {

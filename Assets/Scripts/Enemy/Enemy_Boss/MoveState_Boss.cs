@@ -45,12 +45,12 @@ public class MoveState_Boss : EnemyState
 
             if(enemy.PlayerInAttackRange())
             {
-                stateMachine.ChangeState(enemy.attackState);
+                stateMachine.ChangeState(enemy.GetState<AttackState_Boss>());
             }
         }
         else{
             if(Vector3.Distance(enemy.transform.position, destination) < .25f)
-                stateMachine.ChangeState(enemy.idleState);
+                stateMachine.ChangeState(enemy.GetState<IdleState_Boss>());
 
         }
 
@@ -80,7 +80,7 @@ public class MoveState_Boss : EnemyState
         if(isSpeedUpActivated)
             return false;
 
-        if(Time.time > enemy.attackState.lastTimeAttacked + timeBeforeSpeedUp)
+        if(Time.time > (enemy.GetState<AttackState_Boss>() as AttackState_Boss).lastTimeAttacked + timeBeforeSpeedUp)
             return true;
         return false;
     }
@@ -94,7 +94,7 @@ public class MoveState_Boss : EnemyState
         else
         {
             if(enemy.CanDoJumpAttack())
-                stateMachine.ChangeState(enemy.jumpAttackState);
+                stateMachine.ChangeState(enemy.GetState<JumpAttackState_Boss>());
             else if(enemy.bossWeaponType == BossWeaponType.Hummer)
                 TryAbility();
         }
@@ -103,6 +103,6 @@ public class MoveState_Boss : EnemyState
     private void TryAbility()
     {
         if (enemy.CanDoAbility())
-            stateMachine.ChangeState(enemy.abilityState);
+            stateMachine.ChangeState(enemy.GetState<AbilityState_Boss>());
     }
 }

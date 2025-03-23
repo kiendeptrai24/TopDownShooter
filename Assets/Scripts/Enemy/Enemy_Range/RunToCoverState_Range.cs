@@ -27,7 +27,7 @@ public class RunToCoverState_Range : EnemyState
         base.Update();
         enemy.FaceTarget(GetNextPathPoints());
         if(Vector3.Distance(enemy.transform.position, destination) < .5f)
-            stateMachine.ChangeState(enemy.battleState);
+            stateMachine.ChangeState(enemy.GetState<BattleState_Range>());
 
     }
     public override void Exit()

@@ -52,26 +52,12 @@ public class Enemy_Range : Enemy
     public LayerMask whatToIgnore;
     [SerializeField] List<Enemy_RangeWeaponData> avalibleWeaponData;
 
-    #region State
-    public IdleState_Range idleState { get; private set; }
-    public MoveState_Range moveState { get; private set; }
-    public BattleState_Range battleState { get; private set; }
-    public RunToCoverState_Range runToCoverState { get; private set; }
-    public AdvancePlayerState_Range advancePlayerState { get; private set; }
-    public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
-    public DeadState_Range deadState { get; private set; }
-        
-    #endregion
     protected override void Awake()
     {
         base.Awake();
-        idleState = new IdleState_Range(this, stateMachine,"Idle");
-        moveState = new MoveState_Range(this, stateMachine,"Move");
-        battleState = new BattleState_Range(this,stateMachine,"Battle");
-        runToCoverState = new RunToCoverState_Range(this,stateMachine,"Run");
-        advancePlayerState = new AdvancePlayerState_Range(this,stateMachine,"Advance");
-        throwGrenadeState = new ThrowGrenadeState_Range(this,stateMachine,"ThrowGrenade");
-        deadState = new DeadState_Range(this,stateMachine,"Idle");
+
+
+        statesDirtionary = EnemyStateFactory.Instance.CreateStateByType(this,stateMachine,EnemyArchetypes.Range);
     }
     protected override void Start()
     {
@@ -79,7 +65,7 @@ public class Enemy_Range : Enemy
         playersBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
         InitializePerk();
-        stateMachine.Initialize(idleState);
+        stateMachine.Initialize(GetState<IdleState_Range>());
         visuals.SetupLook();
         SetupWeapon();
         
@@ -93,8 +79,8 @@ public class Enemy_Range : Enemy
     public override void Die()
     {
         base.Die();
-        if(stateMachine.currentState != deadState)
-            stateMachine.ChangeState(deadState);
+        if(stateMachine.GetCurrentState() != GetState<DeadState_Range>())
+            stateMachine.ChangeState(GetState<DeadState_Range>());
     }
     public bool CanThrowGrenade()
     {
@@ -115,7 +101,7 @@ public class Enemy_Range : Enemy
         GameObject newGrenade = ObjectPool.Instance.GetObject(grenadePrefab,grenadeStartPoint);
         newGrenade.transform.position = grenadeStartPoint.transform.position;
         Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
-        if(stateMachine.currentState == deadState)
+        if(stateMachine.GetCurrentState() == GetState<DeadState_Range>())
         {
             newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer,impactPower,grenadeDamage);
             return;
@@ -155,9 +141,9 @@ public class Enemy_Range : Enemy
         base.EnterBattleMode();
 
         if(CanGetCover())
-            stateMachine.ChangeState(runToCoverState);
+            stateMachine.ChangeState(GetState<RunToCoverState_Range>());
         else
-            stateMachine.ChangeState(battleState);
+            stateMachine.ChangeState(GetState<BattleState_Range>());
         
     }
     #region Cover System

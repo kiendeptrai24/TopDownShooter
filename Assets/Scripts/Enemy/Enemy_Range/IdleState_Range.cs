@@ -20,7 +20,7 @@ public class IdleState_Range : EnemyState
     {
         base.Update();
         if(stateTimer < 0)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.GetState<MoveState_Range>());
     }
     public override void Exit()
     {

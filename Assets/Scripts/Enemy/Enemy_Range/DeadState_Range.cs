@@ -16,7 +16,7 @@ public class DeadState_Range : EnemyState
         interactionDisable = false;
 
         stateTimer = 2.5f;
-        if(enemy.throwGrenadeState.finishedThrowingGrenaden == false)
+        if((enemy.GetState<ThrowGrenadeState_Range>() as ThrowGrenadeState_Range).finishedThrowingGrenaden == false)
             enemy.ThrowGrenade();
     }
     public override void Update()

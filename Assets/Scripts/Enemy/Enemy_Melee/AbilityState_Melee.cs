@@ -31,7 +31,7 @@ public class AbilityState_Melee : EnemyState
         if(enemy.ManualMovementActive())
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, moveDirection, moveSpeed * Time.deltaTime);
         if(triggerCalled)
-            stateMachine.ChangeState(enemy.recoveryState);
+            stateMachine.ChangeState(enemy.GetState<RecoveryState_Melee>());
     }
     public override void Exit()
     {

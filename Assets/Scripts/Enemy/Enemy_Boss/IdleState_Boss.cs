@@ -20,9 +20,9 @@ public class IdleState_Boss : EnemyState
     {
         base.Update();
         if(enemy.inBattleMode && enemy.PlayerInAttackRange())
-            stateMachine.ChangeState(enemy.attackState);
+            stateMachine.ChangeState(enemy.GetState<AttackState_Boss>());
         if(stateTimer < 0)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.GetState<MoveState_Boss>());
     }
     public override void Exit()
     {

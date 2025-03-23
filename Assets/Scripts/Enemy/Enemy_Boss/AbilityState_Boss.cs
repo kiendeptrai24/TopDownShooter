@@ -26,7 +26,7 @@ public class AbilityState_Boss : EnemyState
         if(stateTimer < 0)
             DisableFlameThrower();
         if(triggerCalled)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.GetState<MoveState_Boss>());
     }
     public override void Exit()
     {

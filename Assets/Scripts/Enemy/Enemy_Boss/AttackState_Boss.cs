@@ -28,9 +28,9 @@ public class AttackState_Boss : EnemyState
         if(triggerCalled)
         {
             if(enemy.PlayerInAttackRange())
-                stateMachine.ChangeState(enemy.idleState);
+                stateMachine.ChangeState(enemy.GetState<IdleState_Boss>());
             else
-                stateMachine.ChangeState(enemy.moveState);
+                stateMachine.ChangeState(enemy.GetState<MoveState_Boss>());
         }
     }
     public override void Exit()

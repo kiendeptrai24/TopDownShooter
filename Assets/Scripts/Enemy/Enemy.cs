@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,6 +49,8 @@ public abstract class Enemy : MonoBehaviour
     public HealthController health {get; private set;}
     public Enemy_DropController dropController {get; private set;}  
     public AudioManager audioManager {get; private set;}
+    protected Dictionary<Type, EnemyState> statesDirtionary = new Dictionary<Type, EnemyState>();
+
     protected virtual void Awake() 
     {
 
@@ -69,9 +73,13 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        stateMachine.currentState.Update();
+        stateMachine.GetCurrentState().Update();
         if(ShouldEnterBattleMode())
             EnterBattleMode();
+    }
+    public EnemyState GetState<T>() where T : EnemyState
+    {
+        return statesDirtionary[typeof(T)];
     }
     public virtual void MakeEnemyVIP()
     {
@@ -192,7 +200,7 @@ public abstract class Enemy : MonoBehaviour
     #region Animation Event
     public virtual void AbilityTrigger()
     {
-        stateMachine.currentState.AbilityTrigger();
+        stateMachine.GetCurrentState().AbilityTrigger();
     }
     
     public void ActiveManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
@@ -202,7 +210,7 @@ public abstract class Enemy : MonoBehaviour
     public bool manualRotationActive() => manualRotation;
 
     
-    public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
+    public void AnimationTrigger() => stateMachine.GetCurrentState().AnimationTrigger();
     #endregion
     public bool IsPlayerInAggressionRange() => Vector3.Distance(transform.position, player.position) < aggressionRange;
     protected virtual void OnDrawGizmos() {

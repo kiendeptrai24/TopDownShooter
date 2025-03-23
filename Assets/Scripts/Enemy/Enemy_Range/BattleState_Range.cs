@@ -34,10 +34,10 @@ public class BattleState_Range : EnemyState
             enemy.FaceTarget(enemy.aim.position);
         
         if(MustAdvancePlayer())
-            stateMachine.ChangeState(enemy.advancePlayerState);
+            stateMachine.ChangeState(enemy.GetState<AdvancePlayerState_Range>());
             
         if(enemy.CanThrowGrenade())
-            stateMachine.ChangeState(enemy.throwGrenadeState);
+            stateMachine.ChangeState(enemy.GetState<ThrowGrenadeState_Range>());
         ChangeCoverIfShould();
         
         if(stateTimer > 0)
@@ -49,7 +49,7 @@ public class BattleState_Range : EnemyState
             if (enemy.IsUnstoppable() && UnstoppableWalkReady())
             {
                 enemy.advanceDuration = weaponCooldown;
-                stateMachine.ChangeState(enemy.advancePlayerState);
+                stateMachine.ChangeState(enemy.GetState<AdvancePlayerState_Range>());
             }
             if (WeaponOnCooldown())
                 AttempToResetWeapon();
@@ -86,14 +86,14 @@ public class BattleState_Range : EnemyState
         float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         bool outOffStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
         bool unstoppableWalkOnCooldown = 
-            Time.time < enemy.weaponData.minWeaponCooldown + enemy.advancePlayerState.LastTimeAdvanced;
+            Time.time < enemy.weaponData.minWeaponCooldown + (enemy.GetState<AdvancePlayerState_Range>() as AdvancePlayerState_Range).LastTimeAdvanced;
         return outOffStoppingDistance && unstoppableWalkOnCooldown == false;
     }
     #region Weapon Region
 
     private bool ReadyToLeaveCover()
     {
-        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeToCover;
+        return Time.time > enemy.minCoverTime + (enemy.GetState<RunToCoverState_Range>() as RunToCoverState_Range).lastTimeToCover;
     }
     private void ChangeCoverIfShould()
     {
@@ -109,14 +109,17 @@ public class BattleState_Range : EnemyState
             {
                 
                 if (enemy.CanGetCover())
-                    stateMachine.ChangeState(enemy.runToCoverState);
+                    stateMachine.ChangeState(enemy.GetState<RunToCoverState_Range>());
             }
         }
     }
     private bool ReadyToChangeCover()
     {
         bool inDanger = IsPlayerInClearSight() || IsPlayerClose();
-        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.LastTimeAdvanced + enemy.advanceDuration;
+        
+        bool advanceTimeIsOver = Time.time > 
+        (enemy.GetState<AdvancePlayerState_Range>() as AdvancePlayerState_Range)
+            .LastTimeAdvanced + enemy.advanceDuration;
         return inDanger && advanceTimeIsOver;
     }
     private bool WeaponOnCooldown() => Time.time > lastTimeShoot + weaponCooldown;

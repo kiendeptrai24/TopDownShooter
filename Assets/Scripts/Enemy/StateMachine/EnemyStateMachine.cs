@@ -1,7 +1,8 @@
 
+
 public class EnemyStateMachine
 {
-    public EnemyState currentState {get; private set;}
+    private EnemyState currentState;
 
     public void Initialize(EnemyState newState)
     {
@@ -13,4 +14,5 @@ public class EnemyStateMachine
         currentState.Exit();
         Initialize(newState);
     }
+    public EnemyState GetCurrentState() => currentState; 
 }

@@ -13,7 +13,7 @@ public class DeadState_Boss : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.abilityState.DisableFlameThrower();
+        (enemy.GetState<AbilityState_Boss>() as AbilityState_Boss).DisableFlameThrower();
         interactionDisable = false;
         stateTimer = 2.5f;
     }
