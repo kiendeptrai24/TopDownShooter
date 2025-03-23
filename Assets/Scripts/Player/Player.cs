@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public Player_Health health {get; private set;}
     public Ragdoll ragdoll {get; private set;}
     public Animator anim {get; private set;}
+    public Player_SoundFX sound {get; private set;}
     public bool controlsEnable {get; private set;}
 
     private void Awake() {
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
         interaction = GetComponent<PlayerInteraction>();
         health = GetComponent<Player_Health>();
         ragdoll = GetComponent<Ragdoll>();
+        sound = GetComponent<Player_SoundFX>();
         anim = GetComponentInChildren<Animator>();
     }
     private void OnEnable() {

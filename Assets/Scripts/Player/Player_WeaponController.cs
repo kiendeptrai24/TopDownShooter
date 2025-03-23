@@ -134,7 +134,13 @@ public class Player_WeaponController : MonoBehaviour
         }
         return null;
     }
-    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    public void SetWeaponReady(bool ready) 
+    {
+
+        weaponReady = ready;
+        if(ready)
+            player.sound.weaponReady.Play();
+    }
     public bool WeaponReady() => weaponReady; 
         
     #endregion
@@ -176,6 +182,7 @@ public class Player_WeaponController : MonoBehaviour
     }
     private void FireSingleBullet()
     {
+        player.weaponVisuals.CurrentWeaponModel().fireSFX.Play();
         UpdateWeaponUI();
         currentWeapon.bullletInMagazine--;
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab,GunPoint());
@@ -199,6 +206,7 @@ public class Player_WeaponController : MonoBehaviour
 
     private void Reload()
     {
+        player.weaponVisuals.CurrentWeaponModel().reloadSFX.Play();
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
     }

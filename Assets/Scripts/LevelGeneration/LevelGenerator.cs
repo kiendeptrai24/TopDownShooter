@@ -85,22 +85,15 @@ public class LevelGenerator : MonoBehaviour
 
     private void FinishGeneration()
     {
-        StartCoroutine(BuildNavMeshWithLoading());
-    }
-    private IEnumerator BuildNavMeshWithLoading()
-    {
         generationOver = true;
         GenerateNextLevelPart();
-
-        // Xây dựng NavMesh trong một frame khác để tránh lag
-        yield return new WaitForSeconds(0.5f);
 
         navMeshSurface.BuildNavMesh();
 
         BuildEnemies();
 
         MissionManager.Instance.StartMission();
-        // Hoàn thành, tắt UI
+ 
         UI.Instance.SwitchToInGameUI();
         generationFinish = true;
     }

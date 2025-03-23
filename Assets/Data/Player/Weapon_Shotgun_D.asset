@@ -19,7 +19,7 @@ MonoBehaviour:
   totalReserveAmmo: 999999
   shootType: 0
   bulletsPerShot: 5
-  fireRate: 2
+  fireRate: 0.5
   burstAvalible: 0
   burstActive: 0
   burstBulletPerShot: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   maximumSpread: 13
   spreadIncreaseRate: 0.3
   weaponType: 3
-  reloadSpeed: 2
+  reloadSpeed: 1
   equipmentSpeed: 1
   gundistance: 8
   camreaDistance: 10
