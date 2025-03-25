@@ -93,8 +93,7 @@ public class LevelGenerator : MonoBehaviour
         BuildEnemies();
 
         MissionManager.Instance.StartMission();
- 
-        UI.Instance.SwitchToInGameUI();
+        UI.Instance.StartTheGame();
         generationFinish = true;
     }
 

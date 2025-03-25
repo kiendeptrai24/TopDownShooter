@@ -91,8 +91,11 @@ public class Bullet : MonoBehaviour
 
     protected void CreateImpactFx()
     {
-        GameObject newImpactFx = ObjectPool.Instance.GetObject(bulletImpactFX,transform);
-        ObjectPool.Instance.ReturnObject(newImpactFx, 1);
+        GameObject newsfx =Instantiate(bulletImpactFX);
+        newsfx.transform.position = transform.position;
+        Destroy(newsfx, 1);
+        // GameObject newImpactFx = ObjectPool.Instance.GetObject(bulletImpactFX,transform);
+        // ObjectPool.Instance.ReturnObject(newImpactFx, 1);
         
     }
     protected void ReturnToPoolIfNeeded()

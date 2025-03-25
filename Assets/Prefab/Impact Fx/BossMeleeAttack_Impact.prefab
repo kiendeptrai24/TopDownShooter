@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5868851974589009487}
   - component: {fileID: 2487825655569293240}
   - component: {fileID: 7831865300792032273}
+  - component: {fileID: 4075224467845728259}
   m_Layer: 0
   m_Name: BossMeleeAttack_Impact
   m_TagString: Untagged
@@ -4900,6 +4901,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4075224467845728259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503850536246161407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861953e3f395cb94ca19b804c60441d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx: {fileID: 0}
+  volume: 0.3
+  minPitch: 0.5
+  maxPitch: 1
 --- !u!1 &6602544807051114203
 GameObject:
   m_ObjectHideFlags: 0

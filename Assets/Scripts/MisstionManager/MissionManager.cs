@@ -15,6 +15,6 @@ public class MissionManager : MonoBehaviour
     public void SetCurrrentMission(Mission newMission) {
         currentMission = newMission;
     }
-    public void StartMission() => currentMission.StartMisstion();
+    public void StartMission() => currentMission?.StartMisstion();
     public bool MissionCompleted() => currentMission.MissionCompleted();
 }

@@ -103,6 +103,6 @@ public class LevelPart : MonoBehaviour
         }
         return null;
     }
-    public Enemy[] MyEnemies() => enemyList;
+    public Enemy[] MyEnemies() => enemyList  == null ? new Enemy[0] : enemyList;
 
 }

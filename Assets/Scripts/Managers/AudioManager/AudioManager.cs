@@ -1,4 +1,6 @@
 
+using System.Collections;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -63,6 +65,32 @@ public class AudioManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+    public void SFXDelayAndFade(AudioSource source,bool play,float tartgetVolume,float delay = 0 ,float fadeDuration = 1)
+    {
+        StartCoroutine(SFXDelayAndFadeCo(source,play,tartgetVolume,delay,fadeDuration));
+    }
+    private IEnumerator SFXDelayAndFadeCo(AudioSource source,bool play, float tartgetVolume, float delay,float fadeDuration)
+    {
+        yield return new WaitForSeconds(delay);
+        float startVolume = play ? 0 : source.volume;
+        float endVolume = play ? tartgetVolume : 0;
+        float elapsed = 0;
+        if(play)
+        {
+            source.volume = 0;
+            source.Play();
+        }
+        while(elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            source.volume = Mathf.Lerp(startVolume,endVolume,elapsed/fadeDuration);
+            yield return null;
+        }
+        source.volume = endVolume;
+        if(play == false)
+            source.Stop();
+
     }
 
 

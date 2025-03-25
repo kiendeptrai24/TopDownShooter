@@ -33,11 +33,12 @@ public class UI : MonoBehaviour
     private void Start() {
         if(GameManager.Instance.quickStart)
         {
-            LevelGenerator.Instance.InitializeGeneration();
-            StartTheGame();
+            SwitchToLoading();
         }
         AssignInputUI();
         AssignAudioListenersToButtons();
+        if(fadeImage.gameObject.activeSelf == false)
+            fadeImage.gameObject.SetActive(true);
         StartCoroutine(ChangeImageAlpha(0,1.5f,null));
     }
     public void SwitchToLoading() {
@@ -107,11 +108,6 @@ public class UI : MonoBehaviour
     }
     private IEnumerator StartGameSequence()
     {
-        // yield return null;
-        // SwitchTo(inGameUI.gameObject);
-        // GameManager.Instance.GameStart();
-        // ControlsManager.Instance.SwitchToCharactorControls();
-        // StartCoroutine(ChangeImageAlpha(0,.1f,null));
         
         StartCoroutine(ChangeImageAlpha(1,1,null));
         yield return new WaitForSeconds(1);
