@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     public static UI Instance { get; private set; }
     public UI_InGame inGameUI { get; private set; }
     public UI_GameOver gameOverUI {get; private set;}
+    public UI_Setting settingsUI {get; private set;}
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject mainMenuUI;
 
@@ -27,6 +28,7 @@ public class UI : MonoBehaviour
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         weaponSelectionUI = GetComponentInChildren<UI_WeaponSelection>(true);
         gameOverUI = GetComponentInChildren<UI_GameOver>(true);
+        settingsUI = GetComponentInChildren<UI_Setting>(true);
         /// important remove this if before build, it's only easier testing
         SwitchTo(mainMenuUI);
     }
@@ -53,6 +55,8 @@ public class UI : MonoBehaviour
             go.SetActive(false);
         }
         uiToSwitchOn.SetActive(true);
+        if(uiToSwitchOn == settingsUI.gameObject)
+            settingsUI.LoadSetting();
 
     }
     public void SwitchToInGameUI() => StartCoroutine(StartGameSequence());

@@ -20,9 +20,11 @@ public class UI_Setting : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bgmSliderText;
     [SerializeField] private string bgmParameter;
     [Header("Friendly fire Setting")]
+    private bool toggle;
     [SerializeField] private GameObject turnOn;
     [SerializeField] private GameObject turnOff;
     private void Start() {
+        toggle = GameManager.Instance.friendlyFire;
         OnFriendlyFireToggle();
     }
 
@@ -32,6 +34,7 @@ public class UI_Setting : MonoBehaviour
         value = Mathf.Clamp(value,.1f,1);
         float newValue = Mathf.Log10(value) * sliderMuliplier;
         audioMixer.SetFloat(sfxParameter,newValue);
+        PlayerPrefs.SetFloat("unitylaex",1);
     }
     public void BGMSliderValue(float value)
     {
@@ -43,18 +46,40 @@ public class UI_Setting : MonoBehaviour
     }
     public void OnFriendlyFireToggle()
     {
-        bool friendlyFire = GameManager.Instance.friendlyFire;
-        GameManager.Instance.friendlyFire = !friendlyFire;
-        if(friendlyFire == false)
+
+        if(toggle == true)
         {
             turnOff.SetActive(false);
             turnOn.SetActive(true);
+            GameManager.Instance.friendlyFire = true;
+            toggle = false;
         }
         else
         {
             turnOn.SetActive(false);
             turnOff.SetActive(true);
+            GameManager.Instance.friendlyFire = false;
+            toggle = true;
+            
         }
+
+    }
+    public void LoadSetting()
+    {
+        bool newfriendlyFire = PlayerPrefs.GetInt("FreindlyFire") == 1 ? true : false;
+
+        GameManager.Instance.friendlyFire = newfriendlyFire;
+
+        sfxSlider.value = PlayerPrefs.GetFloat(sfxParameter, .7f);
+        bgmSlider.value = PlayerPrefs.GetFloat(bgmParameter, .7f);
+    }
+    void OnDisable()
+    {
+        bool friendlyFire = GameManager.Instance.friendlyFire;
+        int friendlyFireInt = friendlyFire ? 1 : 0;
+        PlayerPrefs.SetInt("FreindlyFire", friendlyFireInt);
+        PlayerPrefs.SetFloat(sfxParameter,sfxSlider.value);
+        PlayerPrefs.SetFloat(bgmParameter,bgmSlider.value);
 
     }
 }
