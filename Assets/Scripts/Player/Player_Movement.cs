@@ -22,6 +22,15 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource runSFX;
     private bool canPlayFootsteps;
 
+    // ///////////
+    public float distance = 3.0f; // Khoảng cách camera
+    public float mouseSensitivity = 100f;
+    public float minY = -20f, maxY = 60f; // Giới hạn góc nhìn
+
+    private float currentX = 0f;
+    private float currentY = 0f;
+    ///
+
     private void Start() {
         characterController = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
@@ -36,12 +45,32 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if(player.health.isDead)
+        if (player.health.isDead)
             return;
         ApplyMovement();
         ApplyRotation();
         AnimationControllers();
+        // ApplyMouse();
+        // LateUpdate();
     }
+
+    private void ApplyMouse()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        currentX += mouseX;
+        currentY -= mouseY;
+        //currentY = Mathf.Clamp(currentY, minY, maxY);
+    }
+    void LateUpdate()
+    {
+        Vector3 direction = new Vector3(0, 0, -distance);
+        Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
+        CameraManager.Instance.transform.position = transform.position + rotation * direction;
+        CameraManager.Instance.transform.LookAt(transform.position);
+    }
+
     private void AnimationControllers()
     {
         
