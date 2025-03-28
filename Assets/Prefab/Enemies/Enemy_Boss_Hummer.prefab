@@ -7974,6 +7974,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  duration: 5
   checkRadius: 0.1
   rayDistance: -0.016
   leftFoot: {fileID: 8345703867086112675}

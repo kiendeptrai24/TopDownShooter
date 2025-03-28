@@ -4665,7 +4665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5220483681327095070
 Transform:
   m_ObjectHideFlags: 0
@@ -4852,6 +4852,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  duration: 5
   checkRadius: 0.075
   rayDistance: 0.001
   leftFoot: {fileID: 3420531297810822402}
