@@ -15,6 +15,6 @@ public class Enemy_DropController : MonoBehaviour
     }
     private void CreateItem(GameObject go)
     {
-        GameObject newItem = Instantiate(go, transform.position + Vector3.up, Quaternion.identity);
+        Instantiate(go, transform.position + Vector3.up, Quaternion.identity);
     }
 }

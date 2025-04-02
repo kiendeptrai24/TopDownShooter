@@ -7,12 +7,14 @@ using UnityEngine;
 public class Mission_KeyFind : Mission
 {
     [SerializeField] private GameObject key;
+    [SerializeField] private EnemyType enemyType;
     private bool keyFound;
     public override void StartMisstion()
     {
         MissionObjectKey.OnKeyPickedUp += PickUpKey;
+        FactoryEnemy.Instance.GetEnemies(enemyType,5);
         UI.Instance.inGameUI.UpdateMissionInfo("Find a key-holder. Retrieve the key", "Find a key-holder and retrieve the key");
-        Enemy enemy = LevelGenerator.Instance.GetRandomEnemy();
+        Enemy enemy = FactoryEnemy.Instance.GetRandomEnemy();
         enemy.GetComponent<Enemy_DropController>()?.GiveKey(key);
         enemy.MakeEnemyVIP();
         // give key random enemy

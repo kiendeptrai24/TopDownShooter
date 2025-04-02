@@ -28,10 +28,12 @@ public class FactoryEnemy : MonoBehaviour
     public static event Action OnSpawnAreaUpdated;
     [SerializeField] private LayerMask whatIsGround;
     [Header("Enemies Settings")]
-    public List<GameObject> enemiesMelee = new List<GameObject>();
-    public List<GameObject> enemiesRange = new List<GameObject>();
-    public List<GameObject> enemiesBoss = new List<GameObject>();
-    private List<BoxCollider> boxes = new List<BoxCollider>();
+    public List<GameObject> enemiesMelee = new();
+    public List<GameObject> enemiesRange = new();
+    public List<GameObject> enemiesBoss = new();
+    public List<GameObject> allEnemies = new();
+    private List<BoxCollider> boxes = new();
+    List<GameObject> enemiesGenerate = new();
     private void Awake()
     {
         point = GetComponentInChildren<Transform>();   
@@ -40,11 +42,20 @@ public class FactoryEnemy : MonoBehaviour
     {
         boxes.AddRange(boxColliders);
     }
+    public Enemy GetRandomEnemy()
+    {
+        if(enemiesGenerate.Count <= 0)
+        {
+            GetEnemies(EnemyType.Boss,1);
+        }
+        int randomIndex = UnityEngine.Random.Range(0,enemiesGenerate.Count);
+        return enemiesGenerate[randomIndex].GetComponent<Enemy>();
+    }
 
     public List<GameObject> GetEnemies(EnemyType enemyType, int amountToKill)
     {
         OnSpawnAreaUpdated?.Invoke();
-        List<GameObject> enemiesGenerate = new List<GameObject>();
+        
         List<GameObject> enemyList = null;
 
         switch (enemyType)
@@ -56,6 +67,9 @@ public class FactoryEnemy : MonoBehaviour
                 enemyList = enemiesRange;
                 break;
             case EnemyType.Boss:
+                enemyList = enemiesBoss;
+                break;
+            case EnemyType.Random:
                 enemyList = enemiesBoss;
                 break;
             default:

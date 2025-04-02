@@ -6,6 +6,7 @@ using UnityEngine;
 public class MissionObjectKey : MonoBehaviour
 {
     private GameObject player;
+    [SerializeField] private float turnSpeed;
     public static event Action OnKeyPickedUp;
     private void Awake() {
         player = GameObject.Find("Player");
@@ -16,5 +17,9 @@ public class MissionObjectKey : MonoBehaviour
             return;
         OnKeyPickedUp?.Invoke();
         Destroy(gameObject);
+    }
+    private void Update() {
+        float directionY = turnSpeed * Time.deltaTime;
+        transform.rotation *= Quaternion.Euler(0, directionY, 0);
     }
 }
