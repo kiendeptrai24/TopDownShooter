@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 [Serializable]
 public struct AttackData_EnemyMelee
 {
@@ -18,15 +19,6 @@ public enum AttackType_Melee {Close, Charge}
 public enum EnemyMelee_Type {Recular, Shield, Dodge, AxeThrow}
 public class Enemy_Melee : Enemy
 {
-    #region States
-    // public IdleState_Melee idleState { get; private set; }
-    // public MoveState_Melee moveState { get; private set; }
-    // public RecoveryState_Melee recoveryState{ get; private set; }
-    // public ChaseState_Melee chaseState { get; private set; }
-    // public AttackState_Melee attackState{ get; private set; }
-    // public DeadState_Melee deadState { get; private set; }
-    // public AbilityState_Melee abilityState { get; private set; }
-    #endregion
     
     [Header("Enemy Setting")]
     public EnemyMelee_Type meleeType;

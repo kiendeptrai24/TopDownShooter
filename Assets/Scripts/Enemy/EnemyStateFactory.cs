@@ -47,7 +47,6 @@ public class EnemyStateFactory
         statesDirtionary.Add(typeof(AdvancePlayerState_Range), new AdvancePlayerState_Range(enemy, stateMachine, "Advance"));
         statesDirtionary.Add(typeof(ThrowGrenadeState_Range), new ThrowGrenadeState_Range(enemy, stateMachine, "ThrowGrenade"));
         statesDirtionary.Add(typeof(DeadState_Range), new DeadState_Range(enemy, stateMachine, "Idle"));
-        return;
     }
 
     private static void CreateMelee(Enemy enemy, EnemyStateMachine stateMachine, Dictionary<Type, EnemyState> statesDirtionary)

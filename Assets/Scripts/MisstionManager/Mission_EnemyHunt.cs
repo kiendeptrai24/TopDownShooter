@@ -10,37 +10,18 @@ public class Mission_EnemyHunt : Mission
 {
     public int amountToKill = 12;
     public EnemyType enemyType;
+    private List<GameObject> enemiesGenerate = new List<GameObject>();
+    
     private int killsToGo;
     public override void StartMisstion()
     {
+        
+        enemiesGenerate = FactoryEnemy.Instance.GetEnemies(enemyType,amountToKill);
+
         killsToGo = amountToKill;
         UpdateMissionUI();
         MissionObject_HuntTarget.OnTargetKilled += EliminateTarget;
 
-        List<Enemy> validEnemies = new List<Enemy>();
-        if(enemyType == EnemyType.Random)
-        {
-            validEnemies = LevelGenerator.Instance.GetEnemyList();
-        }
-        else{
-            foreach (Enemy enemy in LevelGenerator.Instance.GetEnemyList())
-            {
-                if (enemy.enemyType == enemyType)
-                {
-                    validEnemies.Add(enemy);
-                }
-            }
-        }
-
-        for (int i = 0; i < amountToKill; i++)
-        {
-            if (validEnemies.Count <= 0)
-                return;
-            int randomIndex = Random.Range(0, validEnemies.Count);
-            validEnemies[randomIndex].AddComponent<MissionObject_HuntTarget>();
-            validEnemies.RemoveAt(randomIndex);
-
-        }
     }
     public override bool MissionCompleted()
     {

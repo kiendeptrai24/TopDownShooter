@@ -62,6 +62,7 @@ public class UI : MonoBehaviour
     public void SwitchToInGameUI() => StartCoroutine(StartGameSequence());
     public void SwitchToGameOverUI(string message = "GAME OVER!!!")
     {
+        Cursor.visible = true;
         SwitchTo(gameOverUI.gameObject);
         gameOverUI.ShowGameOverMessage(message);
     }
@@ -74,12 +75,14 @@ public class UI : MonoBehaviour
 
             ControlsManager.Instance.SwitchToCharactorControls();
             TimeManager.Instance.ResumeTime();
+            Cursor.visible = true;
         }
         else
         {
             SwitchTo(pauseUI);
             ControlsManager.Instance.SwitchToUIControls();
             TimeManager.Instance.PauseTime();
+            Cursor.visible = false;
         }
     }
 

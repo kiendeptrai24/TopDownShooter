@@ -11,7 +11,8 @@ public class RecoveryState_Melee : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.agent.isStopped = true;
+        if(enemy.agent.enabled == true)
+            enemy.agent.isStopped = true;
         
         enemy.anim.SetFloat("RecoveryIndex", 0);
         

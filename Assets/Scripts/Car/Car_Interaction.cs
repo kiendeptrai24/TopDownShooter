@@ -29,7 +29,6 @@ public class Car_Interaction : Interactable
     public override void Interaction()
     {
         base.Interaction();
-        Debug.Log("Got into the car");
         GetIntoTheCar();
     }
     private void GetIntoTheCar()

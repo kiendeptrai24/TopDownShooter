@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using Unity.Profiling;
 using UnityEngine;
 
-public class HealthController : MonoBehaviour
+public abstract class HealthController : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;

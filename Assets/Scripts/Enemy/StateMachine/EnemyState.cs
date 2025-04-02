@@ -40,7 +40,6 @@ public abstract class EnemyState
     {
         NavMeshAgent agent = enemyBase.agent;
         NavMeshPath path = agent.path;
-
         if(path.corners.Length < 2)
             return agent.destination;
         

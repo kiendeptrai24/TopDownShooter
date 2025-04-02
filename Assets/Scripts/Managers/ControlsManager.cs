@@ -18,6 +18,7 @@ public class ControlsManager : MonoBehaviour
     }
     public void SwitchToCharactorControls()
     {
+        Cursor.visible = false;
         controls.UI.Disable();
         controls.Car.Disable();
         controls.Character.Enable();
@@ -26,6 +27,7 @@ public class ControlsManager : MonoBehaviour
     }
     public void SwitchToUIControls()
     {
+        Cursor.visible = true;
         controls.Character.Disable();
         controls.Car.Disable();
         controls.UI.Enable();

@@ -22,7 +22,7 @@ public class Interactable : MonoBehaviour
     }
     public virtual void Interaction()
     {
-        Debug.Log("Pickup: " + gameObject.name);
+        
     }
     public void HighlightActive(bool active)
     {

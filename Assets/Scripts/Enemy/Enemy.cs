@@ -184,9 +184,15 @@ public abstract class Enemy : MonoBehaviour
     #endregion
     public void FaceTarget(Vector3 target,float turnSpeed = 0)
     {
+        Vector3 direction = target - transform.position;
+        if (direction == Vector3.zero)
+            return; 
+
+            
         if(turnSpeed == 0)
             turnSpeed = this.turnSpeed;
-        Quaternion targetQuaternion = Quaternion.LookRotation(target - transform.position);
+        
+        Quaternion targetQuaternion = Quaternion.LookRotation(direction);
 
         Vector3 currentEulerAngels = transform.rotation.eulerAngles;
 
